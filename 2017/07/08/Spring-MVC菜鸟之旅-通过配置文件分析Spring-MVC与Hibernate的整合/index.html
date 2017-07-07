@@ -1,0 +1,1139 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="The Tower of Babel" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="前言当使用Spring开发持久层的时候，我们会面临多种选择。我们可以使用JDBC、Hibernate、MyBatis或其他任意的持久化框架。在这里简单介绍一下使用Hibernate作为持久化框架。 Spring的数据访问哲学Spring的目标之一就是允许开发人员在开发应用程序时，能够遵循面向对象（OO）原则中的“针对接口编程”。Spring对数据访问的支持也不例外。DAO是数据访问对象（data">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[Spring MVC菜鸟之旅] 通过配置文件分析Spring MVC与Hibernate的整合">
+<meta property="og:url" content="http://yoursite.com/2017/07/08/Spring-MVC菜鸟之旅-通过配置文件分析Spring-MVC与Hibernate的整合/index.html">
+<meta property="og:site_name" content="The Tower of Babel">
+<meta property="og:description" content="前言当使用Spring开发持久层的时候，我们会面临多种选择。我们可以使用JDBC、Hibernate、MyBatis或其他任意的持久化框架。在这里简单介绍一下使用Hibernate作为持久化框架。 Spring的数据访问哲学Spring的目标之一就是允许开发人员在开发应用程序时，能够遵循面向对象（OO）原则中的“针对接口编程”。Spring对数据访问的支持也不例外。DAO是数据访问对象（data">
+<meta property="og:image" content="http://octlz2jco.bkt.clouddn.com/00000036.png">
+<meta property="og:updated_time" content="2017-07-07T16:21:46.434Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="[Spring MVC菜鸟之旅] 通过配置文件分析Spring MVC与Hibernate的整合">
+<meta name="twitter:description" content="前言当使用Spring开发持久层的时候，我们会面临多种选择。我们可以使用JDBC、Hibernate、MyBatis或其他任意的持久化框架。在这里简单介绍一下使用Hibernate作为持久化框架。 Spring的数据访问哲学Spring的目标之一就是允许开发人员在开发应用程序时，能够遵循面向对象（OO）原则中的“针对接口编程”。Spring对数据访问的支持也不例外。DAO是数据访问对象（data">
+<meta name="twitter:image" content="http://octlz2jco.bkt.clouddn.com/00000036.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/07/08/Spring-MVC菜鸟之旅-通过配置文件分析Spring-MVC与Hibernate的整合/"/>
+
+
+
+
+
+  <title>[Spring MVC菜鸟之旅] 通过配置文件分析Spring MVC与Hibernate的整合 | The Tower of Babel</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">The Tower of Babel</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">巴别塔</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/08/Spring-MVC菜鸟之旅-通过配置文件分析Spring-MVC与Hibernate的整合/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Niklaus.chi">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://octlz2jco.bkt.clouddn.com/00000037.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="The Tower of Babel">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">[Spring MVC菜鸟之旅] 通过配置文件分析Spring MVC与Hibernate的整合</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-08T00:00:28+08:00">
+                2017-07-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Spring-MVC菜鸟之旅/" itemprop="url" rel="index">
+                    <span itemprop="name">Spring MVC菜鸟之旅</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <a id="more"></a>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>当使用Spring开发持久层的时候，我们会面临多种选择。我们可以使用JDBC、Hibernate、MyBatis或其他任意的持久化框架。在这里简单介绍一下使用Hibernate作为持久化框架。</p>
+<h2 id="Spring的数据访问哲学"><a href="#Spring的数据访问哲学" class="headerlink" title="Spring的数据访问哲学"></a>Spring的数据访问哲学</h2><p>Spring的目标之一就是允许开发人员在开发应用程序时，能够遵循面向对象（OO）原则中的“针对接口编程”。Spring对数据访问的支持也不例外。<br>DAO是<strong>数据访问对象</strong>（data access object）的缩写。DAO提供了数据读取和写入到数据库中的一种方式。它们应该以接口的方式发布功能，而应用程序的其他部分就可以通过接口来进行访问。下图展现了设计数据访问层的合理方式。<br><img src="http://octlz2jco.bkt.clouddn.com/00000036.png" alt=""><br>如上图所示，服务对象通过接口来访问DAO。这样的好处有:<br>(1) 服务对象易于测试，因为它们不再与特定的数据访问实现绑定在一起。<br>(2) 数据访问层是以持久化技术无关的方式来进行访问。持久化方式的选择独立于DAO，只要相关的数据访问方法通过接口来进行发布。这可以实现灵活的设计并使得切换持久化框架对应用程序其他部分所带来的影响最小。如果将数据层的实现细节渗透到应用程序的其他部分中，那么整个应用程序将于数据访问层耦合在一起，从而导致僵化的设计。</p>
+<h2 id="配置数据源"><a href="#配置数据源" class="headerlink" title="配置数据源"></a>配置数据源</h2><p>Spring提供了在Spring上下文中配置数据源Bean的多种方式，包括：<br>(1) 通过JDBC驱动程序定义的数据源；<br>(2) 通过JNDI查找的数据源；<br>(3) 连接池的数据源<br>对于即将发布到生产环境中的应用程序，我建议使用从连接池获取连接的数据源。<br>我们把所有有关于Hibernate的配置都放置在resource目录下spring-db.xml的文件上</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div></pre></td><td class="code"><pre><div class="line"><span class="comment">&lt;!-- 配置数据源 --&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"dataSource"</span> <span class="attr">class</span>=<span class="string">"com.mchange.v2.c3p0.ComboPooledDataSource"</span></span></div><div class="line">      <span class="attr">destroy-method</span>=<span class="string">"close"</span>&gt;</div><div class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"driverClass"</span> <span class="attr">value</span>=<span class="string">"com.mysql.jdbc.Driver"</span> /&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"jdbcUrl"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>$&#123;jdbc.url&#125;<span class="tag">&lt;/<span class="name">value</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"user"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>$&#123;jdbc.username&#125;<span class="tag">&lt;/<span class="name">value</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"password"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>$&#123;jdbc.password&#125;<span class="tag">&lt;/<span class="name">value</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"minPoolSize"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>$&#123;jdbc.pool.min&#125;<span class="tag">&lt;/<span class="name">value</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"maxPoolSize"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>$&#123;jdbc.pool.max&#125;<span class="tag">&lt;/<span class="name">value</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"initialPoolSize"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>$&#123;jdbc.pool.init&#125;<span class="tag">&lt;/<span class="name">value</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"maxStatements"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>$&#123;jdbc.pool.maxStatements&#125;<span class="tag">&lt;/<span class="name">value</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"maxIdleTime"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>$&#123;jdbc.pool.maxIdleTime&#125;<span class="tag">&lt;/<span class="name">value</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"idleConnectionTestPeriod"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>$&#123;jdbc.pool.idleConnectionTestPeriod&#125;<span class="tag">&lt;/<span class="name">value</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"acquireRetryAttempts"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>$&#123;jdbc.pool.acquireRetryAttempts&#125;<span class="tag">&lt;/<span class="name">value</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"breakAfterAcquireFailure"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>$&#123;jdbc.pool.breakAfterAcquireFailure&#125;<span class="tag">&lt;/<span class="name">value</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"testConnectionOnCheckout"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>$&#123;jdbc.pool.testConnectionOnCheckout&#125;<span class="tag">&lt;/<span class="name">value</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></div></pre></td></tr></table></figure>
+<h2 id="在Spring中集成Hibernate"><a href="#在Spring中集成Hibernate" class="headerlink" title="在Spring中集成Hibernate"></a>在Spring中集成Hibernate</h2><h3 id="声明Hibernate的Session工厂"><a href="#声明Hibernate的Session工厂" class="headerlink" title="声明Hibernate的Session工厂"></a>声明Hibernate的Session工厂</h3><p>以前，在Spring应用程序中使用的Hibernate是通过HibernateTemplate进行的，它简化了Hibernate的繁琐工作，它的职责之一是管理Hibernate的Session。这涉及打开和关闭Session并确保每个事务使用相同的Session。HibernateTemplate的不足之处在于存在一定程度的侵入性。但我们在DAO中使用HibernateTemplate（不管直接使用还是通过HibernateDaoSupport）时，DAO类都会与SpringAPI产生耦合。</p>
+<p>Hibernate3引入了<strong>上下文Session</strong>（Contextual session），这是Hibernate本身所提供的保证每个事务使用同一Session的方案。这种方式能够让你的DAO类不包含特定的Spring代码。我在《[Spring MVC菜鸟之旅] Spring MVC 与 Hibernate整合》中就是使用HibernateTemplate，但鉴于上下文Session是使用Hibernate的最佳实践，所以下面的介绍将只关注上下文Session。</p>
+<p>使用Hibernate的主要接口实org.hibernate.Session。Session接口提供了基本的数据访问功能，通过Hibernate的Session接口，应用程序的DAO能够满足所有的持久化需求。</p>
+<p>获取Hibernate Session对象的标准方式是借助Hibernate的SessionFactory接口的实现类。除了一些其他的任务，SessionFactory主要负责Hibernate Session的打开。关闭以及管理。</p>
+<p>在Spring中我们通过SPring的某一个Hibernate Session工厂Bean来获取Hibernate的SessionFactory。我们可以在应用程序的Spring上下文中，像配置其他Bean那样来配置Hibernate Session工厂。在配置Hibernate Session工厂的Bean的时候，我们一般在持久化域对象是通过XML来进行配置的。当选在XML中定义对象与数据库之间的映射，需要在Spring中配置LocalSessionFactoryBean（若更倾向使用注解的方式来定义持久化的话，需要使用AnnotationSessionFactoryBean配置）</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"sessionFactory"</span> <span class="attr">class</span>=<span class="string">"org.springframework.orm.hibernate4.LocalSessionFactoryBean"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"dataSource"</span> <span class="attr">ref</span>=<span class="string">"dataSource"</span>&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"hibernateProperties"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">props</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">prop</span> <span class="attr">key</span>=<span class="string">"hibernate.dialect"</span>&gt;</span></div><div class="line">                org.hibernate.dialect.MySQLDialect</div><div class="line">            <span class="tag">&lt;/<span class="name">prop</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">prop</span> <span class="attr">key</span>=<span class="string">"hibernate.show_sql"</span>&gt;</span>true<span class="tag">&lt;/<span class="name">prop</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">prop</span> <span class="attr">key</span>=<span class="string">"hibernate.hbm2ddl.auto"</span>&gt;</span>none<span class="tag">&lt;/<span class="name">prop</span>&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">props</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"packagesToScan"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">list</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">value</span>&gt;</span>com.niklaus.springmvc.pojo<span class="tag">&lt;/<span class="name">value</span>&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">list</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>使用packagesToScan属性告诉Spring扫描一个或多个包以查找域类，这些类通过注解方式来表明要使用Hibernate进行持久化。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"packagesToScan"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">list</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>com.niklaus.springmvc.pojo<span class="tag">&lt;/<span class="name">value</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">list</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>因为我只需要扫描一个包，所以我使用了一个内部的属性编辑器将单个的String自动转换为String数组。</p>
+<h3 id="构建不依赖于Spring的Hibernate代码"><a href="#构建不依赖于Spring的Hibernate代码" class="headerlink" title="构建不依赖于Spring的Hibernate代码"></a>构建不依赖于Spring的Hibernate代码</h3><p>在Spring应用上下文中配置Hibernate Session工厂Bean后，可以准备创建自己的DAO类了。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Repository</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestDAOImpl</span> <span class="keyword">implements</span> <span class="title">TestDAO</span></span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">private</span> SessionFactory sessionFactory;</div><div class="line"></div><div class="line">    <span class="comment">//构造DAO</span></div><div class="line">    <span class="meta">@Autowired</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">TestDAOImpl</span><span class="params">(SessionFactory sessionFactory)</span></span>&#123;</div><div class="line">        <span class="keyword">this</span>.sessionFactory = sessionFactory;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addTest</span><span class="params">(Test test)</span> </span>&#123;</div><div class="line">        Session session = sessionFactory.openSession();</div><div class="line">        Transaction tx = session.beginTransaction();</div><div class="line">        session.save(test);</div><div class="line">        tx.commit();</div><div class="line">        session.close();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> Test <span class="title">getTestById</span><span class="params">(<span class="keyword">long</span> id)</span> </span>&#123;</div><div class="line">        Session session = sessionFactory.openSession();</div><div class="line">        Test test = (Test) session.get(Test.class,id);</div><div class="line">        session.close();</div><div class="line">        <span class="keyword">return</span> test;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">updateTest</span><span class="params">(Test test)</span> </span>&#123;</div><div class="line">        Session session = sessionFactory.openSession();</div><div class="line">        Transaction tx = session.beginTransaction();</div><div class="line">        session.update(test);</div><div class="line">        tx.commit();</div><div class="line">        session.close();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="事务管理"><a href="#事务管理" class="headerlink" title="事务管理"></a>事务管理</h2><p>在软件开发领域，全有或全无的操作被称为<strong>事务</strong>（transaction）。事务允许你讲几个操作组合成一个要么全部发生要么全部不发生的工作单元。如果一切顺利，事务将会成功。但是有任何一件事情出错的话，所发生的行为将会被清除干净，就像什么事情都没有发生一样。</p>
+<h3 id="事务特性（ACID）"><a href="#事务特性（ACID）" class="headerlink" title="事务特性（ACID）"></a>事务特性（ACID）</h3><h4 id="原子性（Atomic）"><a href="#原子性（Atomic）" class="headerlink" title="原子性（Atomic）"></a>原子性（Atomic）</h4><p>事务是由一个或多个活动所组成的一个工作单元。原子性确保食物中的所有操作全部发生或者全部不发生。如果所有活动都成功了，事务也就成功了。如果任意一个活动失败了，整个事务也失败并回滚。</p>
+<h4 id="一致性（Consistent）"><a href="#一致性（Consistent）" class="headerlink" title="一致性（Consistent）"></a>一致性（Consistent）</h4><p>一旦事务完成（不管成功还是失败），系统必须确保它所建模的业务处于一致的状态。现实的数据不应该被损坏。</p>
+<h4 id="隔离性（Isolated）"><a href="#隔离性（Isolated）" class="headerlink" title="隔离性（Isolated）"></a>隔离性（Isolated）</h4><p>事务允许多个用户对相同的数据进行操作，每个用户的操作不会与其他用户纠缠在一起。因此，事务应该被彼此隔离，避免发生同步读写相同数据的事情（注意的是，隔离性往往涉及到锁定数据库中的行或表）。</p>
+<h4 id="持久性（Durable）"><a href="#持久性（Durable）" class="headerlink" title="持久性（Durable）"></a>持久性（Durable）</h4><p>一旦事务完成，事务的结果应该持久化，这样就能从任何的系统崩溃中会发过来。这一般会设计将结果存储到数据库或者其他形式的持久化存储中。</p>
+<h3 id="使用Hibernate事务管理器"><a href="#使用Hibernate事务管理器" class="headerlink" title="使用Hibernate事务管理器"></a>使用Hibernate事务管理器</h3><p>如果应用程序的持久化是通过Hibernate实现的，那么久需要使用HibernateTransactionManager。需要在Spring上下文定义中添加如下的声明：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"transactionManager"</span> <span class="attr">class</span>=<span class="string">"org.springframework.orm.hibernate4.HibernateTransactionManager"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"sessionFactory"</span> <span class="attr">ref</span>=<span class="string">"sessionFactory"</span> /&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>HibernateTransactionManager将事务管理的职责委托给org.hibernate.Transaction对象，而后者是从Hibernate Session中获取到的。当事务成功完成时，HibernateTransactionManager将会调用Transaction对象的commit()方法。类似地，如果事务失败，Transaction对象的rollback()方法将会被调用。</p>
+<h3 id="声明式事务"><a href="#声明式事务" class="headerlink" title="声明式事务"></a>声明式事务</h3><h4 id="在XML中定义事务"><a href="#在XML中定义事务" class="headerlink" title="在XML中定义事务"></a>在XML中定义事务</h4><p>Spring为POJO提供了声明式事务的支持，它是通过Spring AOP框架实现的。Spring提供了3种方式来声明事务式边界，包括Spring AOP和TransactionProxyFactory的代理Bean来实现声明式事务，但自从Spring 2.0，声明事务的更好方式是使用Spring的tx命名空间和@Transactional注解。<br>使用tx命名空间会涉及将其添加到Spring XML配置文件中：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">beans</span> <span class="attr">xmlns</span>=<span class="string">"http://www.springframework.org/schema/beans"</span></span></div><div class="line">       <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></div><div class="line">       <span class="attr">xmlns:tx</span>=<span class="string">"http://www.springframework.org/schema/tx"</span></div><div class="line">       <span class="attr">xmlns:aop</span>=<span class="string">"http://www.springframework.org/schema/aop"</span></div><div class="line">       <span class="attr">xsi:schemaLocation</span>=<span class="string">"http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd</span></div><div class="line">       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd</div><div class="line">       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd</div><div class="line">"&gt;</div></pre></td></tr></table></figure>
+<p>要注意的是，aop命名空间也应该包括在内。这是很重要的，因为有一些声明式事务配置元素依赖于部分Spring的AOP配置元素。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">tx:advice</span> <span class="attr">id</span>=<span class="string">"txAdvice"</span> <span class="attr">transaction-manager</span>=<span class="string">"transactionManager"</span>&gt;</span></div><div class="line">    <span class="comment">&lt;!-- 定义方法的过滤规则 --&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">tx:attributes</span>&gt;</span></div><div class="line">        <span class="comment">&lt;!-- 所有方法都使用事务 --&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">tx:method</span> <span class="attr">name</span>=<span class="string">"*"</span> <span class="attr">propagation</span>=<span class="string">"REQUIRED"</span> /&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">tx:attributes</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">tx:advice</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>当使用来声明事务时，还需要一个事务管理器。根据约定优于配置，假定事务管理器被声明为一个id为transactionManager的Bean。如果碰巧为事务管理配置器配置了一个不同的id，则需要在transactionmanager属性中明确指定事务管理器的id。</p>
+<p>只是定义了AOP通知，用于吧事务边界通知给方法。但是这只是事务通知，而不是完整的事务性切面。我们在中没有声明哪些Bean应该被通知—我们需要一个切点来做这件事。为了完整定义事务性切面，我们必须定义一个通知器（advisor）。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">aop:config</span>&gt;</span></div><div class="line">    <span class="comment">&lt;!-- 定义一个切入点 --&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">aop:pointcut</span> <span class="attr">id</span>=<span class="string">"services"</span> <span class="attr">expression</span>=<span class="string">"execution (* com.springmvc.niklaus.service.*Service.*(..))"</span> /&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">aop:advisor</span> <span class="attr">advice-ref</span>=<span class="string">"txAdvice"</span> <span class="attr">pointcut-ref</span>=<span class="string">"services"</span> /&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">aop:config</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>这里的pointcut属性使用了AspectJ切入点表达式来表明通知器适用于哪些方法。哪些方法应该真正运行在事务中以及方法的事务属性都是由这个事务通知来定义的，而事务通知是advice-ref属性来制定的，它引用了名为txAdvice的通知。</p>
+<h4 id="定义注解驱动的事务"><a href="#定义注解驱动的事务" class="headerlink" title="定义注解驱动的事务"></a>定义注解驱动的事务</h4><p>除了元素，tx命名空间还提供了元素，使用时，通常只需要一行XML：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">tx:annotation-driven</span> <span class="attr">transaction-manager</span>=<span class="string">"transactionManager"</span>/&gt;</span></div></pre></td></tr></table></figure>
+<p>通过transaction-manager属性（默认值为transactionManager）来制定特定的事务管理器。</p>
+<p>元素告诉Spring检索上下文中所有的Bean并查找使用@Transactional注解的Bean，而不管这个注解使用在类级别上还是方法级别上。对于每一个使用@Transactional注解的Bean，都会自动为它添加事务通知。通知的事务属性是通过@Transactional注解的参数来定义的。</p>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>github地址 <a href="https://github.com/tianqing370687/SpringMVCRookie.git" target="_blank" rel="external">SpringMVCRookie</a></p>
+<h2 id="参考-amp-引用"><a href="#参考-amp-引用" class="headerlink" title="参考&amp;引用"></a>参考&amp;引用</h2><p>《spring实战(第三版)》</p>
+<h2 id="更新时间"><a href="#更新时间" class="headerlink" title="更新时间"></a>更新时间</h2><p>发布时间 ： 2016-09-26</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/07/07/Spring-MVC菜鸟之旅-Spring-MVC-与-Hibernate整合/" rel="next" title="[Spring MVC菜鸟之旅] Spring MVC 与 Hibernate整合">
+                <i class="fa fa-chevron-left"></i> [Spring MVC菜鸟之旅] Spring MVC 与 Hibernate整合
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/07/08/Spring-MVC菜鸟之旅-Spring-Data-Redis整合/" rel="prev" title="[Spring MVC菜鸟之旅] Spring Data Redis整合">
+                [Spring MVC菜鸟之旅] Spring Data Redis整合 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://octlz2jco.bkt.clouddn.com/00000037.jpg"
+               alt="Niklaus.chi" />
+          <p class="site-author-name" itemprop="name">Niklaus.chi</p>
+           
+              <p class="site-description motion-element" itemprop="description">一个人的通天之路</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">分类</span>
+              
+            </div>
+          
+
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+          <div class="cc-license motion-element" itemprop="license">
+            <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" target="_blank">
+              <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
+            </a>
+          </div>
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Spring的数据访问哲学"><span class="nav-number">2.</span> <span class="nav-text">Spring的数据访问哲学</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置数据源"><span class="nav-number">3.</span> <span class="nav-text">配置数据源</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在Spring中集成Hibernate"><span class="nav-number">4.</span> <span class="nav-text">在Spring中集成Hibernate</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#声明Hibernate的Session工厂"><span class="nav-number">4.1.</span> <span class="nav-text">声明Hibernate的Session工厂</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#构建不依赖于Spring的Hibernate代码"><span class="nav-number">4.2.</span> <span class="nav-text">构建不依赖于Spring的Hibernate代码</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#事务管理"><span class="nav-number">5.</span> <span class="nav-text">事务管理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#事务特性（ACID）"><span class="nav-number">5.1.</span> <span class="nav-text">事务特性（ACID）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#原子性（Atomic）"><span class="nav-number">5.1.1.</span> <span class="nav-text">原子性（Atomic）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#一致性（Consistent）"><span class="nav-number">5.1.2.</span> <span class="nav-text">一致性（Consistent）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#隔离性（Isolated）"><span class="nav-number">5.1.3.</span> <span class="nav-text">隔离性（Isolated）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#持久性（Durable）"><span class="nav-number">5.1.4.</span> <span class="nav-text">持久性（Durable）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用Hibernate事务管理器"><span class="nav-number">5.2.</span> <span class="nav-text">使用Hibernate事务管理器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#声明式事务"><span class="nav-number">5.3.</span> <span class="nav-text">声明式事务</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#在XML中定义事务"><span class="nav-number">5.3.1.</span> <span class="nav-text">在XML中定义事务</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#定义注解驱动的事务"><span class="nav-number">5.3.2.</span> <span class="nav-text">定义注解驱动的事务</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小结"><span class="nav-number">6.</span> <span class="nav-text">小结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考-amp-引用"><span class="nav-number">7.</span> <span class="nav-text">参考&引用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#更新时间"><span class="nav-number">8.</span> <span class="nav-text">更新时间</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Niklaus.chi</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>
