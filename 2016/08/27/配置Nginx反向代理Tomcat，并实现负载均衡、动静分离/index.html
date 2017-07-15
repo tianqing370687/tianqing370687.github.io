@@ -77,7 +77,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Git," />
+  <meta name="keywords" content="Ubuntu,Nginx," />
 
 
 
@@ -95,16 +95,22 @@
 
 
 
-<meta name="keywords" content="Git">
+<meta name="keywords" content="Ubuntu,Nginx">
 <meta property="og:type" content="article">
-<meta property="og:title" content="git将本地仓库上传到远程仓库">
-<meta property="og:url" content="http://yoursite.com/2016/06/11/git将本地仓库上传到远程仓库/index.html">
+<meta property="og:title" content="配置Nginx反向代理Tomcat，并实现负载均衡、动静分离">
+<meta property="og:url" content="http://yoursite.com/2016/08/27/配置Nginx反向代理Tomcat，并实现负载均衡、动静分离/index.html">
 <meta property="og:site_name" content="The Tower of Babel">
-<meta property="og:image" content="http://octlz2jco.bkt.clouddn.com/blog_thumbnails_000_000_002.jpg">
-<meta property="og:updated_time" content="2017-07-15T01:38:03.081Z">
+<meta property="og:image" content="http://octlz2jco.bkt.clouddn.com/blog_thumbnails_000_000_012.webp">
+<meta property="og:image" content="http://octlz2jco.bkt.clouddn.com/blog_content_000_000_026.jpg">
+<meta property="og:image" content="http://octlz2jco.bkt.clouddn.com/blog_content_000_000_027.jpg">
+<meta property="og:image" content="http://octlz2jco.bkt.clouddn.com/blog_content_000_000_028.jpg">
+<meta property="og:image" content="http://octlz2jco.bkt.clouddn.com/blog_content_000_000_029.jpg">
+<meta property="og:image" content="http://octlz2jco.bkt.clouddn.com/blog_content_000_000_030.png">
+<meta property="og:image" content="http://octlz2jco.bkt.clouddn.com/blog_content_000_000_031.png">
+<meta property="og:updated_time" content="2017-07-15T08:58:57.387Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="git将本地仓库上传到远程仓库">
-<meta name="twitter:image" content="http://octlz2jco.bkt.clouddn.com/blog_thumbnails_000_000_002.jpg">
+<meta name="twitter:title" content="配置Nginx反向代理Tomcat，并实现负载均衡、动静分离">
+<meta name="twitter:image" content="http://octlz2jco.bkt.clouddn.com/blog_thumbnails_000_000_012.webp">
 
 
 
@@ -132,13 +138,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2016/06/11/git将本地仓库上传到远程仓库/"/>
+  <link rel="canonical" href="http://yoursite.com/2016/08/27/配置Nginx反向代理Tomcat，并实现负载均衡、动静分离/"/>
 
 
 
 
 
-  <title>git将本地仓库上传到远程仓库 | The Tower of Babel</title>
+  <title>配置Nginx反向代理Tomcat，并实现负载均衡、动静分离 | The Tower of Babel</title>
   
 
 
@@ -301,7 +307,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/06/11/git将本地仓库上传到远程仓库/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/08/27/配置Nginx反向代理Tomcat，并实现负载均衡、动静分离/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Niklaus.chi">
@@ -318,7 +324,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">git将本地仓库上传到远程仓库</h1>
+          <h1 class="post-title" itemprop="name headline">配置Nginx反向代理Tomcat，并实现负载均衡、动静分离</h1>
         
 
         <div class="post-meta">
@@ -330,8 +336,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-06-11T09:01:50+08:00">
-                2016-06-11
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-08-27T13:10:15+08:00">
+                2016-08-27
               </time>
             
 
@@ -365,33 +371,50 @@
       
 
       
-        <p><img src="http://octlz2jco.bkt.clouddn.com/blog_thumbnails_000_000_002.jpg" alt=""><br><a id="more"></a></p>
-<h2 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h2><p>在已有的git库中搭建新库，并且将本地的git仓库，上传到远程服务器的git库中，从而开始一个新的项目。</p>
-<h2 id="不登录远程git服务器直接本地操作"><a href="#不登录远程git服务器直接本地操作" class="headerlink" title="不登录远程git服务器直接本地操作"></a>不登录远程git服务器直接本地操作</h2><h3 id="初始化仓库"><a href="#初始化仓库" class="headerlink" title="初始化仓库"></a>初始化仓库</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git init</div></pre></td></tr></table></figure>
-<p>该命令将创建一个名为.git的子目录，这个子目录含有你初始化的git仓库中所有的必须文件，这些文件是Git仓库的骨干。但是，在这个时候，我们仅仅是做了一个初始化的操作，你的项目里的文件还没有被跟踪。</p>
-<h3 id="对指定文件的追踪"><a href="#对指定文件的追踪" class="headerlink" title="对指定文件的追踪"></a>对指定文件的追踪</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git add .</div></pre></td></tr></table></figure>
-<h3 id="提交操作"><a href="#提交操作" class="headerlink" title="提交操作"></a>提交操作</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git commit -m &apos;first commit&apos;</div></pre></td></tr></table></figure>
-<p>当使用 git commit 进行提交操作时，Git 会先计算每一个子目录（本例中只有项目根目录）的校验和，然后在 Git 仓库中这些校验和保存为树对象。 随后，Git 便会创建一个提交对象，它除了包含上面提到的那些信息外，还包含指向这个树对象（项目根目录）的指针。如此一来，Git 就可以在需要的时候重现此次保存的快照</p>
-<h3 id="添加远程仓库"><a href="#添加远程仓库" class="headerlink" title="添加远程仓库"></a>添加远程仓库</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git remote add origin git@xx.xx.xx.xx:repos/xxx/xxx/xxx.git</div></pre></td></tr></table></figure>
-<h3 id="推送本地分支到远程仓库"><a href="#推送本地分支到远程仓库" class="headerlink" title="推送本地分支到远程仓库"></a>推送本地分支到远程仓库</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git push origin (remote):(branch)</div></pre></td></tr></table></figure>
-<p>推送本地的 remote 分支，将其作为远程仓库的 branch 分支，可以通过这种格式来推送本地分支到一个命名不相同的远程分支。</p>
-<h2 id="出现问题"><a href="#出现问题" class="headerlink" title="出现问题"></a>出现问题</h2><h3 id="问题1"><a href="#问题1" class="headerlink" title="问题1"></a>问题1</h3><font color="red">the file will have its original line endings in your working directory</font>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git config --global core.autocrlf  false</div></pre></td></tr></table></figure>
-<h3 id="问题2"><a href="#问题2" class="headerlink" title="问题2"></a>问题2</h3><font color="red">fatal:unable to access ‘xxx/xxx/xxx/…’:Filename too long</font>
-
-<p>相关问题<a href="http://stackoverflow.com/questions/22575662/filename-too-long-in-git-for-windows" target="_blank" rel="external"><font color="#87CEFA">Filename too long in git for windows</font></a></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git config --global core.longpaths true</div></pre></td></tr></table></figure>
-<h3 id="问题3"><a href="#问题3" class="headerlink" title="问题3"></a>问题3</h3><font color="red">fatal: Not a valid object name: ‘master’</font> 
-
-<p>相关问题<a href="http://blog.chinaunix.net/uid-26557245-id-3328748.html" target="_blank" rel="external"><font color="#87CEFA">git 错误 fatal: Not a valid object name: ‘master’. </font></a></p>
-<h3 id="问题4"><a href="#问题4" class="headerlink" title="问题4"></a>问题4</h3><font color="red">error:dst ref refs/heads/source receives form more than one src.</font>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git push origin (remote):(branch)</div></pre></td></tr></table></figure>
-<p>在remote与branch中间的：不要遗漏，否则就会出现以上问题</p>
-<h2 id="参考-amp-引用"><a href="#参考-amp-引用" class="headerlink" title="参考&amp;引用"></a>参考&amp;引用</h2><p><a href="https://git-scm.com/book/zh/v2" target="_blank" rel="external"><font color="#87CEFA">git官方文档</font></a></p>
-<p><a href="http://blog.csdn.net/w13770269691/article/details/38704941" target="_blank" rel="external"><font color="#87CEFA">git将本地仓库上传到远程仓库</font></a></p>
-<h2 id="更新时间"><a href="#更新时间" class="headerlink" title="更新时间"></a>更新时间</h2><p>发布时间 ： 2016-06-11</p>
+        <p><img src="http://octlz2jco.bkt.clouddn.com/blog_thumbnails_000_000_012.webp" alt=""><br><a id="more"></a></p>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>Nginx与Apache HTTP Server Project（简称Apache）一样，都是开源的HTTP服务器软件，它通常运行在服务器之上，绑定服务器的IP地址并监听某一个tcp端口来接收并处理HTTP请求，这样客户端（一般来说是IE, Firefox，Chrome这样的浏览器）就能够通过HTTP协议来获取服务器上的网页（HTML格式）、文档（PDF格式）、音频（MP4格式）、视频（MOV格式）等等资源。而Tomcat是用来处理java程序的解释器。本身apache也好，nginx也好，都是无法直接处理java语言的，只能通过设置，当收到java文件请求时，传给后方tomcat处理，再把tomcat的反应回给浏览器。</p>
+<h2 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h2><p>JDK      ： 1.8.0_101<br>Nginx    ： 9.0.0.M9<br>Tomcat   ： 1.10.0<br>操作系统 ： ubuntu-16.04（64）</p>
+<h2 id="反向代理"><a href="#反向代理" class="headerlink" title="反向代理"></a>反向代理</h2><h3 id="反向代理-1"><a href="#反向代理-1" class="headerlink" title="反向代理"></a>反向代理</h3><h4 id="什么是反向代理"><a href="#什么是反向代理" class="headerlink" title="什么是反向代理"></a>什么是反向代理</h4><p>反向代理（Reverse Proxy）方式是指以代理服务器来接受internet上的连接请求，然后将请求转发给内部网络上的服务器，并将从服务器上得到的结果返回给internet上请求连接的客户端，此时代理服务器对外就表现为一个服务器。</p>
+<p><img src="http://octlz2jco.bkt.clouddn.com/blog_content_000_000_026.jpg" alt=""></p>
+<p>从上图可以看出：反向代理服务器位于网站机房，代理网站Web服务器接收Http请求，对请求进行转发。</p>
+<h4 id="反向代理的作用"><a href="#反向代理的作用" class="headerlink" title="反向代理的作用"></a>反向代理的作用</h4><ul>
+<li>保护网站安全：任何来自Internet的请求都必须先经过代理服务器；</li>
+</ul>
+<p><img src="http://octlz2jco.bkt.clouddn.com/blog_content_000_000_027.jpg" alt=""></p>
+<ul>
+<li>通过配置缓存功能加速Web请求：可以缓存真实Web服务器上的某些静态资源，减轻真实Web服务器的负载压力；</li>
+</ul>
+<p><img src="http://octlz2jco.bkt.clouddn.com/blog_content_000_000_028.jpg" alt=""></p>
+<ul>
+<li>实现负载均衡：充当负载均衡服务器均衡地分发请求，平衡集群中各个服务器的负载压力；</li>
+</ul>
+<p><img src="http://octlz2jco.bkt.clouddn.com/blog_content_000_000_029.jpg" alt=""></p>
+<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><blockquote>
+<p>在配置之前，如果怕自己在配置过程中出错，可以将需要操作的配置文件进行备份，只需要使用sudo cp -rf fileName fileName-copy 即可备份文件。</p>
+</blockquote>
+<h4 id="Tomcat"><a href="#Tomcat" class="headerlink" title="Tomcat"></a>Tomcat</h4><p>修改/opt/tomcat9.0/conf目录下的server.xml文件<font size="3" color="red"></font></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;Host name=&quot;localhost&quot;  appBase=&quot;webapps/springmvc&quot; unpackWARs=&quot;true&quot; autoDeploy=&quot;true&quot;&gt;</div><div class="line">	&lt;Context path=&quot;/springmvc&quot;  docBase=&quot;springmvc.war&quot;/&gt;    </div><div class="line">	&lt;Valve className=&quot;org.apache.catalina.valves.AccessLogValve&quot; directory=&quot;logs&quot;  prefix=&quot;localhost_access_log&quot; suffix=&quot;.txt&quot; pattern=&quot;%h %l %u %t &amp;quot;%r&amp;quot; %s %b&quot; /&gt;</div><div class="line">&lt;/Host&gt;</div></pre></td></tr></table></figure>
+<h4 id="Nginx"><a href="#Nginx" class="headerlink" title="Nginx"></a>Nginx</h4><p>修改/var/log/nginx目录下的default文件，<font size="3" color="red">保证server_name与上面Tomcat配置文件server.xml中的Host name 是一致的</font>。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">server &#123;</div><div class="line">    #监听端口</div><div class="line">	listen 80 default_server;</div><div class="line">	listen [::]:80 default_server;</div><div class="line">	#网站程序根目录，一般Nginx和Tomcat在同一个目录</div><div class="line">	root /opt/tomcat9.0/webapps/springmvc;</div><div class="line">	index index.html index.htm index.nginx-debian.html;</div><div class="line">	#server_name要与Tomcat的server.xml中的Host name一致</div><div class="line">	server_name localhost;</div><div class="line">	location / &#123;    </div><div class="line">        proxy_set_header        Host $host;</div><div class="line">        proxy_set_header        X-Real-IP $remote_addr;</div><div class="line">        proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;</div><div class="line">        proxy_pass http://192.168.182.132:8080;  </div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>Ubuntu下查询本机IP命令 ifconfig -a</p>
+</blockquote>
+<h4 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h4><p>确认保存好配置文件之后，启动Tomcat和Nginx服务器，在浏览器中输入<a href="http://localhost/springmvc/test，会出现以下页面" target="_blank" rel="external">http://localhost/springmvc/test，会出现以下页面</a></p>
+<p><img src="http://octlz2jco.bkt.clouddn.com/blog_content_000_000_030.png" alt="成功页面"></p>
+<p>此时我们可以查看一下Tomcat和Nginx的日志<br>Nginx(/var/log/nginx/access.log)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">127.0.0.1 - - [07/Sep/2016:15:30:47 +0800] &quot;GET /springmvc/test HTTP/1.1&quot; 200 101 &quot;-&quot; &quot;Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:48.0) Gecko/20100101 Firefox/48.0&quot;</div></pre></td></tr></table></figure>
+<p>Tomcat(/opt/tomcat9.0/logs/localhost_access_log.xxx.txt)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">192.168.182.132 - - [07/Sep/2016:15:30:47 +0800] &quot;GET /springmvc/test HTTP/1.0&quot; 200 106</div></pre></td></tr></table></figure>
+<h2 id="负载均衡"><a href="#负载均衡" class="headerlink" title="负载均衡"></a><a href="https://nginx.org/en/docs/http/load_balancing.html" target="_blank" rel="external">负载均衡</a></h2><p>负载均衡 建立在现有网络结构之上，它提供了一种廉价有效透明的方法扩展网络设备和服务器的带宽、增加吞吐量、加强网络数据处理能力、提高网络的灵活性和可用性。<br>负载均衡，英文名称为Load Balance，其意思就是分摊到多个操作单元上进行执行，例如Web服务器、FTP服务器、企业关键应用服务器和其它关键任务服务器等，从而共同完成工作任务</p>
+<h3 id="Nginx支持的负载均衡策略"><a href="#Nginx支持的负载均衡策略" class="headerlink" title="Nginx支持的负载均衡策略"></a>Nginx支持的负载均衡策略</h3><p>1 round-robin<br>requests to the application servers are distributed in a round-robin fashion<br>2 least-connected<br>next request is assigned to the server with the least number of active connections<br>3 ip-hash<br>a hash-function is used to determine what server should be selected for the next request (based on the client’s IP address)</p>
+<h3 id="负载均衡的示例"><a href="#负载均衡的示例" class="headerlink" title="负载均衡的示例"></a>负载均衡的示例</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">upstream tomcat &#123;   </div><div class="line"> server 192.168.182.132:8080 weight=2;   </div><div class="line"> server 192.168.182.132:8081 weight=1;</div><div class="line"> server 192.168.182.132:8082;</div><div class="line">&#125;</div><div class="line"></div><div class="line">server &#123;</div><div class="line">	listen 80 default_server;</div><div class="line">	listen [::]:80 default_server;</div><div class="line"></div><div class="line">	root /opt/tomcat9.0/webapps/springmvc;</div><div class="line"></div><div class="line">	index index.html index.htm index.nginx-debian.html;</div><div class="line"></div><div class="line">	server_name localhost;</div><div class="line">	</div><div class="line">	location / &#123;</div><div class="line">        proxy_set_header        Host $host;</div><div class="line">        proxy_set_header        X-Real-IP $remote_addr;</div><div class="line">        proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;</div><div class="line">        proxy_pass http://tomcat;</div><div class="line"></div><div class="line">	&#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="动静分离"><a href="#动静分离" class="headerlink" title="动静分离"></a>动静分离</h2><p>从应用方面讲，Tomcat一般是做动态分析才会用到，支持jsp的解析，而Nginx一般是做静态分析，本身并不具备动态解析功能，需要配置其他插件或者通过其他软件系统才具备动态功能；而在性能方面，不做系统调优的情况下，Tomcat一般支持并发并不高，而Nginx在静态方面支持并发轻松达几万。为了充分利用两者优秀的性能，我们让Tomcat处理用户请求jsp页面实现动态分离，用Nginx处理css、js、html等静态资源，提高性能。</p>
+<h3 id="具体实现"><a href="#具体实现" class="headerlink" title="具体实现"></a>具体实现</h3><h4 id="创建静态资源放置的文件夹"><a href="#创建静态资源放置的文件夹" class="headerlink" title="创建静态资源放置的文件夹"></a>创建静态资源放置的文件夹</h4><p>将项目中放置静态资源的文件夹拷贝至/opt/springmvc目录下，<font color="red">必须保证各个静态资源的相对路径和在项目中是一致的，否则会出现404错误</font>。<br><img src="http://octlz2jco.bkt.clouddn.com/blog_content_000_000_031.png" alt=""></p>
+<h4 id="server下配置对应的localtion"><a href="#server下配置对应的localtion" class="headerlink" title="server下配置对应的localtion"></a>server下配置对应的localtion</h4><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">upstream tomcat &#123;   </div><div class="line"> server 192.168.182.132:8080;</div><div class="line">&#125;</div><div class="line"></div><div class="line">server &#123;</div><div class="line">	listen 80 default_server;</div><div class="line">	listen [::]:80 default_server;</div><div class="line"></div><div class="line">	root /opt/tomcat9.0/webapps/springmvc;</div><div class="line"></div><div class="line">	index index.html index.htm index.nginx-debian.html;</div><div class="line"></div><div class="line">	server_name localhost;</div><div class="line">	</div><div class="line">	location / &#123;</div><div class="line">        proxy_set_header        Host $host;</div><div class="line">        proxy_set_header        X-Real-IP $remote_addr;</div><div class="line">        proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;</div><div class="line">        proxy_pass http://tomcat;</div><div class="line"></div><div class="line">	&#125;</div><div class="line"></div><div class="line">	#使用正则表达式拦截后缀名为js、css的静态资源</div><div class="line">	location ~.*\.(js|css)?$ &#123;  </div><div class="line">		#静态资源放置的位置</div><div class="line">		root /opt;</div><div class="line">		#缓存过期时间</div><div class="line">		expires 1d;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="遇到问题"><a href="#遇到问题" class="headerlink" title="遇到问题"></a>遇到问题</h2><p>1 <a href="https://segmentfault.com/q/1010000006101263" target="_blank" rel="external">Tomcat+Nginx实现动静分离的功能，动态请求为什么没有发到Tomcat这里？</a></p>
+<h2 id="参考-amp-引用"><a href="#参考-amp-引用" class="headerlink" title="参考&amp;引用"></a>参考&amp;引用</h2><p><a href="http://nginx.org/en/docs/" target="_blank" rel="external">nginx documentation</a><br><a href="http://www.open-open.com/lib/view/open1417488526633.html" target="_blank" rel="external">Nginx搭建反向代理服务器过程详解</a><br><a href="http://www.cnblogs.com/wufengtinghai/p/5237165.html" target="_blank" rel="external">使用Nginx实现负载均衡</a><br><a href="https://www.zhihu.com/question/32212996" target="_blank" rel="external">tomcat 与 nginx，apache的区别是什么？</a></p>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>写的比较简略，不成章法，接下来会慢慢完善</p>
+<h2 id="更新时间"><a href="#更新时间" class="headerlink" title="更新时间"></a>更新时间</h2><p>发布时间 ： 2016-08-27</p>
 
       
     </div>
@@ -421,7 +444,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Git/" rel="tag"># Git</a>
+            <a href="/tags/Ubuntu/" rel="tag"># Ubuntu</a>
+          
+            <a href="/tags/Nginx/" rel="tag"># Nginx</a>
           
         </div>
       
@@ -434,8 +459,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/06/04/IntelliJ-Idea使用那些事/" rel="next" title="IntelliJ Idea使用那些事">
-                <i class="fa fa-chevron-left"></i> IntelliJ Idea使用那些事
+              <a href="/2016/08/20/Ubuntu系统下安装Nginx服务器的方法/" rel="next" title="Ubuntu系统下安装Nginx服务器的方法">
+                <i class="fa fa-chevron-left"></i> Ubuntu系统下安装Nginx服务器的方法
               </a>
             
           </div>
@@ -443,10 +468,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/06/18/如何在同一台电脑配置多个git或者github账号/" rel="prev" title="如何在同一台电脑配置多个git或者github账号">
-                如何在同一台电脑配置多个git或者github账号 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -588,7 +609,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#目的"><span class="nav-number">1.</span> <span class="nav-text">目的</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#不登录远程git服务器直接本地操作"><span class="nav-number">2.</span> <span class="nav-text">不登录远程git服务器直接本地操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#初始化仓库"><span class="nav-number">2.1.</span> <span class="nav-text">初始化仓库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#对指定文件的追踪"><span class="nav-number">2.2.</span> <span class="nav-text">对指定文件的追踪</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#提交操作"><span class="nav-number">2.3.</span> <span class="nav-text">提交操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#添加远程仓库"><span class="nav-number">2.4.</span> <span class="nav-text">添加远程仓库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#推送本地分支到远程仓库"><span class="nav-number">2.5.</span> <span class="nav-text">推送本地分支到远程仓库</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#出现问题"><span class="nav-number">3.</span> <span class="nav-text">出现问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#问题1"><span class="nav-number">3.1.</span> <span class="nav-text">问题1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#问题2"><span class="nav-number">3.2.</span> <span class="nav-text">问题2</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#问题3"><span class="nav-number">3.3.</span> <span class="nav-text">问题3</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#问题4"><span class="nav-number">3.4.</span> <span class="nav-text">问题4</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考-amp-引用"><span class="nav-number">4.</span> <span class="nav-text">参考&引用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#更新时间"><span class="nav-number">5.</span> <span class="nav-text">更新时间</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#环境"><span class="nav-number">2.</span> <span class="nav-text">环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#反向代理"><span class="nav-number">3.</span> <span class="nav-text">反向代理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#反向代理-1"><span class="nav-number">3.1.</span> <span class="nav-text">反向代理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#什么是反向代理"><span class="nav-number">3.1.1.</span> <span class="nav-text">什么是反向代理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#反向代理的作用"><span class="nav-number">3.1.2.</span> <span class="nav-text">反向代理的作用</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置"><span class="nav-number">3.2.</span> <span class="nav-text">配置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Tomcat"><span class="nav-number">3.2.1.</span> <span class="nav-text">Tomcat</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Nginx"><span class="nav-number">3.2.2.</span> <span class="nav-text">Nginx</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#测试"><span class="nav-number">3.2.3.</span> <span class="nav-text">测试</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#负载均衡"><span class="nav-number">4.</span> <span class="nav-text">负载均衡</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Nginx支持的负载均衡策略"><span class="nav-number">4.1.</span> <span class="nav-text">Nginx支持的负载均衡策略</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#负载均衡的示例"><span class="nav-number">4.2.</span> <span class="nav-text">负载均衡的示例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#动静分离"><span class="nav-number">5.</span> <span class="nav-text">动静分离</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#具体实现"><span class="nav-number">5.1.</span> <span class="nav-text">具体实现</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#创建静态资源放置的文件夹"><span class="nav-number">5.1.1.</span> <span class="nav-text">创建静态资源放置的文件夹</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#server下配置对应的localtion"><span class="nav-number">5.1.2.</span> <span class="nav-text">server下配置对应的localtion</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#遇到问题"><span class="nav-number">6.</span> <span class="nav-text">遇到问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考-amp-引用"><span class="nav-number">7.</span> <span class="nav-text">参考&引用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结语"><span class="nav-number">8.</span> <span class="nav-text">结语</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#更新时间"><span class="nav-number">9.</span> <span class="nav-text">更新时间</span></a></li></ol></div>
             
 
           </div>

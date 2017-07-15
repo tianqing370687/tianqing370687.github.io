@@ -77,7 +77,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Git," />
+  <meta name="keywords" content="Ubuntu,Nginx," />
 
 
 
@@ -95,16 +95,19 @@
 
 
 
-<meta name="keywords" content="Git">
+<meta name="keywords" content="Ubuntu,Nginx">
 <meta property="og:type" content="article">
-<meta property="og:title" content="git将本地仓库上传到远程仓库">
-<meta property="og:url" content="http://yoursite.com/2016/06/11/git将本地仓库上传到远程仓库/index.html">
+<meta property="og:title" content="Ubuntu系统下安装Nginx服务器的方法">
+<meta property="og:url" content="http://yoursite.com/2016/08/20/Ubuntu系统下安装Nginx服务器的方法/index.html">
 <meta property="og:site_name" content="The Tower of Babel">
-<meta property="og:image" content="http://octlz2jco.bkt.clouddn.com/blog_thumbnails_000_000_002.jpg">
-<meta property="og:updated_time" content="2017-07-15T01:38:03.081Z">
+<meta property="og:image" content="http://octlz2jco.bkt.clouddn.com/blog_thumbnails_000_000_011.png">
+<meta property="og:image" content="http://octlz2jco.bkt.clouddn.com/blog_content_000_000_023.png">
+<meta property="og:image" content="http://octlz2jco.bkt.clouddn.com/blog_content_000_000_024.png">
+<meta property="og:image" content="http://octlz2jco.bkt.clouddn.com/blog_content_000_000_025.png">
+<meta property="og:updated_time" content="2017-07-15T08:55:48.934Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="git将本地仓库上传到远程仓库">
-<meta name="twitter:image" content="http://octlz2jco.bkt.clouddn.com/blog_thumbnails_000_000_002.jpg">
+<meta name="twitter:title" content="Ubuntu系统下安装Nginx服务器的方法">
+<meta name="twitter:image" content="http://octlz2jco.bkt.clouddn.com/blog_thumbnails_000_000_011.png">
 
 
 
@@ -132,13 +135,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2016/06/11/git将本地仓库上传到远程仓库/"/>
+  <link rel="canonical" href="http://yoursite.com/2016/08/20/Ubuntu系统下安装Nginx服务器的方法/"/>
 
 
 
 
 
-  <title>git将本地仓库上传到远程仓库 | The Tower of Babel</title>
+  <title>Ubuntu系统下安装Nginx服务器的方法 | The Tower of Babel</title>
   
 
 
@@ -301,7 +304,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/06/11/git将本地仓库上传到远程仓库/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/08/20/Ubuntu系统下安装Nginx服务器的方法/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Niklaus.chi">
@@ -318,7 +321,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">git将本地仓库上传到远程仓库</h1>
+          <h1 class="post-title" itemprop="name headline">Ubuntu系统下安装Nginx服务器的方法</h1>
         
 
         <div class="post-meta">
@@ -330,8 +333,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-06-11T09:01:50+08:00">
-                2016-06-11
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-08-20T13:08:41+08:00">
+                2016-08-20
               </time>
             
 
@@ -365,33 +368,68 @@
       
 
       
-        <p><img src="http://octlz2jco.bkt.clouddn.com/blog_thumbnails_000_000_002.jpg" alt=""><br><a id="more"></a></p>
-<h2 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h2><p>在已有的git库中搭建新库，并且将本地的git仓库，上传到远程服务器的git库中，从而开始一个新的项目。</p>
-<h2 id="不登录远程git服务器直接本地操作"><a href="#不登录远程git服务器直接本地操作" class="headerlink" title="不登录远程git服务器直接本地操作"></a>不登录远程git服务器直接本地操作</h2><h3 id="初始化仓库"><a href="#初始化仓库" class="headerlink" title="初始化仓库"></a>初始化仓库</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git init</div></pre></td></tr></table></figure>
-<p>该命令将创建一个名为.git的子目录，这个子目录含有你初始化的git仓库中所有的必须文件，这些文件是Git仓库的骨干。但是，在这个时候，我们仅仅是做了一个初始化的操作，你的项目里的文件还没有被跟踪。</p>
-<h3 id="对指定文件的追踪"><a href="#对指定文件的追踪" class="headerlink" title="对指定文件的追踪"></a>对指定文件的追踪</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git add .</div></pre></td></tr></table></figure>
-<h3 id="提交操作"><a href="#提交操作" class="headerlink" title="提交操作"></a>提交操作</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git commit -m &apos;first commit&apos;</div></pre></td></tr></table></figure>
-<p>当使用 git commit 进行提交操作时，Git 会先计算每一个子目录（本例中只有项目根目录）的校验和，然后在 Git 仓库中这些校验和保存为树对象。 随后，Git 便会创建一个提交对象，它除了包含上面提到的那些信息外，还包含指向这个树对象（项目根目录）的指针。如此一来，Git 就可以在需要的时候重现此次保存的快照</p>
-<h3 id="添加远程仓库"><a href="#添加远程仓库" class="headerlink" title="添加远程仓库"></a>添加远程仓库</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git remote add origin git@xx.xx.xx.xx:repos/xxx/xxx/xxx.git</div></pre></td></tr></table></figure>
-<h3 id="推送本地分支到远程仓库"><a href="#推送本地分支到远程仓库" class="headerlink" title="推送本地分支到远程仓库"></a>推送本地分支到远程仓库</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git push origin (remote):(branch)</div></pre></td></tr></table></figure>
-<p>推送本地的 remote 分支，将其作为远程仓库的 branch 分支，可以通过这种格式来推送本地分支到一个命名不相同的远程分支。</p>
-<h2 id="出现问题"><a href="#出现问题" class="headerlink" title="出现问题"></a>出现问题</h2><h3 id="问题1"><a href="#问题1" class="headerlink" title="问题1"></a>问题1</h3><font color="red">the file will have its original line endings in your working directory</font>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git config --global core.autocrlf  false</div></pre></td></tr></table></figure>
-<h3 id="问题2"><a href="#问题2" class="headerlink" title="问题2"></a>问题2</h3><font color="red">fatal:unable to access ‘xxx/xxx/xxx/…’:Filename too long</font>
-
-<p>相关问题<a href="http://stackoverflow.com/questions/22575662/filename-too-long-in-git-for-windows" target="_blank" rel="external"><font color="#87CEFA">Filename too long in git for windows</font></a></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git config --global core.longpaths true</div></pre></td></tr></table></figure>
-<h3 id="问题3"><a href="#问题3" class="headerlink" title="问题3"></a>问题3</h3><font color="red">fatal: Not a valid object name: ‘master’</font> 
-
-<p>相关问题<a href="http://blog.chinaunix.net/uid-26557245-id-3328748.html" target="_blank" rel="external"><font color="#87CEFA">git 错误 fatal: Not a valid object name: ‘master’. </font></a></p>
-<h3 id="问题4"><a href="#问题4" class="headerlink" title="问题4"></a>问题4</h3><font color="red">error:dst ref refs/heads/source receives form more than one src.</font>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git push origin (remote):(branch)</div></pre></td></tr></table></figure>
-<p>在remote与branch中间的：不要遗漏，否则就会出现以上问题</p>
-<h2 id="参考-amp-引用"><a href="#参考-amp-引用" class="headerlink" title="参考&amp;引用"></a>参考&amp;引用</h2><p><a href="https://git-scm.com/book/zh/v2" target="_blank" rel="external"><font color="#87CEFA">git官方文档</font></a></p>
-<p><a href="http://blog.csdn.net/w13770269691/article/details/38704941" target="_blank" rel="external"><font color="#87CEFA">git将本地仓库上传到远程仓库</font></a></p>
-<h2 id="更新时间"><a href="#更新时间" class="headerlink" title="更新时间"></a>更新时间</h2><p>发布时间 ： 2016-06-11</p>
+        <p><img src="http://octlz2jco.bkt.clouddn.com/blog_thumbnails_000_000_011.png" alt=""><br><a id="more"></a></p>
+<h2 id="Nginx简介"><a href="#Nginx简介" class="headerlink" title="Nginx简介"></a>Nginx简介</h2><p>Nginx是一个非常轻量级的HTTP服务器，Nginx，它的发音为“engine x”，是一个高性能的HTTP和反向代理服务器，同时也是一个IMAP/POP3/SMTP 代理服务器。</p>
+<h2 id="Nginx安装"><a href="#Nginx安装" class="headerlink" title="Nginx安装"></a>Nginx安装</h2><h3 id="系统环境"><a href="#系统环境" class="headerlink" title="系统环境"></a>系统环境</h3><p>操作系统 ：ubuntu-16.04（64）</p>
+<h3 id="在线安装"><a href="#在线安装" class="headerlink" title="在线安装"></a>在线安装</h3><p>首先因为我并不是项目应用，而且也不是很频繁的使用Linux系统，所以选择更容易上手的Ubuntu系统作为本文Demo的对象。如果选择Debian等Linux系统或者使用源代码安装，在安装Nginx服务器之前需要手动安装依赖的库，但是在Ubuntu系统下，使用在线安装相对来说简单一点。<font color="red" size="3">在这里要提醒一下，在线安装和源代码安装的一些命令行和安装位置是不一样的，这个需要具体对待。</font></p>
+<p>使用apt-get在线安装命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$sudo apt-get install nginx</div></pre></td></tr></table></figure>
+<p><img src="http://octlz2jco.bkt.clouddn.com/blog_content_000_000_023.png" alt="nginx安装"></p>
+<p>从上图我们可以看出，安装的Nginx的版本是<strong>1.10.0</strong>。Ubuntu安装Nginx之后的文件结构大致如下表：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">文件</th>
+<th style="text-align:center">路径</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">配置文件</td>
+<td style="text-align:center">/etc/nginx</td>
+</tr>
+<tr>
+<td style="text-align:center">虚拟主机</td>
+<td style="text-align:center">/etc/nginx/sites-available</td>
+</tr>
+<tr>
+<td style="text-align:center">启动程序</td>
+<td style="text-align:center">/usr/sbin/nginx</td>
+</tr>
+<tr>
+<td style="text-align:center">日志</td>
+<td style="text-align:center">/var/log/nginx</td>
+</tr>
+<tr>
+<td style="text-align:center">nginx启动脚本</td>
+<td style="text-align:center">/etc/init.d/</td>
+</tr>
+<tr>
+<td style="text-align:center">默认虚拟主机</td>
+<td style="text-align:center">/usr/share/nginx/www</td>
+</tr>
+</tbody>
+</table>
+<h3 id="启动Nginx"><a href="#启动Nginx" class="headerlink" title="启动Nginx"></a>启动Nginx</h3><h4 id="在线安装的启动过程"><a href="#在线安装的启动过程" class="headerlink" title="在线安装的启动过程"></a>在线安装的启动过程</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$sudo /etc/init.d/nginx start</div></pre></td></tr></table></figure>
+<p><img src="http://octlz2jco.bkt.clouddn.com/blog_content_000_000_024.png" alt=""></p>
+<p>如果出现<strong>[ ok ] Starting nginx (via systemctl): nginx.service.</strong>的提示，说明Nginx服务器启动成功，这个时候我们在浏览器中访问一下<a href="http://localhost/，正常情况下会出现Nginx的欢迎页面如下图。" target="_blank" rel="external">http://localhost/，正常情况下会出现Nginx的欢迎页面如下图。</a></p>
+<p><img src="http://octlz2jco.bkt.clouddn.com/blog_content_000_000_025.png" alt=""></p>
+<h4 id="常用Nginx命令"><a href="#常用Nginx命令" class="headerlink" title="常用Nginx命令"></a>常用Nginx命令</h4><p>启动Nginx服务器</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$sudo /etc/init.d/nginx start</div></pre></td></tr></table></figure>
+<p>关闭Nginx服务器</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo service nginx stop</div></pre></td></tr></table></figure>
+<p>重启Nginx服务器</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo service nginx restart</div></pre></td></tr></table></figure>
+<p>重新加载配置文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">nginx -s reload</div></pre></td></tr></table></figure>
+<p>检查配置文件是否出错</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">nginx -t</div></pre></td></tr></table></figure>
+<h2 id="Nginx配置"><a href="#Nginx配置" class="headerlink" title="Nginx配置"></a>Nginx配置</h2><h3 id="主要配置文件"><a href="#主要配置文件" class="headerlink" title="主要配置文件"></a>主要配置文件</h3><p>通过上面的表格我们知道Nginx的配置文件是/etc/nginx/nginx.conf</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div></pre></td><td class="code"><pre><div class="line">user www-data;</div><div class="line">worker_processes auto;</div><div class="line">pid /run/nginx.pid;</div><div class="line"></div><div class="line">events &#123;</div><div class="line">	worker_connections 768;</div><div class="line">	# multi_accept on;</div><div class="line">&#125;</div><div class="line"></div><div class="line">http &#123;</div><div class="line"></div><div class="line">	##</div><div class="line">	# Basic Settings</div><div class="line">	##</div><div class="line"></div><div class="line">	sendfile on;</div><div class="line">	tcp_nopush on;</div><div class="line">	tcp_nodelay on;</div><div class="line">	keepalive_timeout 65;</div><div class="line">	types_hash_max_size 2048;</div><div class="line">	# server_tokens off;</div><div class="line"></div><div class="line">	# server_names_hash_bucket_size 64;</div><div class="line">	# server_name_in_redirect off;</div><div class="line"></div><div class="line">	include /etc/nginx/mime.types;</div><div class="line">	default_type application/octet-stream;</div><div class="line"></div><div class="line">	##</div><div class="line">	# SSL Settings</div><div class="line">	##</div><div class="line"></div><div class="line">	ssl_protocols TLSv1 TLSv1.1 TLSv1.2; # Dropping SSLv3, ref: POODLE</div><div class="line">	ssl_prefer_server_ciphers on;</div><div class="line"></div><div class="line">	##</div><div class="line">	# Logging Settings</div><div class="line">	##</div><div class="line"></div><div class="line">	access_log /var/log/nginx/access.log;</div><div class="line">	error_log /var/log/nginx/error.log;</div><div class="line"></div><div class="line">	##</div><div class="line">	# Gzip Settings</div><div class="line">	##</div><div class="line"></div><div class="line">	gzip on;</div><div class="line">	gzip_disable &quot;msie6&quot;;</div><div class="line"></div><div class="line">	# gzip_vary on;</div><div class="line">	# gzip_proxied any;</div><div class="line">	# gzip_comp_level 6;</div><div class="line">	# gzip_buffers 16 8k;</div><div class="line">	# gzip_http_version 1.1;</div><div class="line">	# gzip_types text/plain text/css application/json application/javascript text/xml application/xml application/xml+rss text/javascript;</div><div class="line"></div><div class="line">	##</div><div class="line">	# Virtual Host Configs</div><div class="line">	##</div><div class="line"></div><div class="line">	include /etc/nginx/conf.d/*.conf;</div><div class="line">	include /etc/nginx/sites-enabled/*;</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line">#mail &#123;</div><div class="line">#	# See sample authentication script at:</div><div class="line">#	# http://wiki.nginx.org/ImapAuthenticateWithApachePhpScript</div><div class="line"># </div><div class="line">#	# auth_http localhost/auth.php;</div><div class="line">#	# pop3_capabilities &quot;TOP&quot; &quot;USER&quot;;</div><div class="line">#	# imap_capabilities &quot;IMAP4rev1&quot; &quot;UIDPLUS&quot;;</div><div class="line"># </div><div class="line">#	server &#123;</div><div class="line">#		listen     localhost:110;</div><div class="line">#		protocol   pop3;</div><div class="line">#		proxy      on;</div><div class="line">#	&#125;</div><div class="line"># </div><div class="line">#	server &#123;</div><div class="line">#		listen     localhost:143;</div><div class="line">#		protocol   imap;</div><div class="line">#		proxy      on;</div><div class="line">#	&#125;</div><div class="line">#&#125;</div></pre></td></tr></table></figure>
+<p>其中设置了一些必要的参数，我们发现62行有这样的语句<font color="red" size="3">include /etc/nginx/sites-enabled/*</font>.可以看出/etc/nginx/sites-enabled/default文件也是一个核心的配置文件，其中包含了服务器跟目录、服务器名称、location信息和server信息等配置信息。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div></pre></td><td class="code"><pre><div class="line">##</div><div class="line"># You should look at the following URL&apos;s in order to grasp a solid understanding</div><div class="line"># of Nginx configuration files in order to fully unleash the power of Nginx.</div><div class="line"># http://wiki.nginx.org/Pitfalls</div><div class="line"># http://wiki.nginx.org/QuickStart</div><div class="line"># http://wiki.nginx.org/Configuration</div><div class="line">#</div><div class="line"># Generally, you will want to move this file somewhere, and start with a clean</div><div class="line"># file but keep this around for reference. Or just disable in sites-enabled.</div><div class="line">#</div><div class="line"># Please see /usr/share/doc/nginx-doc/examples/ for more detailed examples.</div><div class="line">##</div><div class="line"></div><div class="line"># Default server configuration</div><div class="line">#</div><div class="line">server &#123;</div><div class="line">	listen 80 default_server;</div><div class="line">	listen [::]:80 default_server;</div><div class="line"></div><div class="line">	# SSL configuration</div><div class="line">	#</div><div class="line">	# listen 443 ssl default_server;</div><div class="line">	# listen [::]:443 ssl default_server;</div><div class="line">	#</div><div class="line">	# Note: You should disable gzip for SSL traffic.</div><div class="line">	# See: https://bugs.debian.org/773332</div><div class="line">	#</div><div class="line">	# Read up on ssl_ciphers to ensure a secure configuration.</div><div class="line">	# See: https://bugs.debian.org/765782</div><div class="line">	#</div><div class="line">	# Self signed certs generated by the ssl-cert package</div><div class="line">	# Don&apos;t use them in a production server!</div><div class="line">	#</div><div class="line">	# include snippets/snakeoil.conf;</div><div class="line"></div><div class="line">	root /var/www/html;</div><div class="line"></div><div class="line">	# Add index.php to the list if you are using PHP</div><div class="line">	index index.html index.htm index.nginx-debian.html;</div><div class="line"></div><div class="line">	server_name _;</div><div class="line"></div><div class="line">	location / &#123;</div><div class="line">		# First attempt to serve request as file, then</div><div class="line">		# as directory, then fall back to displaying a 404.</div><div class="line">		try_files $uri $uri/ =404;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	# pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000</div><div class="line">	#</div><div class="line">	#location ~ \.php$ &#123;</div><div class="line">	#	include snippets/fastcgi-php.conf;</div><div class="line">	#</div><div class="line">	#	# With php7.0-cgi alone:</div><div class="line">	#	fastcgi_pass 127.0.0.1:9000;</div><div class="line">	#	# With php7.0-fpm:</div><div class="line">	#	fastcgi_pass unix:/run/php/php7.0-fpm.sock;</div><div class="line">	#&#125;</div><div class="line"></div><div class="line">	# deny access to .htaccess files, if Apache&apos;s document root</div><div class="line">	# concurs with nginx&apos;s one</div><div class="line">	#</div><div class="line">	#location ~ /\.ht &#123;</div><div class="line">	#	deny all;</div><div class="line">	#&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"># Virtual Host configuration for example.com</div><div class="line">#</div><div class="line"># You can move that to a different file under sites-available/ and symlink that</div><div class="line"># to sites-enabled/ to enable it.</div><div class="line">#</div><div class="line">#server &#123;</div><div class="line">#	listen 80;</div><div class="line">#	listen [::]:80;</div><div class="line">#</div><div class="line">#	server_name example.com;</div><div class="line">#</div><div class="line">#	root /var/www/example.com;</div><div class="line">#	index index.html;</div><div class="line">#</div><div class="line">#	location / &#123;</div><div class="line">#		try_files $uri $uri/ =404;</div><div class="line">#	&#125;</div><div class="line">#&#125;</div></pre></td></tr></table></figure>
+<h2 id="参考-amp-引用"><a href="#参考-amp-引用" class="headerlink" title="参考&amp;引用"></a>参考&amp;引用</h2><p><a href="http://nginx.org/en/docs/" target="_blank" rel="external">nginx documentation</a><br><a href="http://www.cnblogs.com/languoliang/archive/2013/04/01/nginx.html" target="_blank" rel="external">Ubuntu中Nginx的安装与配置</a><br><a href="http://www.jb51.net/os/Ubuntu/64596.html" target="_blank" rel="external">Ubuntu下安装nginx的步骤分享</a></p>
+<h2 id="更新时间"><a href="#更新时间" class="headerlink" title="更新时间"></a>更新时间</h2><p>发布时间 ： 2016-08-20</p>
 
       
     </div>
@@ -421,7 +459,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Git/" rel="tag"># Git</a>
+            <a href="/tags/Ubuntu/" rel="tag"># Ubuntu</a>
+          
+            <a href="/tags/Nginx/" rel="tag"># Nginx</a>
           
         </div>
       
@@ -434,8 +474,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/06/04/IntelliJ-Idea使用那些事/" rel="next" title="IntelliJ Idea使用那些事">
-                <i class="fa fa-chevron-left"></i> IntelliJ Idea使用那些事
+              <a href="/2016/08/13/Ubuntu下Tomcat部署Web项目/" rel="next" title="Ubuntu下Tomcat部署Web项目">
+                <i class="fa fa-chevron-left"></i> Ubuntu下Tomcat部署Web项目
               </a>
             
           </div>
@@ -444,8 +484,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2016/06/18/如何在同一台电脑配置多个git或者github账号/" rel="prev" title="如何在同一台电脑配置多个git或者github账号">
-                如何在同一台电脑配置多个git或者github账号 <i class="fa fa-chevron-right"></i>
+              <a href="/2016/08/27/配置Nginx反向代理Tomcat，并实现负载均衡、动静分离/" rel="prev" title="配置Nginx反向代理Tomcat，并实现负载均衡、动静分离">
+                配置Nginx反向代理Tomcat，并实现负载均衡、动静分离 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -588,7 +628,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#目的"><span class="nav-number">1.</span> <span class="nav-text">目的</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#不登录远程git服务器直接本地操作"><span class="nav-number">2.</span> <span class="nav-text">不登录远程git服务器直接本地操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#初始化仓库"><span class="nav-number">2.1.</span> <span class="nav-text">初始化仓库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#对指定文件的追踪"><span class="nav-number">2.2.</span> <span class="nav-text">对指定文件的追踪</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#提交操作"><span class="nav-number">2.3.</span> <span class="nav-text">提交操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#添加远程仓库"><span class="nav-number">2.4.</span> <span class="nav-text">添加远程仓库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#推送本地分支到远程仓库"><span class="nav-number">2.5.</span> <span class="nav-text">推送本地分支到远程仓库</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#出现问题"><span class="nav-number">3.</span> <span class="nav-text">出现问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#问题1"><span class="nav-number">3.1.</span> <span class="nav-text">问题1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#问题2"><span class="nav-number">3.2.</span> <span class="nav-text">问题2</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#问题3"><span class="nav-number">3.3.</span> <span class="nav-text">问题3</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#问题4"><span class="nav-number">3.4.</span> <span class="nav-text">问题4</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考-amp-引用"><span class="nav-number">4.</span> <span class="nav-text">参考&引用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#更新时间"><span class="nav-number">5.</span> <span class="nav-text">更新时间</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Nginx简介"><span class="nav-number">1.</span> <span class="nav-text">Nginx简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Nginx安装"><span class="nav-number">2.</span> <span class="nav-text">Nginx安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#系统环境"><span class="nav-number">2.1.</span> <span class="nav-text">系统环境</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在线安装"><span class="nav-number">2.2.</span> <span class="nav-text">在线安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#启动Nginx"><span class="nav-number">2.3.</span> <span class="nav-text">启动Nginx</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#在线安装的启动过程"><span class="nav-number">2.3.1.</span> <span class="nav-text">在线安装的启动过程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#常用Nginx命令"><span class="nav-number">2.3.2.</span> <span class="nav-text">常用Nginx命令</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Nginx配置"><span class="nav-number">3.</span> <span class="nav-text">Nginx配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#主要配置文件"><span class="nav-number">3.1.</span> <span class="nav-text">主要配置文件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考-amp-引用"><span class="nav-number">4.</span> <span class="nav-text">参考&引用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#更新时间"><span class="nav-number">5.</span> <span class="nav-text">更新时间</span></a></li></ol></div>
             
 
           </div>
