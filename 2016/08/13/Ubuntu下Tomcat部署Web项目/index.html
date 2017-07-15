@@ -108,7 +108,7 @@
 <meta property="og:image" content="http://octlz2jco.bkt.clouddn.com/blog_content_000_000_020.png">
 <meta property="og:image" content="http://octlz2jco.bkt.clouddn.com/blog_content_000_000_021.png">
 <meta property="og:image" content="http://octlz2jco.bkt.clouddn.com/blog_content_000_000_022.png">
-<meta property="og:updated_time" content="2017-07-15T08:23:50.293Z">
+<meta property="og:updated_time" content="2017-07-15T13:08:06.217Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Ubuntu下Tomcat部署Web项目">
 <meta name="twitter:image" content="http://octlz2jco.bkt.clouddn.com/blog_thumbnails_000_000_010.png">
@@ -124,7 +124,7 @@
     fancybox: true,
     motion: true,
     duoshuo: {
-      userId: '0',
+      userId: 'undefined',
       author: '博主'
     },
     algolia: {
@@ -392,7 +392,7 @@
 <p>输出：<br>Using CATALINA_BASE:   /opt/tomcat9.0<br>Using CATALINA_HOME:   /opt/tomcat9.0<br>Using CATALINA_TMPDIR: /opt/tomcat9.0/temp<br>Using JRE_HOME:        /usr/java/jdk1.8<br>Using CLASSPATH:       /opt/tomcat9.0/bin/bootstrap.jar:/opt/tomcat9.0/bin/tomcat-juli.jar</p>
 <p>此时再次访问<a href="http://localhost:8080/页面就会出现" target="_blank" rel="external">http://localhost:8080/页面就会出现</a> <font color="red">Unable to connect</font>的提示，说明Tomcat被正确关闭。</p>
 <h2 id="IDE导出War包"><a href="#IDE导出War包" class="headerlink" title="IDE导出War包"></a>IDE导出War包</h2><p>暂无</p>
-<p>这是我之前导出的一个<strong><a href="http://octlz2jco.bkt.clouddn.com/springmvc.war" target="_blank" rel="external">war包</a></strong></p>
+<p>这是我之前导出的一个<strong><a href="http://octlz2jco.bkt.clouddn.com/download_file_001_springmvc.war" target="_blank" rel="external">war包</a></strong></p>
 <h2 id="部署Web项目"><a href="#部署Web项目" class="headerlink" title="部署Web项目"></a>部署Web项目</h2><p>Tomcat部署Java Web项目有多种方式，此处我们选择war包部署。</p>
 <h3 id="war"><a href="#war" class="headerlink" title="war"></a>war</h3><p>我们将导出的web项目war包拷贝到webapps目录中</p>
 <p>位置 ： /opt/tomcat9.0/webapps/springmvc/springmvc.war</p>
@@ -437,6 +437,22 @@
     <div>
       
         
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>看你的了！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="http://octlz2jco.bkt.clouddn.com/blog_reward_wechat.png" alt="Niklaus.chi WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+    </div>
+  </div>
+
 
       
     </div>
@@ -543,7 +559,7 @@
                alt="Niklaus.chi" />
           <p class="site-author-name" itemprop="name">Niklaus.chi</p>
            
-              <p class="site-description motion-element" itemprop="description">一个人的通天之路</p>
+              <p class="site-description motion-element" itemprop="description">努力去努力,坚持去坚持</p>
           
         </div>
         <nav class="site-state motion-element">
@@ -608,6 +624,8 @@
 
         
 
+
+        <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=3027414&auto=1&height=66"></iframe>
 
       </section>
 
