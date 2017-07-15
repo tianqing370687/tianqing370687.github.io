@@ -77,7 +77,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="IntelliJ Idea," />
 
 
 
@@ -95,15 +95,19 @@
 
 
 
+<meta name="keywords" content="IntelliJ Idea">
 <meta property="og:type" content="article">
-<meta property="og:title" content="[Spring MVC菜鸟之旅] Spring MVC 与 MyBatis整合">
-<meta property="og:url" content="http://yoursite.com/2017/07/08/Spring-MVC菜鸟之旅-Spring-MVC-与-MyBatis整合/index.html">
+<meta property="og:title" content="IntelliJ Idea使用那些事">
+<meta property="og:url" content="http://yoursite.com/2016/06/04/IntelliJ-Idea使用那些事/index.html">
 <meta property="og:site_name" content="The Tower of Babel">
-<meta property="og:image" content="http://photo.tuchong.com/1453100/f/17586299.webp">
-<meta property="og:updated_time" content="2017-07-07T16:12:58.310Z">
+<meta property="og:image" content="http://octlz2jco.bkt.clouddn.com/blog_thumbnails_000_000_001.png">
+<meta property="og:image" content="http://octlz2jco.bkt.clouddn.com/blog_content_000_000_001.png">
+<meta property="og:image" content="http://octlz2jco.bkt.clouddn.com/blog_content_000_000_002.png">
+<meta property="og:image" content="http://octlz2jco.bkt.clouddn.com/blog_content_000_000_003.png">
+<meta property="og:updated_time" content="2017-07-15T01:37:59.634Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="[Spring MVC菜鸟之旅] Spring MVC 与 MyBatis整合">
-<meta name="twitter:image" content="http://photo.tuchong.com/1453100/f/17586299.webp">
+<meta name="twitter:title" content="IntelliJ Idea使用那些事">
+<meta name="twitter:image" content="http://octlz2jco.bkt.clouddn.com/blog_thumbnails_000_000_001.png">
 
 
 
@@ -131,13 +135,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/07/08/Spring-MVC菜鸟之旅-Spring-MVC-与-MyBatis整合/"/>
+  <link rel="canonical" href="http://yoursite.com/2016/06/04/IntelliJ-Idea使用那些事/"/>
 
 
 
 
 
-  <title>[Spring MVC菜鸟之旅] Spring MVC 与 MyBatis整合 | The Tower of Babel</title>
+  <title>IntelliJ Idea使用那些事 | The Tower of Babel</title>
   
 
 
@@ -300,7 +304,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/08/Spring-MVC菜鸟之旅-Spring-MVC-与-MyBatis整合/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/06/04/IntelliJ-Idea使用那些事/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Niklaus.chi">
@@ -317,7 +321,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">[Spring MVC菜鸟之旅] Spring MVC 与 MyBatis整合</h1>
+          <h1 class="post-title" itemprop="name headline">IntelliJ Idea使用那些事</h1>
         
 
         <div class="post-meta">
@@ -329,8 +333,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-08T00:02:14+08:00">
-                2017-07-08
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-06-04T09:00:55+08:00">
+                2016-06-04
               </time>
             
 
@@ -339,28 +343,6 @@
             
           </span>
 
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Spring-MVC菜鸟之旅/" itemprop="url" rel="index">
-                    <span itemprop="name">Spring MVC菜鸟之旅</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
           
 
           
@@ -386,30 +368,16 @@
       
 
       
-        <p><img src="//photo.tuchong.com/1453100/f/17586299.webp" alt="https://tuchong.com/1453100/13582509/"><br><a id="more"></a></p>
-<h2 id="MyBatis"><a href="#MyBatis" class="headerlink" title="MyBatis"></a>MyBatis</h2><p>MyBatis 是支持定制化 SQL、存储过程以及高级映射的优秀的持久层框架。MyBatis 避免了几乎所有的 JDBC 代码和手动设置参数以及获取结果集。MyBatis 可以对配置和原生Map使用简单的 XML 或注解，将接口和 Java 的 POJOs(Plain Old Java Objects,普通的 Java对象)映射成数据库中的记录。</p>
-<h2 id="整合"><a href="#整合" class="headerlink" title="整合"></a>整合</h2><p>MyBatis-Spring 会帮助你将 MyBatis 代码无缝地整合到 Spring 中。 使用这个类库中的类, Spring 将会加载必要的 MyBatis 工厂类和 session 类。 这个类库也提供一个简单的方式来注入 MyBatis 数据映射器和 SqlSession 到业务层的 bean 中。 而且它也会处理事务, 翻译 MyBatis 的异常到 Spring 的 DataAccessException 异常中。最终,它并 不会依赖于 MyBatis,Spring 或 MyBatis-Spring 来构建应用程序代码。</p>
-<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>要使用MyBatis，并且使用Maven来构建项目，则只需将下面的dependency代码置于pom.xml文件中：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.mybatis<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mybatis<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.4.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.mybatis<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mybatis-spring<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.3.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div></pre></td></tr></table></figure>
-<p>要和Spring一起使用MyBatis，我们需要在SPring应用上下文中定义至少两样东西：一个SqlSessionFactory 和至少一个数据映射器类。</p>
-<h3 id="从XML中构建SqlSessionFactory"><a href="#从XML中构建SqlSessionFactory" class="headerlink" title="从XML中构建SqlSessionFactory"></a>从XML中构建SqlSessionFactory</h3><p>在 MyBatis-Spring中,SqlSessionFactoryBean 是用于创建SqlSessionFactory的。要配置这个工厂bean,放置下面的代码在 Spring的XML配置文件中:</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"sqlSessionFactory"</span> <span class="attr">class</span>=<span class="string">"org.mybatis.spring.SqlSessionFactoryBean"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"dataSource"</span> <span class="attr">ref</span>=<span class="string">"dataSource"</span> /&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></div></pre></td></tr></table></figure>
-<p>要注意SqlSessionFactoryBean需要一个DataSource（数据源）。这可以是任意的DataSource，配置它就像配置其他的Spring数据库连接是一样的。</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"dataSource"</span> <span class="attr">class</span>=<span class="string">"org.springframework.jdbc.datasource.DriverManagerDataSource"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"driverClassName"</span> <span class="attr">value</span>=<span class="string">"com.mysql.jdbc.Driver"</span>/&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"url"</span> <span class="attr">value</span>=<span class="string">"$&#123;jdbc.url&#125;"</span>/&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"username"</span> <span class="attr">value</span>=<span class="string">"$&#123;jdbc.username&#125;"</span>/&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"password"</span> <span class="attr">value</span>=<span class="string">"$&#123;jdbc.password&#125;"</span>/&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></div></pre></td></tr></table></figure>
-<h3 id="创建数据映射器类"><a href="#创建数据映射器类" class="headerlink" title="创建数据映射器类"></a>创建数据映射器类</h3><p>我们创建的数据映射器类如下：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">TestMapper</span> </span>&#123;</div><div class="line">    <span class="meta">@Select</span>(<span class="string">"SELECT * From auth_user WHERE id = #&#123;id&#125;"</span>)</div><div class="line">    <span class="function">Test <span class="title">getTest</span><span class="params">(@Param(<span class="string">"id"</span>)</span> <span class="keyword">long</span> id)</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>然后用MapperFactoryBean将给接口加入到Spring中：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"testMapper"</span> <span class="attr">class</span>=<span class="string">"org.mybatis.spring.mapper.MapperFactoryBean"</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"mapperInterface"</span> <span class="attr">value</span>=<span class="string">"com.springmvc.niklaus.dao.TestMapper"</span> /&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"sqlSessionFactory"</span> <span class="attr">ref</span>=<span class="string">"sqlSessionFactory"</span> /&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></div></pre></td></tr></table></figure>
-<p><font color="red">注意</font>所指定的映射器类必须是一个接口而不是具体的实现类。在这个实例中，注解被用来指定SQL语句，但是MyBatis的映射器XML文件也可以用，这个我将在下面再讲。</p>
-<h3 id="事务"><a href="#事务" class="headerlink" title="事务"></a>事务</h3><p>一个使用MyBatis-Spring的主要原因是它允许MyBatis参与到Spring的事务管理中，而不是给MyBatis创建一个新的特定的事务管理器。</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"transactionManager"</span> <span class="attr">class</span>=<span class="string">"org.springframework.jdbc.datasource.DataSourceTransactionManager"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"dataSource"</span> <span class="attr">ref</span>=<span class="string">"dataSource"</span> /&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;<span class="name">tx:annotation-driven</span> <span class="attr">transaction-manager</span>=<span class="string">"transactionManager"</span> /&gt;</span></div></pre></td></tr></table></figure>
-<p>要开始Spring的事务管理，要在Spring的XML配置文件中创建一个DataSourceTransactionManager对象，然后使用<tx:annotation-driven>指定transactionManager作为事务管理器，支持事务注解（@Transactional），此时在需要事务管理的Service上使用@Transactional注解就可以了，<tx:annoation-driven>只会查找和它在相同的应用上下文件中定义的bean上面的@Transactional注解。</tx:annoation-driven></tx:annotation-driven></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Service</span></div><div class="line"><span class="meta">@Transactional</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestServiceImpl</span> <span class="keyword">implements</span> <span class="title">TestService</span></span>&#123;</div><div class="line"></div><div class="line">    <span class="meta">@Autowired</span></div><div class="line">    <span class="keyword">private</span> TestMapper testMapper;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> Test <span class="title">getTestById</span><span class="params">(<span class="keyword">long</span> id)</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> testMapper.getTest(id);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>先附上完整的MyBatis的配置XML文件spring-db.xml</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</div><div class="line"><span class="tag">&lt;<span class="name">beans</span> <span class="attr">xmlns</span>=<span class="string">"http://www.springframework.org/schema/beans"</span></span></div><div class="line">       <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></div><div class="line">       <span class="attr">xmlns:tx</span>=<span class="string">"http://www.springframework.org/schema/tx"</span></div><div class="line">       <span class="attr">xsi:schemaLocation</span>=<span class="string">"http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd</span></div><div class="line">       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd"&gt;</div><div class="line"></div><div class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"dataSource"</span> <span class="attr">class</span>=<span class="string">"org.springframework.jdbc.datasource.DriverManagerDataSource"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"driverClassName"</span> <span class="attr">value</span>=<span class="string">"com.mysql.jdbc.Driver"</span>/&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"url"</span> <span class="attr">value</span>=<span class="string">"$&#123;jdbc.url&#125;"</span>/&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"username"</span> <span class="attr">value</span>=<span class="string">"$&#123;jdbc.username&#125;"</span>/&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"password"</span> <span class="attr">value</span>=<span class="string">"$&#123;jdbc.password&#125;"</span>/&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></div><div class="line"></div><div class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"sqlSessionFactory"</span> <span class="attr">class</span>=<span class="string">"org.mybatis.spring.SqlSessionFactoryBean"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"dataSource"</span> <span class="attr">ref</span>=<span class="string">"dataSource"</span> /&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></div><div class="line"></div><div class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"testMapper"</span> <span class="attr">class</span>=<span class="string">"org.mybatis.spring.mapper.MapperFactoryBean"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"mapperInterface"</span> <span class="attr">value</span>=<span class="string">"com.springmvc.niklaus.dao.TestMapper"</span> /&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"sqlSessionFactory"</span> <span class="attr">ref</span>=<span class="string">"sqlSessionFactory"</span> /&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></div><div class="line"></div><div class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"transactionManager"</span> <span class="attr">class</span>=<span class="string">"org.springframework.jdbc.datasource.DataSourceTransactionManager"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"dataSource"</span> <span class="attr">ref</span>=<span class="string">"dataSource"</span> /&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></div><div class="line"></div><div class="line">    <span class="tag">&lt;<span class="name">tx:annotation-driven</span> <span class="attr">transaction-manager</span>=<span class="string">"transactionManager"</span> /&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></div></pre></td></tr></table></figure>
-<p>这样，一个满足基本增删改查的Spring与MyBatis的整合应用就完成了，如果你想查看完整的项目代码，可以<a href="https://github.com/tianqing370687/SpringMVCRookie/tree/dev-mybatis" target="_blank" rel="external">点击链接(SpringMVCRookie-dev-mybatis)</a></p>
-<h2 id="参考-amp-引用"><a href="#参考-amp-引用" class="headerlink" title="参考&amp;引用"></a>参考&amp;引用</h2><p><a href="http://www.mybatis.org/mybatis-3/zh/index.html" target="_blank" rel="external"><font color="#87CEFA">mybatis</font></a><br><a href="http://www.mybatis.org/spring/zh/index.html" target="_blank" rel="external"><font color="#87CEFA">mybatis-spring</font></a></p>
-<h2 id="更新时间"><a href="#更新时间" class="headerlink" title="更新时间"></a>更新时间</h2><p>发布时间 ： 2016-10-06</p>
+        <p><img src="http://octlz2jco.bkt.clouddn.com/blog_thumbnails_000_000_001.png" alt=""><br><a id="more"></a></p>
+<h2 id="配置Jetty"><a href="#配置Jetty" class="headerlink" title="配置Jetty"></a>配置Jetty</h2><h3 id="Run-Debug-Configurations"><a href="#Run-Debug-Configurations" class="headerlink" title="Run/Debug Configurations"></a>Run/Debug Configurations</h3><p>按下图标识打开Run/Debug Configurations面板</p>
+<p><img src="http://octlz2jco.bkt.clouddn.com/blog_content_000_000_001.png" alt=""></p>
+<h3 id="commond-line-添加配置"><a href="#commond-line-添加配置" class="headerlink" title="commond line 添加配置"></a>commond line 添加配置</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">org.mortbay.jetty:maven-jetty-plugin:6.1.22:run</div></pre></td></tr></table></figure>
+<p><img src="http://octlz2jco.bkt.clouddn.com/blog_content_000_000_002.png" alt=""></p>
+<h3 id="修改端口"><a href="#修改端口" class="headerlink" title="修改端口"></a>修改端口</h3><p>Runner选项-&gt;VM Options 设置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">-Djetty.port=10086</div></pre></td></tr></table></figure>
+<p><img src="http://octlz2jco.bkt.clouddn.com/blog_content_000_000_003.png" alt=""></p>
+<h3 id="pom文件添加plugin"><a href="#pom文件添加plugin" class="headerlink" title="pom文件添加plugin"></a>pom文件添加plugin</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">build</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">finalName</span>&gt;</span>springmvc<span class="tag">&lt;/<span class="name">finalName</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">plugins</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.eclipse.jetty<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jetty-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>9.2.1.v20140609<span class="tag">&lt;/<span class="name">version</span>&gt;</span></div><div class="line">      <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">plugins</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">build</span>&gt;</span></div></pre></td></tr></table></figure>
+<h2 id="参考-amp-引用"><a href="#参考-amp-引用" class="headerlink" title="参考&amp;引用"></a>参考&amp;引用</h2><h2 id="更新时间"><a href="#更新时间" class="headerlink" title="更新时间"></a>更新时间</h2><p>发布时间 ： 2016-06-04</p>
 
       
     </div>
@@ -437,6 +405,12 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/IntelliJ-Idea/" rel="tag"># IntelliJ Idea</a>
+          
+        </div>
+      
 
       
       
@@ -446,15 +420,15 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/07/08/Spring-MVC菜鸟之旅-Spring-Data-Redis整合/" rel="next" title="[Spring MVC菜鸟之旅] Spring Data Redis整合">
-                <i class="fa fa-chevron-left"></i> [Spring MVC菜鸟之旅] Spring Data Redis整合
-              </a>
-            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/06/11/git将本地仓库上传到远程仓库/" rel="prev" title="git将本地仓库上传到远程仓库">
+                git将本地仓库上传到远程仓库 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -526,7 +500,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-count">9</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -543,6 +517,15 @@
             </div>
           
 
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">标签</span>
+              
+            </div>
           
 
         </nav>
@@ -587,7 +570,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#MyBatis"><span class="nav-number">1.</span> <span class="nav-text">MyBatis</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#整合"><span class="nav-number">2.</span> <span class="nav-text">整合</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装"><span class="nav-number">2.1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#从XML中构建SqlSessionFactory"><span class="nav-number">2.2.</span> <span class="nav-text">从XML中构建SqlSessionFactory</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建数据映射器类"><span class="nav-number">2.3.</span> <span class="nav-text">创建数据映射器类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#事务"><span class="nav-number">2.4.</span> <span class="nav-text">事务</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结语"><span class="nav-number">3.</span> <span class="nav-text">结语</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考-amp-引用"><span class="nav-number">4.</span> <span class="nav-text">参考&引用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#更新时间"><span class="nav-number">5.</span> <span class="nav-text">更新时间</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#配置Jetty"><span class="nav-number">1.</span> <span class="nav-text">配置Jetty</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Run-Debug-Configurations"><span class="nav-number">1.1.</span> <span class="nav-text">Run/Debug Configurations</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#commond-line-添加配置"><span class="nav-number">1.2.</span> <span class="nav-text">commond line 添加配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修改端口"><span class="nav-number">1.3.</span> <span class="nav-text">修改端口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pom文件添加plugin"><span class="nav-number">1.4.</span> <span class="nav-text">pom文件添加plugin</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考-amp-引用"><span class="nav-number">2.</span> <span class="nav-text">参考&引用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#更新时间"><span class="nav-number">3.</span> <span class="nav-text">更新时间</span></a></li></ol></div>
             
 
           </div>

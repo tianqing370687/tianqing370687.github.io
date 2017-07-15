@@ -95,18 +95,16 @@
 
 
 
-<meta name="description" content="前言当使用Spring开发持久层的时候，我们会面临多种选择。我们可以使用JDBC、Hibernate、MyBatis或其他任意的持久化框架。在这里简单介绍一下使用Hibernate作为持久化框架。 Spring的数据访问哲学Spring的目标之一就是允许开发人员在开发应用程序时，能够遵循面向对象（OO）原则中的“针对接口编程”。Spring对数据访问的支持也不例外。DAO是数据访问对象（data">
 <meta property="og:type" content="article">
 <meta property="og:title" content="[Spring MVC菜鸟之旅] 通过配置文件分析Spring MVC与Hibernate的整合">
-<meta property="og:url" content="http://yoursite.com/2017/07/08/Spring-MVC菜鸟之旅-通过配置文件分析Spring-MVC与Hibernate的整合/index.html">
+<meta property="og:url" content="http://yoursite.com/2016/07/03/Spring-MVC菜鸟之旅-通过配置文件分析Spring-MVC与Hibernate的整合/index.html">
 <meta property="og:site_name" content="The Tower of Babel">
-<meta property="og:description" content="前言当使用Spring开发持久层的时候，我们会面临多种选择。我们可以使用JDBC、Hibernate、MyBatis或其他任意的持久化框架。在这里简单介绍一下使用Hibernate作为持久化框架。 Spring的数据访问哲学Spring的目标之一就是允许开发人员在开发应用程序时，能够遵循面向对象（OO）原则中的“针对接口编程”。Spring对数据访问的支持也不例外。DAO是数据访问对象（data">
-<meta property="og:image" content="http://octlz2jco.bkt.clouddn.com/00000036.png">
-<meta property="og:updated_time" content="2017-07-07T16:21:46.434Z">
+<meta property="og:image" content="http://octlz2jco.bkt.clouddn.com/blog_thumbnails_000_000_007.jpg">
+<meta property="og:image" content="http://octlz2jco.bkt.clouddn.com/blog_content_000_000_013.png">
+<meta property="og:updated_time" content="2017-07-15T03:08:49.869Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="[Spring MVC菜鸟之旅] 通过配置文件分析Spring MVC与Hibernate的整合">
-<meta name="twitter:description" content="前言当使用Spring开发持久层的时候，我们会面临多种选择。我们可以使用JDBC、Hibernate、MyBatis或其他任意的持久化框架。在这里简单介绍一下使用Hibernate作为持久化框架。 Spring的数据访问哲学Spring的目标之一就是允许开发人员在开发应用程序时，能够遵循面向对象（OO）原则中的“针对接口编程”。Spring对数据访问的支持也不例外。DAO是数据访问对象（data">
-<meta name="twitter:image" content="http://octlz2jco.bkt.clouddn.com/00000036.png">
+<meta name="twitter:image" content="http://octlz2jco.bkt.clouddn.com/blog_thumbnails_000_000_007.jpg">
 
 
 
@@ -134,7 +132,7 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/07/08/Spring-MVC菜鸟之旅-通过配置文件分析Spring-MVC与Hibernate的整合/"/>
+  <link rel="canonical" href="http://yoursite.com/2016/07/03/Spring-MVC菜鸟之旅-通过配置文件分析Spring-MVC与Hibernate的整合/"/>
 
 
 
@@ -303,7 +301,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/08/Spring-MVC菜鸟之旅-通过配置文件分析Spring-MVC与Hibernate的整合/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/07/03/Spring-MVC菜鸟之旅-通过配置文件分析Spring-MVC与Hibernate的整合/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Niklaus.chi">
@@ -332,8 +330,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-08T00:00:28+08:00">
-                2017-07-08
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-07-03T00:00:28+08:00">
+                2016-07-03
               </time>
             
 
@@ -389,9 +387,11 @@
       
 
       
-        <a id="more"></a>
+        <p><img src="http://octlz2jco.bkt.clouddn.com/blog_thumbnails_000_000_007.jpg" alt="https://tuchong.com/1813132/14953443/#image17736761"><br><a id="more"></a></p>
 <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>当使用Spring开发持久层的时候，我们会面临多种选择。我们可以使用JDBC、Hibernate、MyBatis或其他任意的持久化框架。在这里简单介绍一下使用Hibernate作为持久化框架。</p>
-<h2 id="Spring的数据访问哲学"><a href="#Spring的数据访问哲学" class="headerlink" title="Spring的数据访问哲学"></a>Spring的数据访问哲学</h2><p>Spring的目标之一就是允许开发人员在开发应用程序时，能够遵循面向对象（OO）原则中的“针对接口编程”。Spring对数据访问的支持也不例外。<br>DAO是<strong>数据访问对象</strong>（data access object）的缩写。DAO提供了数据读取和写入到数据库中的一种方式。它们应该以接口的方式发布功能，而应用程序的其他部分就可以通过接口来进行访问。下图展现了设计数据访问层的合理方式。<br><img src="http://octlz2jco.bkt.clouddn.com/00000036.png" alt=""><br>如上图所示，服务对象通过接口来访问DAO。这样的好处有:<br>(1) 服务对象易于测试，因为它们不再与特定的数据访问实现绑定在一起。<br>(2) 数据访问层是以持久化技术无关的方式来进行访问。持久化方式的选择独立于DAO，只要相关的数据访问方法通过接口来进行发布。这可以实现灵活的设计并使得切换持久化框架对应用程序其他部分所带来的影响最小。如果将数据层的实现细节渗透到应用程序的其他部分中，那么整个应用程序将于数据访问层耦合在一起，从而导致僵化的设计。</p>
+<h2 id="Spring的数据访问哲学"><a href="#Spring的数据访问哲学" class="headerlink" title="Spring的数据访问哲学"></a>Spring的数据访问哲学</h2><p>Spring的目标之一就是允许开发人员在开发应用程序时，能够遵循面向对象（OO）原则中的“针对接口编程”。Spring对数据访问的支持也不例外。<br>DAO是<strong>数据访问对象</strong>（data access object）的缩写。DAO提供了数据读取和写入到数据库中的一种方式。它们应该以接口的方式发布功能，而应用程序的其他部分就可以通过接口来进行访问。下图展现了设计数据访问层的合理方式。</p>
+<p><img src="http://octlz2jco.bkt.clouddn.com/blog_content_000_000_013.png" alt=""></p>
+<p>如上图所示，服务对象通过接口来访问DAO。这样的好处有:<br>(1) 服务对象易于测试，因为它们不再与特定的数据访问实现绑定在一起。<br>(2) 数据访问层是以持久化技术无关的方式来进行访问。持久化方式的选择独立于DAO，只要相关的数据访问方法通过接口来进行发布。这可以实现灵活的设计并使得切换持久化框架对应用程序其他部分所带来的影响最小。如果将数据层的实现细节渗透到应用程序的其他部分中，那么整个应用程序将于数据访问层耦合在一起，从而导致僵化的设计。</p>
 <h2 id="配置数据源"><a href="#配置数据源" class="headerlink" title="配置数据源"></a>配置数据源</h2><p>Spring提供了在Spring上下文中配置数据源Bean的多种方式，包括：<br>(1) 通过JDBC驱动程序定义的数据源；<br>(2) 通过JNDI查找的数据源；<br>(3) 连接池的数据源<br>对于即将发布到生产环境中的应用程序，我建议使用从连接池获取连接的数据源。<br>我们把所有有关于Hibernate的配置都放置在resource目录下spring-db.xml的文件上</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div></pre></td><td class="code"><pre><div class="line"><span class="comment">&lt;!-- 配置数据源 --&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"dataSource"</span> <span class="attr">class</span>=<span class="string">"com.mchange.v2.c3p0.ComboPooledDataSource"</span></span></div><div class="line">      <span class="attr">destroy-method</span>=<span class="string">"close"</span>&gt;</div><div class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"driverClass"</span> <span class="attr">value</span>=<span class="string">"com.mysql.jdbc.Driver"</span> /&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"jdbcUrl"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>$&#123;jdbc.url&#125;<span class="tag">&lt;/<span class="name">value</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"user"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>$&#123;jdbc.username&#125;<span class="tag">&lt;/<span class="name">value</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"password"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>$&#123;jdbc.password&#125;<span class="tag">&lt;/<span class="name">value</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"minPoolSize"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>$&#123;jdbc.pool.min&#125;<span class="tag">&lt;/<span class="name">value</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"maxPoolSize"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>$&#123;jdbc.pool.max&#125;<span class="tag">&lt;/<span class="name">value</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"initialPoolSize"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>$&#123;jdbc.pool.init&#125;<span class="tag">&lt;/<span class="name">value</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"maxStatements"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>$&#123;jdbc.pool.maxStatements&#125;<span class="tag">&lt;/<span class="name">value</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"maxIdleTime"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>$&#123;jdbc.pool.maxIdleTime&#125;<span class="tag">&lt;/<span class="name">value</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"idleConnectionTestPeriod"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>$&#123;jdbc.pool.idleConnectionTestPeriod&#125;<span class="tag">&lt;/<span class="name">value</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"acquireRetryAttempts"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>$&#123;jdbc.pool.acquireRetryAttempts&#125;<span class="tag">&lt;/<span class="name">value</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"breakAfterAcquireFailure"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>$&#123;jdbc.pool.breakAfterAcquireFailure&#125;<span class="tag">&lt;/<span class="name">value</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"testConnectionOnCheckout"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>$&#123;jdbc.pool.testConnectionOnCheckout&#125;<span class="tag">&lt;/<span class="name">value</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></div></pre></td></tr></table></figure>
 <h2 id="在Spring中集成Hibernate"><a href="#在Spring中集成Hibernate" class="headerlink" title="在Spring中集成Hibernate"></a>在Spring中集成Hibernate</h2><h3 id="声明Hibernate的Session工厂"><a href="#声明Hibernate的Session工厂" class="headerlink" title="声明Hibernate的Session工厂"></a>声明Hibernate的Session工厂</h3><p>以前，在Spring应用程序中使用的Hibernate是通过HibernateTemplate进行的，它简化了Hibernate的繁琐工作，它的职责之一是管理Hibernate的Session。这涉及打开和关闭Session并确保每个事务使用相同的Session。HibernateTemplate的不足之处在于存在一定程度的侵入性。但我们在DAO中使用HibernateTemplate（不管直接使用还是通过HibernateDaoSupport）时，DAO类都会与SpringAPI产生耦合。</p>
@@ -427,7 +427,7 @@
 <p>元素告诉Spring检索上下文中所有的Bean并查找使用@Transactional注解的Bean，而不管这个注解使用在类级别上还是方法级别上。对于每一个使用@Transactional注解的Bean，都会自动为它添加事务通知。通知的事务属性是通过@Transactional注解的参数来定义的。</p>
 <h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>github地址 <a href="https://github.com/tianqing370687/SpringMVCRookie.git" target="_blank" rel="external">SpringMVCRookie</a></p>
 <h2 id="参考-amp-引用"><a href="#参考-amp-引用" class="headerlink" title="参考&amp;引用"></a>参考&amp;引用</h2><p>《spring实战(第三版)》</p>
-<h2 id="更新时间"><a href="#更新时间" class="headerlink" title="更新时间"></a>更新时间</h2><p>发布时间 ： 2016-09-26</p>
+<h2 id="更新时间"><a href="#更新时间" class="headerlink" title="更新时间"></a>更新时间</h2><p>发布时间 ： 2016-07-03</p>
 
       
     </div>
@@ -464,7 +464,7 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/07/07/Spring-MVC菜鸟之旅-Spring-MVC-与-Hibernate整合/" rel="next" title="[Spring MVC菜鸟之旅] Spring MVC 与 Hibernate整合">
+              <a href="/2016/07/02/Spring-MVC菜鸟之旅-Spring-MVC-与-Hibernate整合/" rel="next" title="[Spring MVC菜鸟之旅] Spring MVC 与 Hibernate整合">
                 <i class="fa fa-chevron-left"></i> [Spring MVC菜鸟之旅] Spring MVC 与 Hibernate整合
               </a>
             
@@ -474,7 +474,7 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/07/08/Spring-MVC菜鸟之旅-Spring-Data-Redis整合/" rel="prev" title="[Spring MVC菜鸟之旅] Spring Data Redis整合">
+              <a href="/2016/07/09/Spring-MVC菜鸟之旅-Spring-Data-Redis整合/" rel="prev" title="[Spring MVC菜鸟之旅] Spring Data Redis整合">
                 [Spring MVC菜鸟之旅] Spring Data Redis整合 <i class="fa fa-chevron-right"></i>
               </a>
             
@@ -548,7 +548,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-count">9</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -565,6 +565,15 @@
             </div>
           
 
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">标签</span>
+              
+            </div>
           
 
         </nav>
