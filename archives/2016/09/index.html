@@ -77,7 +77,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Git," />
+  <meta name="keywords" content="Hexo, NexT" />
 
 
 
@@ -95,16 +95,15 @@
 
 
 
-<meta name="keywords" content="Git">
-<meta property="og:type" content="article">
-<meta property="og:title" content="git将本地仓库上传到远程仓库">
-<meta property="og:url" content="http://yoursite.com/2016/06/11/git将本地仓库上传到远程仓库/index.html">
+<meta name="description" content="努力去努力,坚持去坚持">
+<meta property="og:type" content="website">
+<meta property="og:title" content="The Tower of Babel">
+<meta property="og:url" content="http://yoursite.com/archives/2016/09/index.html">
 <meta property="og:site_name" content="The Tower of Babel">
-<meta property="og:image" content="http://octlz2jco.bkt.clouddn.com/blog_thumbnails_000_000_002.jpg">
-<meta property="og:updated_time" content="2017-07-15T01:38:03.081Z">
+<meta property="og:description" content="努力去努力,坚持去坚持">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="git将本地仓库上传到远程仓库">
-<meta name="twitter:image" content="http://octlz2jco.bkt.clouddn.com/blog_thumbnails_000_000_002.jpg">
+<meta name="twitter:title" content="The Tower of Babel">
+<meta name="twitter:description" content="努力去努力,坚持去坚持">
 
 
 
@@ -132,13 +131,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2016/06/11/git将本地仓库上传到远程仓库/"/>
+  <link rel="canonical" href="http://yoursite.com/archives/2016/09/"/>
 
 
 
 
 
-  <title>git将本地仓库上传到远程仓库 | The Tower of Babel</title>
+  <title>归档 | The Tower of Babel</title>
   
 
 
@@ -163,7 +162,7 @@
     
   
 
-  <div class="container sidebar-position-left page-post-detail ">
+  <div class="container sidebar-position-left  page-archive  ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -291,205 +290,66 @@
           <div id="content" class="content">
             
 
-  <div id="posts" class="posts-expand">
-    
+  <section id="posts" class="posts-collapse">
+    <span class="archive-move-on"></span>
 
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/06/11/git将本地仓库上传到远程仓库/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Niklaus.chi">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="http://octlz2jco.bkt.clouddn.com/blog_avatar_001.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="The Tower of Babel">
+    <span class="archive-page-counter">
+      
+      
+      
+        
+      
+      嗯..! 目前共计 14 篇日志。 继续努力。
     </span>
 
     
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">git将本地仓库上传到远程仓库</h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-06-11T09:01:50+08:00">
-                2016-06-11
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-              <span class="post-meta-divider">|</span>
-              <span class="post-meta-item-icon">
-                <i class="fa fa-comment-o"></i>
-              </span>
-              
-                <a href="/2016/06/11/git将本地仓库上传到远程仓库/#SOHUCS" itemprop="discussionUrl">
-                  <span id="changyan_count_unit" class="post-comments-count hc-comment-count" data-xid="2016/06/11/git将本地仓库上传到远程仓库/" itemprop="commentsCount"></span>
-                </a>
-              
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
 
       
       
-
       
-        <p><img src="http://octlz2jco.bkt.clouddn.com/blog_thumbnails_000_000_002.jpg" alt=""><br><a id="more"></a></p>
-<h2 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h2><p>在已有的git库中搭建新库，并且将本地的git仓库，上传到远程服务器的git库中，从而开始一个新的项目。</p>
-<h2 id="不登录远程git服务器直接本地操作"><a href="#不登录远程git服务器直接本地操作" class="headerlink" title="不登录远程git服务器直接本地操作"></a>不登录远程git服务器直接本地操作</h2><h3 id="初始化仓库"><a href="#初始化仓库" class="headerlink" title="初始化仓库"></a>初始化仓库</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git init</div></pre></td></tr></table></figure>
-<p>该命令将创建一个名为.git的子目录，这个子目录含有你初始化的git仓库中所有的必须文件，这些文件是Git仓库的骨干。但是，在这个时候，我们仅仅是做了一个初始化的操作，你的项目里的文件还没有被跟踪。</p>
-<h3 id="对指定文件的追踪"><a href="#对指定文件的追踪" class="headerlink" title="对指定文件的追踪"></a>对指定文件的追踪</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git add .</div></pre></td></tr></table></figure>
-<h3 id="提交操作"><a href="#提交操作" class="headerlink" title="提交操作"></a>提交操作</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git commit -m &apos;first commit&apos;</div></pre></td></tr></table></figure>
-<p>当使用 git commit 进行提交操作时，Git 会先计算每一个子目录（本例中只有项目根目录）的校验和，然后在 Git 仓库中这些校验和保存为树对象。 随后，Git 便会创建一个提交对象，它除了包含上面提到的那些信息外，还包含指向这个树对象（项目根目录）的指针。如此一来，Git 就可以在需要的时候重现此次保存的快照</p>
-<h3 id="添加远程仓库"><a href="#添加远程仓库" class="headerlink" title="添加远程仓库"></a>添加远程仓库</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git remote add origin git@xx.xx.xx.xx:repos/xxx/xxx/xxx.git</div></pre></td></tr></table></figure>
-<h3 id="推送本地分支到远程仓库"><a href="#推送本地分支到远程仓库" class="headerlink" title="推送本地分支到远程仓库"></a>推送本地分支到远程仓库</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git push origin (remote):(branch)</div></pre></td></tr></table></figure>
-<p>推送本地的 remote 分支，将其作为远程仓库的 branch 分支，可以通过这种格式来推送本地分支到一个命名不相同的远程分支。</p>
-<h2 id="出现问题"><a href="#出现问题" class="headerlink" title="出现问题"></a>出现问题</h2><h3 id="问题1"><a href="#问题1" class="headerlink" title="问题1"></a>问题1</h3><font color="red">the file will have its original line endings in your working directory</font>
 
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git config --global core.autocrlf  false</div></pre></td></tr></table></figure>
-<h3 id="问题2"><a href="#问题2" class="headerlink" title="问题2"></a>问题2</h3><font color="red">fatal:unable to access ‘xxx/xxx/xxx/…’:Filename too long</font>
-
-<p>相关问题<a href="http://stackoverflow.com/questions/22575662/filename-too-long-in-git-for-windows" target="_blank" rel="external"><font color="#87CEFA">Filename too long in git for windows</font></a></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git config --global core.longpaths true</div></pre></td></tr></table></figure>
-<h3 id="问题3"><a href="#问题3" class="headerlink" title="问题3"></a>问题3</h3><font color="red">fatal: Not a valid object name: ‘master’</font> 
-
-<p>相关问题<a href="http://blog.chinaunix.net/uid-26557245-id-3328748.html" target="_blank" rel="external"><font color="#87CEFA">git 错误 fatal: Not a valid object name: ‘master’. </font></a></p>
-<h3 id="问题4"><a href="#问题4" class="headerlink" title="问题4"></a>问题4</h3><font color="red">error:dst ref refs/heads/source receives form more than one src.</font>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git push origin (remote):(branch)</div></pre></td></tr></table></figure>
-<p>在remote与branch中间的：不要遗漏，否则就会出现以上问题</p>
-<h2 id="参考-amp-引用"><a href="#参考-amp-引用" class="headerlink" title="参考&amp;引用"></a>参考&amp;引用</h2><p><a href="https://git-scm.com/book/zh/v2" target="_blank" rel="external"><font color="#87CEFA">git官方文档</font></a></p>
-<p><a href="http://blog.csdn.net/w13770269691/article/details/38704941" target="_blank" rel="external"><font color="#87CEFA">git将本地仓库上传到远程仓库</font></a></p>
-<h2 id="更新时间"><a href="#更新时间" class="headerlink" title="更新时间"></a>更新时间</h2><p>发布时间 ： 2016-06-11</p>
-
-      
-    </div>
-
-    <div>
       
         
-
-      
-    </div>
-
-    <div>
-      
-        
-  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
-    <div>看你的了！</div>
-    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
-      <span>赏</span>
-    </button>
-    <div id="QR" style="display: none;">
-      
-        <div id="wechat" style="display: inline-block">
-          <img id="wechat_qr" src="http://octlz2jco.bkt.clouddn.com/blog_reward_wechat.png" alt="Niklaus.chi WeChat Pay"/>
-          <p>微信打赏</p>
+        <div class="collection-title">
+          <h2 class="archive-year motion-element" id="archive-year-2016">2016</h2>
         </div>
       
       
-    </div>
-  </div>
-
 
       
-    </div>
 
-    <div>
-      
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+    <header class="post-header">
+
+      <h2 class="post-title">
         
+            <a class="post-title-link" href="/2016/09/03/Java内存区域与内存溢出异常/" itemprop="url">
+              
+                <span itemprop="name">Java内存区域与内存溢出异常</span>
+              
+            </a>
+        
+      </h2>
 
-      
-    </div>
+      <div class="post-meta">
+        <time class="post-time" itemprop="dateCreated"
+              datetime="2016-09-03T18:39:44+08:00"
+              content="2016-09-03" >
+          09-03
+        </time>
+      </div>
 
-    <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/Git/" rel="tag"># Git</a>
-          
-        </div>
-      
-
-      
-      
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2016/06/04/IntelliJ-Idea使用那些事/" rel="next" title="IntelliJ Idea使用那些事">
-                <i class="fa fa-chevron-left"></i> IntelliJ Idea使用那些事
-              </a>
-            
-          </div>
-
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/06/18/如何在同一台电脑配置多个git或者github账号/" rel="prev" title="如何在同一台电脑配置多个git或者github账号">
-                如何在同一台电脑配置多个git或者github账号 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
-
-      
-      
-    </footer>
+    </header>
   </article>
 
 
 
-    <div class="post-spread">
-      
-    </div>
-  </div>
+    
+
+  </section>
+
+  
+
 
 
           </div>
@@ -497,12 +357,6 @@
 
 
           
-  <div class="comments" id="comments">
-    
-      <div id="SOHUCS"></div>
-    
-  </div>
-
 
         </div>
         
@@ -522,17 +376,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview sidebar-panel">
+      <section class="site-overview sidebar-panel sidebar-panel-active">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="http://octlz2jco.bkt.clouddn.com/blog_avatar_001.jpg"
@@ -609,22 +454,6 @@
 
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#目的"><span class="nav-number">1.</span> <span class="nav-text">目的</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#不登录远程git服务器直接本地操作"><span class="nav-number">2.</span> <span class="nav-text">不登录远程git服务器直接本地操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#初始化仓库"><span class="nav-number">2.1.</span> <span class="nav-text">初始化仓库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#对指定文件的追踪"><span class="nav-number">2.2.</span> <span class="nav-text">对指定文件的追踪</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#提交操作"><span class="nav-number">2.3.</span> <span class="nav-text">提交操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#添加远程仓库"><span class="nav-number">2.4.</span> <span class="nav-text">添加远程仓库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#推送本地分支到远程仓库"><span class="nav-number">2.5.</span> <span class="nav-text">推送本地分支到远程仓库</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#出现问题"><span class="nav-number">3.</span> <span class="nav-text">出现问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#问题1"><span class="nav-number">3.1.</span> <span class="nav-text">问题1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#问题2"><span class="nav-number">3.2.</span> <span class="nav-text">问题2</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#问题3"><span class="nav-number">3.3.</span> <span class="nav-text">问题3</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#问题4"><span class="nav-number">3.4.</span> <span class="nav-text">问题4</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考-amp-引用"><span class="nav-number">4.</span> <span class="nav-text">参考&引用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#更新时间"><span class="nav-number">5.</span> <span class="nav-text">更新时间</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       
@@ -743,9 +572,11 @@
   
 
   
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
-
+  
+    <script type="text/javascript" id="motion.page.archive">
+      $('.archive-year').velocity('transition.slideLeftIn');
+    </script>
+  
 
 
   
