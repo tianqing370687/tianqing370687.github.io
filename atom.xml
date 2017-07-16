@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-07-16T10:51:12.745Z</updated>
+  <updated>2017-07-16T13:58:02.777Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -17,10 +17,10 @@
   
   <entry>
     <title>Java内存区域与内存溢出异常</title>
-    <link href="http://yoursite.com/2016/09/03/Java%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F%E4%B8%8E%E5%86%85%E5%AD%98%E6%BA%A2%E5%87%BA%E5%BC%82%E5%B8%B8/"/>
-    <id>http://yoursite.com/2016/09/03/Java内存区域与内存溢出异常/</id>
-    <published>2016-09-03T10:39:44.000Z</published>
-    <updated>2017-07-16T10:51:12.745Z</updated>
+    <link href="http://yoursite.com/2016/09/10/Java%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F%E4%B8%8E%E5%86%85%E5%AD%98%E6%BA%A2%E5%87%BA%E5%BC%82%E5%B8%B8/"/>
+    <id>http://yoursite.com/2016/09/10/Java内存区域与内存溢出异常/</id>
+    <published>2016-09-10T10:39:44.000Z</published>
+    <updated>2017-07-16T13:58:02.777Z</updated>
     
     <content type="html"><![CDATA[<p><img src="http://octlz2jco.bkt.clouddn.com/blog_thumbnails_000_000_013.png" alt="学习思维导图"><br><a id="more"></a></p>
 <h2 id="运行时数据区域"><a href="#运行时数据区域" class="headerlink" title="运行时数据区域"></a>运行时数据区域</h2><p><img src="http://octlz2jco.bkt.clouddn.com/blog_content_000_000_032.png" alt="Java虚拟机运行时数据区"></p>
@@ -36,7 +36,7 @@
 <h3 id="方法区和运行时常量池溢出"><a href="#方法区和运行时常量池溢出" class="headerlink" title="方法区和运行时常量池溢出"></a>方法区和运行时常量池溢出</h3><p>对于方法区的测试，基本的思路是运行时产生大量的类去填满方法区，直到溢出。<br>方法区溢出也是一种常见的内存溢出异常，一个类要被垃圾收集器回收掉，判定条件是比较苛刻的。在经常动态生成大量Class的应用中，特别需要注意类的回收状况。这类场景除了上面提到的程序使用了CGLib字节码增强和动态语言之外，常见的还有：大量JSP或动态产生JSP文件、给予OSGi的应用等。</p>
 <h3 id="本机直接内存溢出"><a href="#本机直接内存溢出" class="headerlink" title="本机直接内存溢出"></a>本机直接内存溢出</h3><p>DirectMemory容量可通过-XX：MaxDirectMemorySize指定，如果不指定，则默认与Java堆最大值（-Xmx指定）一样。<br>由DirectMemory导致的内存溢出，一个明显的特征是Heap Dump文件中不会看见明显的异常，如果发现OOM之后Dump文件很小，而程序中又直接或间接使用了NIO，那么就可以考虑检查一下是不是这方面的原因。</p>
 <h2 id="参考-amp-引用"><a href="#参考-amp-引用" class="headerlink" title="参考&amp;引用"></a>参考&amp;引用</h2><p>《深入理解Java虚拟机》</p>
-<h2 id="更新时间"><a href="#更新时间" class="headerlink" title="更新时间"></a>更新时间</h2><p>发布时间 ： 2016-09-03</p>
+<h2 id="更新时间"><a href="#更新时间" class="headerlink" title="更新时间"></a>更新时间</h2><p>发布时间 ： 2016-09-10</p>
 ]]></content>
     
     <summary type="html">
@@ -53,6 +53,29 @@
       <category term="内存溢出" scheme="http://yoursite.com/tags/%E5%86%85%E5%AD%98%E6%BA%A2%E5%87%BA/"/>
     
       <category term="异常" scheme="http://yoursite.com/tags/%E5%BC%82%E5%B8%B8/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>[分享]阿里学习计划</title>
+    <link href="http://yoursite.com/2016/09/03/%E5%88%86%E4%BA%AB-%E9%98%BF%E9%87%8C%E5%AD%A6%E4%B9%A0%E8%AE%A1%E5%88%92/"/>
+    <id>http://yoursite.com/2016/09/03/分享-阿里学习计划/</id>
+    <published>2016-09-03T13:55:33.000Z</published>
+    <updated>2017-07-16T14:00:19.498Z</updated>
+    
+    <content type="html"><![CDATA[<p><img src="http://octlz2jco.bkt.clouddn.com/blog_thumbnails_000_000_014.png" alt="阿里学习计划"><br><a id="more"></a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;img src=&quot;http://octlz2jco.bkt.clouddn.com/blog_thumbnails_000_000_014.png&quot; alt=&quot;阿里学习计划&quot;&gt;&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="分享" scheme="http://yoursite.com/tags/%E5%88%86%E4%BA%AB/"/>
+    
+      <category term="阿里学习计划" scheme="http://yoursite.com/tags/%E9%98%BF%E9%87%8C%E5%AD%A6%E4%B9%A0%E8%AE%A1%E5%88%92/"/>
     
   </entry>
   
