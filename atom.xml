@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-07-16T13:58:02.777Z</updated>
+  <updated>2017-07-17T15:52:01.934Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -14,6 +14,79 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>[游戏] Linux 上搭建饥荒联机版 Don&#39;t Starve Together服务器</title>
+    <link href="http://yoursite.com/2017/07/15/%E6%B8%B8%E6%88%8F-Linux-%E4%B8%8A%E6%90%AD%E5%BB%BA%E9%A5%A5%E8%8D%92%E8%81%94%E6%9C%BA%E7%89%88-Don-t-Starve-Together%E6%9C%8D%E5%8A%A1%E5%99%A8/"/>
+    <id>http://yoursite.com/2017/07/15/游戏-Linux-上搭建饥荒联机版-Don-t-Starve-Together服务器/</id>
+    <published>2017-07-15T15:49:37.000Z</published>
+    <updated>2017-07-17T15:52:01.934Z</updated>
+    
+    <content type="html"><![CDATA[<p><img src="http://octlz2jco.bkt.clouddn.com/blog_thumbnails_000_000_015.jpg" alt=""><br><a id="more"></a></p>
+<h2 id="安装依赖"><a href="#安装依赖" class="headerlink" title="安装依赖"></a>安装依赖</h2><p>Ubuntu 64位环境：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install libstdc++6:i386 libgcc1:i386 libcurl4-gnutls-dev:i386</div></pre></td></tr></table></figure>
+<h2 id="安装SteamCMD和DST"><a href="#安装SteamCMD和DST" class="headerlink" title="安装SteamCMD和DST"></a>安装SteamCMD和DST</h2><p>下载SteamCMD：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">mkdir ~/steamcmd      </div><div class="line">cd ~/steamcmd</div><div class="line">wget http://media.steampowered.com/installer/steamcmd_linux.tar.gz</div></pre></td></tr></table></figure>
+<p>解压并运行安装</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">tar -xvzf steamcmd_linux.tar.gz</div><div class="line">./steamcmd.sh</div></pre></td></tr></table></figure>
+<p>在 steam &gt; 模式下，登录及安装游戏包</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">login anonymous                       </div><div class="line">force_install_dir ../DST</div><div class="line">app_update 343050 validate</div><div class="line">quit</div></pre></td></tr></table></figure>
+<p>在上面的命令中，第一行以匿名方式登录，当然你可以登陆你自己的steamID；第二行是指定安装路径，将程序安装到steamcmd的同级目录下；第三行的343050 是Don’t Starve Together 在 Steam 平台中的 ID。</p>
+<h2 id="配置Don’t-Starve-Together"><a href="#配置Don’t-Starve-Together" class="headerlink" title="配置Don’t Starve Together"></a>配置Don’t Starve Together</h2><h3 id="生成默认配置文件"><a href="#生成默认配置文件" class="headerlink" title="生成默认配置文件"></a>生成默认配置文件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cd ~/DST/bin</div><div class="line">./dontstarve_dedicated_server_nullrenderer</div></pre></td></tr></table></figure>
+<p>当看到一下提示</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">[200] Account Failed (6): &quot;E_INVALID_TOKEN&quot;</div><div class="line">!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!</div><div class="line">!!!! Your Server Will Not Start !!!!</div><div class="line">!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!</div></pre></td></tr></table></figure>
+<p>按Ctrl+C中断，然后完善生成的默认配置</p>
+<blockquote>
+<p>之前查看很多资料都是需要在~/.klei/DoNotStarveTogether路径下写配置文件，现在该路径已经更改为~/.klei/DoNotStarveTogether/Cluster_1</p>
+</blockquote>
+<p>依照以下文件结构新建文件夹及文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">Cluster_1</div><div class="line">├── cluster.ini</div><div class="line">├── cluster_token.txt</div><div class="line">├── Caves</div><div class="line">│   ├── modoverrides.lua</div><div class="line">│   ├── server.ini</div><div class="line">│   └── worldgenoverride.lua</div><div class="line">└── Master</div><div class="line">    ├── modoverrides.lua</div><div class="line">    ├── server.ini</div><div class="line">    └── worldgenoverride.lua      #重写世界具体物品数量等参数配置</div></pre></td></tr></table></figure></p>
+<h3 id="设置Token"><a href="#设置Token" class="headerlink" title="设置Token"></a>设置Token</h3><p><img src="http://octlz2jco.bkt.clouddn.com/blog_content_000_000_033.png" alt=""></p>
+<p>点击个人资料</p>
+<p><img src="http://octlz2jco.bkt.clouddn.com/blog_content_000_000_034.png" alt=""></p>
+<p>点击Generate Server Token的按钮，将生成游戏令牌，将该Token复制到cluster_token.txt中</p>
+<h3 id="设置服务器全局变量"><a href="#设置服务器全局变量" class="headerlink" title="设置服务器全局变量"></a>设置服务器全局变量</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cd ~/.klei/DoNotStarveTogether/Cluster_1</div><div class="line">sudo vi cluster.ini</div></pre></td></tr></table></figure>
+<p>填入以下内容：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">[GAMEPLAY]</div><div class="line">game_mode = survival                        # Endless无尽模式；Wildern荒野模式；Survival生存模式</div><div class="line">max_players = 6                             # 最大玩家数，1-64任意一个数</div><div class="line">pvp = false                                 #</div><div class="line">pause_when_empty = true                     # 世界没人时是否自动暂停</div><div class="line">enable_snapshots = true</div><div class="line">enable_autosaver = true</div><div class="line"></div><div class="line">[NETWORK]</div><div class="line">cluster_description = Live it               # 游戏房间描述</div><div class="line">cluster_name = LiveIt007                    # 游戏名称</div><div class="line">cluster_intention = cooperative             # 游戏模式 </div><div class="line">cluster_password = 123123123                # 密码</div><div class="line"></div><div class="line">[MISC]</div><div class="line">console_enabled = true                      # 控制台</div><div class="line"></div><div class="line">[SHARD]</div><div class="line">shard_enabled = true                        # 地下世界是否启动              </div><div class="line">bind_ip = 127.0.0.1                         # 固定IP</div><div class="line">master_ip = 127.0.0.1                       # 地上世界IP</div><div class="line">master_port = 10889                         # 地上世界端口</div><div class="line">cluster_key = supersecretkey                # 地下世界连接地上世界的钥匙</div></pre></td></tr></table></figure>
+<p>按ESC，输入：wq 保存并退出vi编辑器。</p>
+<h3 id="设置局部配置"><a href="#设置局部配置" class="headerlink" title="设置局部配置"></a>设置局部配置</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cd ~/.klei/DoNotStarveTogether/Cluster_1/Master</div><div class="line">sudo vi server.ini</div></pre></td></tr></table></figure>
+<p>填入</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">[NETWORK]</div><div class="line">server_port = 11000</div><div class="line"></div><div class="line">[SHARD]</div><div class="line">is_master = true</div><div class="line"></div><div class="line">[STEAM]</div><div class="line">master_server_port = 27018</div><div class="line">authentication_port = 8768</div></pre></td></tr></table></figure>
+<h3 id="设置地下世界的配置"><a href="#设置地下世界的配置" class="headerlink" title="设置地下世界的配置"></a>设置地下世界的配置</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cd ~/.klei/DoNotStarveTogether/Cluster_1/Caves</div><div class="line">sudo vi server.ini</div></pre></td></tr></table></figure>
+<p>填入</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">[NETWORK]</div><div class="line">server_port = 11001</div><div class="line"></div><div class="line">[SHARD]</div><div class="line">is_master = false</div><div class="line">name = Caves</div><div class="line"></div><div class="line">[STEAM]</div><div class="line">master_server_port = 27019</div><div class="line">authentication_port = 8769</div></pre></td></tr></table></figure>
+<h3 id="配置世界资源生成"><a href="#配置世界资源生成" class="headerlink" title="配置世界资源生成"></a>配置世界资源生成</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cd ~/.klei/DoNotStarveTogether/Cluster_1/Caves</div><div class="line">sudo vi worldgenoverride.lua</div></pre></td></tr></table></figure>
+<p>填入</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">return &#123;</div><div class="line">    override_enabled = true,</div><div class="line">    preset = &quot;DST_CAVE&quot;,</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="启动服务器"><a href="#启动服务器" class="headerlink" title="启动服务器"></a>启动服务器</h2><p>创建启动服务器脚本</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">cd ~/</div><div class="line">sudo vi runDST.sh</div></pre></td></tr></table></figure>
+<p>填入</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div></pre></td><td class="code"><pre><div class="line">#!/bin/bash</div><div class="line"></div><div class="line">steamcmd_dir=&quot;$HOME/steamcmd&quot;          </div><div class="line">install_dir=&quot;$HOME/DST&quot;          </div><div class="line">cluster_name=&quot;Cluster_1&quot;</div><div class="line">dontstarve_dir=&quot;$HOME/.klei/DoNotStarveTogether&quot;</div><div class="line"></div><div class="line">function fail()</div><div class="line">&#123;</div><div class="line">        echo Error: &quot;$@&quot; &gt;&amp;2</div><div class="line">        exit 1</div><div class="line">&#125;</div><div class="line"></div><div class="line">function check_for_file()&#123;</div><div class="line">    if [ ! -e &quot;$1&quot; ]; then</div><div class="line">            fail &quot;Missing file: $1&quot;</div><div class="line">    fi</div><div class="line">&#125;</div><div class="line"></div><div class="line">cd &quot;$steamcmd_dir&quot; || fail &quot;Missing $steamcmd_dir directory!&quot;</div><div class="line"></div><div class="line">check_for_file &quot;$steamcmd_dir/steamcmd.sh&quot;</div><div class="line">check_for_file &quot;$dontstarve_dir/$cluster_name/cluster.ini&quot;</div><div class="line">check_for_file &quot;$dontstarve_dir/$cluster_name/cluster_token.txt&quot;</div><div class="line">check_for_file &quot;$dontstarve_dir/$cluster_name/Master/server.ini&quot;</div><div class="line">check_for_file &quot;$dontstarve_dir/$cluster_name/Caves/server.ini&quot;</div><div class="line"></div><div class="line">.~/steamcmd/steamcmd.sh +force_install_dir &quot;$install_dir&quot; +login anonymous +app_update 343050 validate +quit</div><div class="line"></div><div class="line">check_for_file &quot;$install_dir/bin&quot;</div><div class="line"></div><div class="line">cd &quot;$install_dir/bin&quot; || fail </div><div class="line"></div><div class="line">run_shared=(./dontstarve_dedicated_server_nullrenderer)</div><div class="line">run_shared+=(-console)</div><div class="line">run_shared+=(-cluster &quot;$cluster_name&quot;)</div><div class="line">run_shared+=(-monitor_parent_process $$)</div><div class="line"></div><div class="line">&quot;$&#123;run_shared[@]&#125;&quot; -shard Caves  | sed &apos;s/^/Caves:  /&apos; &amp;</div><div class="line">&quot;$&#123;run_shared[@]&#125;&quot; -shard Master | sed &apos;s/^/Master: /&apos;</div></pre></td></tr></table></figure>
+<p>给脚本赋予执行权限</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo chmod u+x ~/runDST.sh</div></pre></td></tr></table></figure>
+<p>执行脚本，开启服务器</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo ~/runDST.sh</div></pre></td></tr></table></figure>
+<p>当出现下面的日志时，说明服务器启动成功了</p>
+<p><img src="http://octlz2jco.bkt.clouddn.com/blog_content_000_000_035.png" alt="success"></p>
+<p>此时在客户端搜索在cluster.ini文件中配置的房间名，你就能找到你所创建的房间了</p>
+<p><img src="http://octlz2jco.bkt.clouddn.com/blog_content_000_000_036.png" alt="success"></p>
+<h2 id="参考-amp-引用"><a href="#参考-amp-引用" class="headerlink" title="参考&amp;引用"></a>参考&amp;引用</h2><p><a href="http://forums.kleientertainment.com/topic/64743-dedicated-server-command-line-options-guide/#comment-726427" target="_blank" rel="external"><font color="#87CEFA">关于启动参数的引用</font></a><br><a href="https://developer.valvesoftware.com/wiki/SteamCMD" target="_blank" rel="external"><font color="#87CEFA">SteamCMD 使用方法</font></a><br><a href="http://forums.kleientertainment.com/topic/64552-dedicated-server-settings-guide/#comment-754907" target="_blank" rel="external"><font color="#87CEFA">关于ini文件里面参数的引用</font></a><br><a href="http://forums.kleientertainment.com/topic/64441-dedicated-server-quick-setup-guide-linux/" target="_blank" rel="external"><font color="#87CEFA">官方论坛，关于linux的开服</font></a><br><a href="http://steamcommunity.com/sharedfiles/filedetails/?id=590565473" target="_blank" rel="external"><font color="#87CEFA">Klei 建议的 Don’t Strave Together Dedicated Server 搭建指南</font></a></p>
+<h2 id="更新时间"><a href="#更新时间" class="headerlink" title="更新时间"></a>更新时间</h2><p>发布时间 ： 2017-07-15 </p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;img src=&quot;http://octlz2jco.bkt.clouddn.com/blog_thumbnails_000_000_015.jpg&quot; alt=&quot;&quot;&gt;&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="Ubuntu" scheme="http://yoursite.com/tags/Ubuntu/"/>
+    
+      <category term="游戏" scheme="http://yoursite.com/tags/%E6%B8%B8%E6%88%8F/"/>
+    
+      <category term="饥荒" scheme="http://yoursite.com/tags/%E9%A5%A5%E8%8D%92/"/>
+    
+  </entry>
   
   <entry>
     <title>Java内存区域与内存溢出异常</title>
