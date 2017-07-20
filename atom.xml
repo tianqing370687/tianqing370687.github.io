@@ -446,6 +446,38 @@
   </entry>
   
   <entry>
+    <title>Ubuntu系统安装使用Sublime Text3</title>
+    <link href="http://yoursite.com/2016/08/06/Ubuntu%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8Sublime-Text3/"/>
+    <id>http://yoursite.com/2016/08/06/Ubuntu系统安装使用Sublime-Text3/</id>
+    <published>2016-08-06T05:00:00.000Z</published>
+    <updated>2017-07-20T13:23:13.619Z</updated>
+    
+    <content type="html"><![CDATA[<p><img src="http://octlz2jco.bkt.clouddn.com/blog_thumbnails_000_000_016.png" alt=""><br><a id="more"></a></p>
+<h2 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h2><ul>
+<li>Ubuntu 16.04</li>
+<li>Sublime Text 3</li>
+</ul>
+<h2 id="Sublime-Text-3安装步骤"><a href="#Sublime-Text-3安装步骤" class="headerlink" title="Sublime Text 3安装步骤"></a>Sublime Text 3安装步骤</h2><h3 id="添加Sublime-Text-3软件包的软件源"><a href="#添加Sublime-Text-3软件包的软件源" class="headerlink" title="添加Sublime Text 3软件包的软件源"></a>添加Sublime Text 3软件包的软件源</h3><pre><code>sudo add-apt-repository ppa:webupd8team/sublime-text-3
+</code></pre><h3 id="使用以下命令更新系统软件源"><a href="#使用以下命令更新系统软件源" class="headerlink" title="使用以下命令更新系统软件源"></a>使用以下命令更新系统软件源</h3><pre><code>sudo apt-get update
+</code></pre><h3 id="使用以下命令安装Sublime-Text-3"><a href="#使用以下命令安装Sublime-Text-3" class="headerlink" title="使用以下命令安装Sublime Text 3"></a>使用以下命令安装Sublime Text 3</h3><pre><code>sudo apt-get install sublime-text-installer
+</code></pre><p>等待Sublime安装成功，就可以通过subl命令调用了。</p>
+<h2 id="参考-amp-引用"><a href="#参考-amp-引用" class="headerlink" title="参考&amp;引用"></a>参考&amp;引用</h2><h2 id="更新时间"><a href="#更新时间" class="headerlink" title="更新时间"></a>更新时间</h2><p>发布时间 ： 2016-08-06</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;img src=&quot;http://octlz2jco.bkt.clouddn.com/blog_thumbnails_000_000_016.png&quot; alt=&quot;&quot;&gt;&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="Ubuntu" scheme="http://yoursite.com/tags/Ubuntu/"/>
+    
+      <category term="Sublime Text3" scheme="http://yoursite.com/tags/Sublime-Text3/"/>
+    
+  </entry>
+  
+  <entry>
     <title>[Spring MVC菜鸟之旅] Spring MVC 与 MyBatis整合</title>
     <link href="http://yoursite.com/2016/07/16/Spring-MVC%E8%8F%9C%E9%B8%9F%E4%B9%8B%E6%97%85-Spring-MVC-%E4%B8%8E-MyBatis%E6%95%B4%E5%90%88/"/>
     <id>http://yoursite.com/2016/07/16/Spring-MVC菜鸟之旅-Spring-MVC-与-MyBatis整合/</id>
