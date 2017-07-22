@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-07-18T13:42:40.051Z</updated>
+  <updated>2017-07-22T02:21:14.183Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -14,6 +14,52 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Ubuntu 16.04 安装 MongoDB 3.4</title>
+    <link href="http://yoursite.com/2017/07/21/Ubuntu-16-04-%E5%AE%89%E8%A3%85-MongoDB-3-4/"/>
+    <id>http://yoursite.com/2017/07/21/Ubuntu-16-04-安装-MongoDB-3-4/</id>
+    <published>2017-07-21T02:20:17.000Z</published>
+    <updated>2017-07-22T02:21:14.183Z</updated>
+    
+    <content type="html"><![CDATA[<p><img src="http://octlz2jco.bkt.clouddn.com/blog_thumbnails_000_000_017.jpg" alt=""><br><a id="more"></a></p>
+<h2 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h2><p>Ubuntu 16.04<br>MongoDB 3.4</p>
+<h2 id="添加MongoDB仓库"><a href="#添加MongoDB仓库" class="headerlink" title="添加MongoDB仓库"></a>添加MongoDB仓库</h2><p>其实MongoDB已经在Ubuntu的默认仓库中了，只是它并不是最新版。建议使用官方的MongoDB仓库，添加key：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 0C49F3730359A14518585931BC711F9BA15703C6</div></pre></td></tr></table></figure>
+<p>添加源：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">echo &quot;deb http://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/3.4 multiverse&quot; | sudo tee /etc/apt/sources.list.d/mongodb-org-3.4.list</div></pre></td></tr></table></figure>
+<p>添加仓库详细信息后，我们需要更新软件包列表。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt-get update</div></pre></td></tr></table></figure>
+<h2 id="安装MongoD"><a href="#安装MongoD" class="headerlink" title="安装MongoD"></a>安装MongoD</h2><p>现在我们可以通过下面的命令安装MongoDB了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install -y mongodb</div></pre></td></tr></table></figure>
+<p>此命令将安装包含最新稳定版本的MongoDB的多个软件包以及MongoDB服务器的管理工具。<br>为了MongoDB能够在Ubuntu 16.04上作为服务正常启动，我们还需要创建一个描述该服务的单元文件，该文件告诉systemd如何管理资源。<br>在/etc/systemd/system路径下用你喜欢的文本编辑器创建名为mongodb.service的配置文件。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo subl /etc/systemd/system/mongodb.service</div></pre></td></tr></table></figure>
+<p>将下面的内容黏贴到文件中，然后保存并关闭文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">[Unit]</div><div class="line">Description=High-performance, schema-free document-oriented database</div><div class="line">After=network.target</div><div class="line"></div><div class="line">[Service]</div><div class="line">User=mongodb</div><div class="line">ExecStart=/usr/bin/mongod --quiet --config /etc/mongod.conf</div><div class="line"></div><div class="line">[Install]</div><div class="line">WantedBy=multi-user.target</div></pre></td></tr></table></figure>
+<h2 id="启动MongoDB服务"><a href="#启动MongoDB服务" class="headerlink" title="启动MongoDB服务"></a>启动MongoDB服务</h2><p>用systemctl启动新创建的服务。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo systemctl start mongod</div></pre></td></tr></table></figure>
+<p>虽然此命令没有输出，您也可以使用systemctl来检查服务是否已正确启动。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo systemctl status mongodb</div></pre></td></tr></table></figure>
+<p><img src="http://octlz2jco.bkt.clouddn.com/blog_content_000_000_040.png" alt=""></p>
+<p>最后一步是在系统启动时自动启动MongoDB。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo systemctl enable mongod</div></pre></td></tr></table></figure>
+<p>MongoDB服务器现已配置并运行，您可以使用systemctl命令管理MongoDB服务</p>
+<h2 id="参考-amp-引用"><a href="#参考-amp-引用" class="headerlink" title="参考&amp;引用"></a>参考&amp;引用</h2><p><a href="http://docs.mongoing.com/manual-zh/administration/install-community.html" target="_blank" rel="external"><font color="#87CEFA">Install MongoDB Community Edition</font></a><br><a href="https://www.digitalocean.com/community/tutorials/how-to-install-mongodb-on-ubuntu-16-04" target="_blank" rel="external"><font color="#87CEFA">How to Install MongoDB on Ubuntu 16.04</font></a><br><a href="https://askubuntu.com/questions/770054/mongodb-3-2-doesnt-start-on-lubuntu-16-04-lts-as-a-service" target="_blank" rel="external"><font color="#87CEFA">MongoDB (3.2) doesn’t start on Lubuntu 16.04 LTS as a service</font></a></p>
+<h2 id="更新时间"><a href="#更新时间" class="headerlink" title="更新时间"></a>更新时间</h2><p>发布时间 ： 2017-07-21</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;img src=&quot;http://octlz2jco.bkt.clouddn.com/blog_thumbnails_000_000_017.jpg&quot; alt=&quot;&quot;&gt;&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="Ubuntu" scheme="http://yoursite.com/tags/Ubuntu/"/>
+    
+      <category term="MongoDB" scheme="http://yoursite.com/tags/MongoDB/"/>
+    
+  </entry>
   
   <entry>
     <title>[游戏] Linux 上搭建饥荒联机版 Don&#39;t Starve Together服务器</title>
@@ -450,7 +496,7 @@
     <link href="http://yoursite.com/2016/08/06/Ubuntu%E7%B3%BB%E7%BB%9F%E5%AE%89%E8%A3%85%E4%BD%BF%E7%94%A8Sublime-Text3/"/>
     <id>http://yoursite.com/2016/08/06/Ubuntu系统安装使用Sublime-Text3/</id>
     <published>2016-08-06T05:00:00.000Z</published>
-    <updated>2017-07-20T13:23:13.619Z</updated>
+    <updated>2017-07-22T02:12:09.059Z</updated>
     
     <content type="html"><![CDATA[<p><img src="http://octlz2jco.bkt.clouddn.com/blog_thumbnails_000_000_016.png" alt=""><br><a id="more"></a></p>
 <h2 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h2><ul>
@@ -458,9 +504,12 @@
 <li>Sublime Text 3</li>
 </ul>
 <h2 id="Sublime-Text-3安装步骤"><a href="#Sublime-Text-3安装步骤" class="headerlink" title="Sublime Text 3安装步骤"></a>Sublime Text 3安装步骤</h2><h3 id="添加Sublime-Text-3软件包的软件源"><a href="#添加Sublime-Text-3软件包的软件源" class="headerlink" title="添加Sublime Text 3软件包的软件源"></a>添加Sublime Text 3软件包的软件源</h3><pre><code>sudo add-apt-repository ppa:webupd8team/sublime-text-3
-</code></pre><h3 id="使用以下命令更新系统软件源"><a href="#使用以下命令更新系统软件源" class="headerlink" title="使用以下命令更新系统软件源"></a>使用以下命令更新系统软件源</h3><pre><code>sudo apt-get update
-</code></pre><h3 id="使用以下命令安装Sublime-Text-3"><a href="#使用以下命令安装Sublime-Text-3" class="headerlink" title="使用以下命令安装Sublime Text 3"></a>使用以下命令安装Sublime Text 3</h3><pre><code>sudo apt-get install sublime-text-installer
-</code></pre><p>等待Sublime安装成功，就可以通过subl命令调用了。</p>
+</code></pre><p><img src="http://octlz2jco.bkt.clouddn.com/blog_content_000_000_037.png" alt=""></p>
+<h3 id="使用以下命令更新系统软件源"><a href="#使用以下命令更新系统软件源" class="headerlink" title="使用以下命令更新系统软件源"></a>使用以下命令更新系统软件源</h3><pre><code>sudo apt-get update
+</code></pre><p><img src="http://octlz2jco.bkt.clouddn.com/blog_content_000_000_038.png" alt=""></p>
+<h3 id="使用以下命令安装Sublime-Text-3"><a href="#使用以下命令安装Sublime-Text-3" class="headerlink" title="使用以下命令安装Sublime Text 3"></a>使用以下命令安装Sublime Text 3</h3><pre><code>sudo apt-get install sublime-text-installer
+</code></pre><p><img src="http://octlz2jco.bkt.clouddn.com/blog_content_000_000_039.png" alt=""></p>
+<p>等待Sublime安装成功，就可以通过subl命令调用了。</p>
 <h2 id="参考-amp-引用"><a href="#参考-amp-引用" class="headerlink" title="参考&amp;引用"></a>参考&amp;引用</h2><h2 id="更新时间"><a href="#更新时间" class="headerlink" title="更新时间"></a>更新时间</h2><p>发布时间 ： 2016-08-06</p>
 ]]></content>
     
