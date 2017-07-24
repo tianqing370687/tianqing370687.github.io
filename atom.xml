@@ -196,6 +196,48 @@
   </entry>
   
   <entry>
+    <title>IntelliJ IDEA搭建Spring Boot工程</title>
+    <link href="http://yoursite.com/2017/02/25/IntelliJ-IDEA%E6%90%AD%E5%BB%BASpring-Boot%E5%B7%A5%E7%A8%8B/"/>
+    <id>http://yoursite.com/2017/02/25/IntelliJ-IDEA搭建Spring-Boot工程/</id>
+    <published>2017-02-25T13:34:52.000Z</published>
+    <updated>2017-07-24T13:45:21.863Z</updated>
+    
+    <content type="html"><![CDATA[<p><img src="http://octlz2jco.bkt.clouddn.com/blog_thumbnails_000_000_020.jpg" alt="https://mengzhonghua.tuchong.com/"><br><a id="more"></a></p>
+<h2 id="创建-Spring-Boot工程"><a href="#创建-Spring-Boot工程" class="headerlink" title="创建 Spring Boot工程"></a>创建 Spring Boot工程</h2><p>依次点击File -&gt; New -&gt; Project… 会出现下图的面板，选择Spring Initializr，并选择工程SDK，生成服务的URL已经自动填写完毕</p>
+<p><img src="http://octlz2jco.bkt.clouddn.com/blog_content_000_000_052.png" alt=""></p>
+<p>进入Maven工程配置步骤，包括工程名、工程类型、打包、Java Version等信息，依照个人需要进行填写</p>
+<p><img src="http://octlz2jco.bkt.clouddn.com/blog_content_000_000_053.png" alt=""></p>
+<p>然后选择Spring Boot版本和其他依赖</p>
+<p><img src="http://octlz2jco.bkt.clouddn.com/blog_content_000_000_054.png" alt=""></p>
+<p>最后一个步骤，完成工程设置</p>
+<p><img src="http://octlz2jco.bkt.clouddn.com/blog_content_000_000_055.png" alt=""></p>
+<h2 id="工程启动"><a href="#工程启动" class="headerlink" title="工程启动"></a>工程启动</h2><p>我们在com.springboot.niklaus包下会发现自动生成一个<code>SpringBootRookieApplication.java</code>文件,运行该静态文件，会发现运行成功之后的控制台信息如下所示：</p>
+<p><img src="http://octlz2jco.bkt.clouddn.com/blog_content_000_000_056.png" alt=""></p>
+<p>创建一个控制器，实现Web应用Controller功能，代码如下</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.springboot.niklaus.controller;</div><div class="line"></div><div class="line"><span class="keyword">import</span> org.springframework.http.MediaType;</div><div class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RequestMapping;</div><div class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RequestMethod;</div><div class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RestController;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * Created by nicholas.chi on 2017/2/25.</div><div class="line"> */</div><div class="line"><span class="meta">@RequestMapping</span>(<span class="string">"/SpringBootRookie"</span>)</div><div class="line"><span class="meta">@RestController</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestController</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="meta">@RequestMapping</span>(value = <span class="string">"/hello"</span>,method = RequestMethod.GET,produces = &#123;MediaType.APPLICATION_JSON_VALUE&#125;)</div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">helloSpringBoot</span><span class="params">()</span></span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="string">"Hello SpringBoot!"</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>运行<code>SpringBootRookieApplication</code>，并在浏览器上访问<code><a href="http://localhost:8080/SpringBootRookie/hello" target="_blank" rel="external">http://localhost:8080/SpringBootRookie/hello</a></code>，获得结果：</p>
+<p><img src="http://octlz2jco.bkt.clouddn.com/blog_content_000_000_057.png" alt=""></p>
+<p>如此就初步完成了使用IntelliJ IDEA创建Spring Boot工程</p>
+<h2 id="参考-amp-引用"><a href="#参考-amp-引用" class="headerlink" title="参考&amp;引用"></a>参考&amp;引用</h2><p><a href="http://guojohnny.com/2016/05/31/%E4%BD%BF%E7%94%A8IDEA-IntelliJ%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AASpringBoot%E5%B7%A5%E7%A8%8B/" target="_blank" rel="external"><font color="#87CEFA">使用IDEA IntelliJ创建一个SpringBoot工程</font></a></p>
+<h2 id="更新时间"><a href="#更新时间" class="headerlink" title="更新时间"></a>更新时间</h2><p>发布时间 ： 2017-02-25</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;img src=&quot;http://octlz2jco.bkt.clouddn.com/blog_thumbnails_000_000_020.jpg&quot; alt=&quot;https://mengzhonghua.tuchong.com/&quot;&gt;&lt;br&gt;
+    
+    </summary>
+    
+      <category term="Spring Boot学习" scheme="http://yoursite.com/categories/Spring-Boot%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+      <category term="IntelliJ IDEA" scheme="http://yoursite.com/tags/IntelliJ-IDEA/"/>
+    
+      <category term="Spring Boot" scheme="http://yoursite.com/tags/Spring-Boot/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Java内存区域与内存溢出异常</title>
     <link href="http://yoursite.com/2016/09/10/Java%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F%E4%B8%8E%E5%86%85%E5%AD%98%E6%BA%A2%E5%87%BA%E5%BC%82%E5%B8%B8/"/>
     <id>http://yoursite.com/2016/09/10/Java内存区域与内存溢出异常/</id>
@@ -571,6 +613,92 @@
       <category term="Ubuntu" scheme="http://yoursite.com/tags/Ubuntu/"/>
     
       <category term="Sublime Text3" scheme="http://yoursite.com/tags/Sublime-Text3/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>IntelliJ IDEA创建Maven多模块项目</title>
+    <link href="http://yoursite.com/2016/07/23/IntelliJ-IDEA%E5%88%9B%E5%BB%BAMaven%E5%A4%9A%E6%A8%A1%E5%9D%97%E9%A1%B9%E7%9B%AE/"/>
+    <id>http://yoursite.com/2016/07/23/IntelliJ-IDEA创建Maven多模块项目/</id>
+    <published>2016-07-23T13:09:48.000Z</published>
+    <updated>2017-07-24T13:14:25.346Z</updated>
+    
+    <content type="html"><![CDATA[<p><img src="http://octlz2jco.bkt.clouddn.com/blog_thumbnails_000_000_019.jpg" alt="https://elendil.tuchong.com/15009989/"><br><a id="more"></a></p>
+<h2 id="项目结构"><a href="#项目结构" class="headerlink" title="项目结构"></a>项目结构</h2><p>首先放上一张项目构建完之后的图</p>
+<p><img src="http://octlz2jco.bkt.clouddn.com/blog_content_000_000_044.png" alt=""></p>
+<p>通过上图可知，父项目（ShzThink）聚合很多子项目（common-utils、common-dao、common-service、think-web、think-crm）。这些模块的依赖关系如下：<br>common-dao           –&gt;   common-utils<br>common-service      –&gt;   common-dao<br>think-web                –&gt;   common-service<br>think-crm                –&gt;   common-service        </p>
+<h2 id="项目构建"><a href="#项目构建" class="headerlink" title="项目构建"></a>项目构建</h2><h3 id="Parent-Project"><a href="#Parent-Project" class="headerlink" title="Parent Project"></a>Parent Project</h3><p>新建一个空白标准maven project（不要选择Create from archetype选项）</p>
+<p><img src="http://octlz2jco.bkt.clouddn.com/blog_content_000_000_045.png" alt=""></p>
+<p>得到一个标准的maven项目，因为该项目是作为一个Parent project存在的，可以直接删除src文件夹。</p>
+<p><img src="http://octlz2jco.bkt.clouddn.com/blog_content_000_000_046.png" alt=""></p>
+<h3 id="增加common-模块"><a href="#增加common-模块" class="headerlink" title="增加common-*模块"></a>增加common-*模块</h3><p><img src="http://octlz2jco.bkt.clouddn.com/blog_content_000_000_047.png" alt=""></p>
+<p>选中父模块之后，依次New-&gt;Module,会出现下面窗口，勾选Create from archetype，选择maven-archetype-quickstart选项。</p>
+<p><img src="http://octlz2jco.bkt.clouddn.com/blog_content_000_000_048.png" alt=""></p>
+<p>以此方法依次创建common-utils、common-dao、common-service子模块。</p>
+<h3 id="增加think-模块"><a href="#增加think-模块" class="headerlink" title="增加think-*模块"></a>增加think-*模块</h3><p>与2.2中相似，只不过因为think-*是我们最终要部署的应用，因此在创建模块的时候选择maven-archetype-webapp选项。</p>
+<h2 id="添加项目依赖"><a href="#添加项目依赖" class="headerlink" title="添加项目依赖"></a>添加项目依赖</h2><p>以common-dao模块为例，在添加依赖之前，我们可以看到它的pom文件是这样的：</p>
+<pre><code class="xml">
+<span class="tag">&lt;<span class="name">project</span> <span class="attr">xmlns</span>=<span class="string">"http://maven.apache.org/POM/4.0.0"</span> 
+         <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span>
+         <span class="attr">xsi:schemaLocation</span>=<span class="string">"http://maven.apache.org/POM/4.0.0 
+         http://maven.apache.org/xsd/maven-4.0.0.xsd"</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">parent</span>&gt;</span>
+        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>shz-think-backend<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span>
+        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.shzthink.web<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span>
+        <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.0-SNAPSHOT<span class="tag">&lt;/<span class="name">version</span>&gt;</span>
+    <span class="tag">&lt;/<span class="name">parent</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">modelVersion</span>&gt;</span>4.0.0<span class="tag">&lt;/<span class="name">modelVersion</span>&gt;</span>
+
+    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>common-dao<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">packaging</span>&gt;</span>jar<span class="tag">&lt;/<span class="name">packaging</span>&gt;</span>
+
+    <span class="tag">&lt;<span class="name">name</span>&gt;</span>common-dao<span class="tag">&lt;/<span class="name">name</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">url</span>&gt;</span>http://maven.apache.org<span class="tag">&lt;/<span class="name">url</span>&gt;</span>
+
+    <span class="tag">&lt;<span class="name">properties</span>&gt;</span>
+        <span class="tag">&lt;<span class="name">project.build.sourceEncoding</span>&gt;</span>UTF-8<span class="tag">&lt;/<span class="name">project.build.sourceEncoding</span>&gt;</span>
+    <span class="tag">&lt;/<span class="name">properties</span>&gt;</span>
+
+    <span class="tag">&lt;<span class="name">dependencies</span>&gt;</span>
+        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span>
+            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>junit<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span>
+            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>junit<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span>
+            <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.8.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span>
+            <span class="tag">&lt;<span class="name">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="name">scope</span>&gt;</span>
+        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span>
+    <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">project</span>&gt;</span>
+</code></pre>
+<p><img src="http://octlz2jco.bkt.clouddn.com/blog_content_000_000_049.png" alt=""></p>
+<p>选择common-dao子模块，右键-&gt;Open Module Settings,出现如下窗口，选择common-utils。</p>
+<p><img src="http://octlz2jco.bkt.clouddn.com/blog_content_000_000_050.png" alt=""></p>
+<p>此时再查看common-dao子模块的pom文件会发现在 &lt; dependencies&gt;下增加了一段代码：</p>
+<pre><code class="xml"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.shzthink.web<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>common-utils<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.0-SNAPSHOT<span class="tag">&lt;/<span class="name">version</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">dependency</span>&gt;</span>
+</code></pre>
+<p>依照上述方法依次给common-service、think-web、think-crm添加依赖。此时就完成了多模块Maven项目的创建。</p>
+<h2 id="Build项目"><a href="#Build项目" class="headerlink" title="Build项目"></a>Build项目</h2><p>在ShzThink父项目的根目录中运行mvn clean install，输出的末尾大概会是这样的</p>
+<p><img src="http://octlz2jco.bkt.clouddn.com/blog_content_000_000_051.png" alt=""></p>
+<p>注意Reactor Summary，整个项目根据我们希望的顺序进行build。Maven根据我们的依赖配置，智能的安排了顺序。</p>
+<h2 id="参考-amp-引用"><a href="#参考-amp-引用" class="headerlink" title="参考&amp;引用"></a>参考&amp;引用</h2><p><a href="http://blog.csdn.net/zhanghongzheng3213/article/details/52415827?locationNum=10" target="_blank" rel="external"><font color="#87CEFA">Maven最佳实践 划分模块 配置多模块项目 pom modules</font></a></p>
+<h2 id="更新时间"><a href="#更新时间" class="headerlink" title="更新时间"></a>更新时间</h2><p>发布时间 ： 2016-07-23</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;img src=&quot;http://octlz2jco.bkt.clouddn.com/blog_thumbnails_000_000_019.jpg&quot; alt=&quot;https://elendil.tuchong.com/15009989/&quot;&gt;&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="IntelliJ IDEA" scheme="http://yoursite.com/tags/IntelliJ-IDEA/"/>
+    
+      <category term="Maven" scheme="http://yoursite.com/tags/Maven/"/>
+    
+      <category term="多模块" scheme="http://yoursite.com/tags/%E5%A4%9A%E6%A8%A1%E5%9D%97/"/>
     
   </entry>
   
@@ -985,36 +1113,6 @@
     
     
       <category term="Git" scheme="http://yoursite.com/tags/Git/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>IntelliJ Idea使用那些事</title>
-    <link href="http://yoursite.com/2016/06/04/IntelliJ-Idea%E4%BD%BF%E7%94%A8%E9%82%A3%E4%BA%9B%E4%BA%8B/"/>
-    <id>http://yoursite.com/2016/06/04/IntelliJ-Idea使用那些事/</id>
-    <published>2016-06-04T01:00:55.000Z</published>
-    <updated>2017-07-15T01:37:59.634Z</updated>
-    
-    <content type="html"><![CDATA[<p><img src="http://octlz2jco.bkt.clouddn.com/blog_thumbnails_000_000_001.png" alt=""><br><a id="more"></a></p>
-<h2 id="配置Jetty"><a href="#配置Jetty" class="headerlink" title="配置Jetty"></a>配置Jetty</h2><h3 id="Run-Debug-Configurations"><a href="#Run-Debug-Configurations" class="headerlink" title="Run/Debug Configurations"></a>Run/Debug Configurations</h3><p>按下图标识打开Run/Debug Configurations面板</p>
-<p><img src="http://octlz2jco.bkt.clouddn.com/blog_content_000_000_001.png" alt=""></p>
-<h3 id="commond-line-添加配置"><a href="#commond-line-添加配置" class="headerlink" title="commond line 添加配置"></a>commond line 添加配置</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">org.mortbay.jetty:maven-jetty-plugin:6.1.22:run</div></pre></td></tr></table></figure>
-<p><img src="http://octlz2jco.bkt.clouddn.com/blog_content_000_000_002.png" alt=""></p>
-<h3 id="修改端口"><a href="#修改端口" class="headerlink" title="修改端口"></a>修改端口</h3><p>Runner选项-&gt;VM Options 设置</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">-Djetty.port=10086</div></pre></td></tr></table></figure>
-<p><img src="http://octlz2jco.bkt.clouddn.com/blog_content_000_000_003.png" alt=""></p>
-<h3 id="pom文件添加plugin"><a href="#pom文件添加plugin" class="headerlink" title="pom文件添加plugin"></a>pom文件添加plugin</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">build</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">finalName</span>&gt;</span>springmvc<span class="tag">&lt;/<span class="name">finalName</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">plugins</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.eclipse.jetty<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jetty-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>9.2.1.v20140609<span class="tag">&lt;/<span class="name">version</span>&gt;</span></div><div class="line">      <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">plugins</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">build</span>&gt;</span></div></pre></td></tr></table></figure>
-<h2 id="参考-amp-引用"><a href="#参考-amp-引用" class="headerlink" title="参考&amp;引用"></a>参考&amp;引用</h2><h2 id="更新时间"><a href="#更新时间" class="headerlink" title="更新时间"></a>更新时间</h2><p>发布时间 ： 2016-06-04</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;img src=&quot;http://octlz2jco.bkt.clouddn.com/blog_thumbnails_000_000_001.png&quot; alt=&quot;&quot;&gt;&lt;br&gt;
-    
-    </summary>
-    
-    
-      <category term="IntelliJ Idea" scheme="http://yoursite.com/tags/IntelliJ-Idea/"/>
     
   </entry>
   
