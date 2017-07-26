@@ -3,7 +3,7 @@
   <entry>
     <title><![CDATA[Ubuntu 16.04 安装 MongoDB 3.4]]></title>
     <url>%2F2017%2F07%2F21%2FUbuntu-16-04-%E5%AE%89%E8%A3%85-MongoDB-3-4%2F</url>
-    <content type="text"><![CDATA[环境Ubuntu 16.04MongoDB 3.4 添加MongoDB仓库其实MongoDB已经在Ubuntu的默认仓库中了，只是它并不是最新版。建议使用官方的MongoDB仓库，添加key： 1sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 0C49F3730359A14518585931BC711F9BA15703C6 添加源： 1echo &quot;deb http://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/3.4 multiverse&quot; | sudo tee /etc/apt/sources.list.d/mongodb-org-3.4.list 添加仓库详细信息后，我们需要更新软件包列表。 1sudo apt-get update 安装MongoD现在我们可以通过下面的命令安装MongoDB了 1sudo apt-get install -y mongodb 此命令将安装包含最新稳定版本的MongoDB的多个软件包以及MongoDB服务器的管理工具。为了MongoDB能够在Ubuntu 16.04上作为服务正常启动，我们还需要创建一个描述该服务的单元文件，该文件告诉systemd如何管理资源。在/etc/systemd/system路径下用你喜欢的文本编辑器创建名为mongodb.service的配置文件。 1sudo subl /etc/systemd/system/mongodb.service 将下面的内容黏贴到文件中，然后保存并关闭文件 12345678910[Unit]Description=High-performance, schema-free document-oriented databaseAfter=network.target[Service]User=mongodbExecStart=/usr/bin/mongod --quiet --config /etc/mongod.conf[Install]WantedBy=multi-user.target 启动MongoDB服务用systemctl启动新创建的服务。 1sudo systemctl start mongod 虽然此命令没有输出，您也可以使用systemctl来检查服务是否已正确启动。 1sudo systemctl status mongodb 最后一步是在系统启动时自动启动MongoDB。 1sudo systemctl enable mongod MongoDB服务器现已配置并运行，您可以使用systemctl命令管理MongoDB服务 参考&amp;引用Install MongoDB Community EditionHow to Install MongoDB on Ubuntu 16.04MongoDB (3.2) doesn’t start on Lubuntu 16.04 LTS as a service 更新时间发布时间 ： 2017-07-21]]></content>
+    <content type="text"><![CDATA[环境Ubuntu 16.04MongoDB 3.4 添加MongoDB仓库其实MongoDB已经在Ubuntu的默认仓库中了，只是它并不是最新版。建议使用官方的MongoDB仓库，添加key： 1sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 0C49F3730359A14518585931BC711F9BA15703C6 添加源： 1echo &quot;deb http://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/3.4 multiverse&quot; | sudo tee /etc/apt/sources.list.d/mongodb-org-3.4.list 添加仓库详细信息后，我们需要更新软件包列表。 1sudo apt-get update 安装MongoD现在我们可以通过下面的命令安装MongoDB了 1sudo apt-get install -y mongodb 此命令将安装包含最新稳定版本的MongoDB的多个软件包以及MongoDB服务器的管理工具。为了MongoDB能够在Ubuntu 16.04上作为服务正常启动，我们还需要创建一个描述该服务的单元文件，该文件告诉systemd如何管理资源。在/etc/systemd/system路径下用你喜欢的文本编辑器创建名为mongodb.service的配置文件。 1sudo subl /etc/systemd/system/mongodb.service 将下面的内容黏贴到文件中，然后保存并关闭文件 12345678910[Unit]Description=High-performance, schema-free document-oriented databaseAfter=network.target[Service]User=mongodbExecStart=/usr/bin/mongod --quiet --config /etc/mongod.conf[Install]WantedBy=multi-user.target 启动MongoDB服务用systemctl启动新创建的服务。 1sudo systemctl start mongodb 虽然此命令没有输出，您也可以使用systemctl来检查服务是否已正确启动。 1sudo systemctl status mongodb 最后一步是在系统启动时自动启动MongoDB。 1sudo systemctl enable mongod MongoDB服务器现已配置并运行，您可以使用systemctl命令管理MongoDB服务 参考&amp;引用Install MongoDB Community EditionHow to Install MongoDB on Ubuntu 16.04MongoDB (3.2) doesn’t start on Lubuntu 16.04 LTS as a service 更新时间发布时间 ： 2017-07-21]]></content>
       <tags>
         <tag>Ubuntu</tag>
         <tag>MongoDB</tag>
@@ -29,14 +29,11 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[IntelliJ IDEA搭建Spring Boot工程]]></title>
-    <url>%2F2017%2F02%2F25%2FIntelliJ-IDEA%E6%90%AD%E5%BB%BASpring-Boot%E5%B7%A5%E7%A8%8B%2F</url>
-    <content type="text"><![CDATA[创建 Spring Boot工程依次点击File -&gt; New -&gt; Project… 会出现下图的面板，选择Spring Initializr，并选择工程SDK，生成服务的URL已经自动填写完毕 进入Maven工程配置步骤，包括工程名、工程类型、打包、Java Version等信息，依照个人需要进行填写 然后选择Spring Boot版本和其他依赖 最后一个步骤，完成工程设置 工程启动我们在com.springboot.niklaus包下会发现自动生成一个SpringBootRookieApplication.java文件,运行该静态文件，会发现运行成功之后的控制台信息如下所示： 创建一个控制器，实现Web应用Controller功能，代码如下 12345678910111213141516171819package com.springboot.niklaus.controller;import org.springframework.http.MediaType;import org.springframework.web.bind.annotation.RequestMapping;import org.springframework.web.bind.annotation.RequestMethod;import org.springframework.web.bind.annotation.RestController;/** * Created by nicholas.chi on 2017/2/25. */@RequestMapping("/SpringBootRookie")@RestControllerpublic class TestController &#123; @RequestMapping(value = "/hello",method = RequestMethod.GET,produces = &#123;MediaType.APPLICATION_JSON_VALUE&#125;) public String helloSpringBoot()&#123; return "Hello SpringBoot!"; &#125;&#125; 运行SpringBootRookieApplication，并在浏览器上访问http://localhost:8080/SpringBootRookie/hello，获得结果： 如此就初步完成了使用IntelliJ IDEA创建Spring Boot工程 参考&amp;引用使用IDEA IntelliJ创建一个SpringBoot工程 更新时间发布时间 ： 2017-02-25]]></content>
-      <categories>
-        <category>Spring Boot学习</category>
-      </categories>
+    <title><![CDATA[[分享] Spring Boot学习资料整理]]></title>
+    <url>%2F2017%2F02%2F25%2F%E5%88%86%E4%BA%AB-Spring-Boot%E5%AD%A6%E4%B9%A0%E8%B5%84%E6%96%99%E6%95%B4%E7%90%86%2F</url>
+    <content type="text"><![CDATA[前言最近一段时间在自学Spring Boot的相关知识，做了一些学习笔记，在学习过程中也找到几位大神写的相当不错的Spring Boot系列学习资料，在这里整理一下，做个传送门，以便今后学习。 《Spring Boot基础教程》系列《重拾后端之Spring Boot》系列 重拾后端之Spring Boot（一）：REST API的搭建可以这样简单 重拾后端之Spring Boot（二）：MongoDB的无缝集成 重拾后端之Spring Boot（三）：找回熟悉的Controller，Service 重拾后端之Spring Boot（四）：使用JWT和Spring Security保护REST API 《学习 Spring Boot》系列 学习 Spring Boot（一）：第一个 Spring Boot 应用 学习 Spring Boot（二）：集成 MyBatis 和 Druid 学习 Spring Boot（三）：单元测试 学习 Spring Boot（四）：使用 Maven 构建 Scala 应用 学习 Spring Boot（五）：日志 学习 Spring Boot（六）：使用 SpringFox 生成接口文档 学习 Spring Boot（七）：集成 Apache Shiro 安全框架 学习 Spring Boot（八）：使用 Redis 缓存 学习 Spring Boot（九）：使用 RabbitMQ 消息队列 单点文章 基于Spring Boot/Spring Session/Redis的分布式Session共享解决方案 参考&amp;引用更新时间发布时间 ： 2017-02-25]]></content>
       <tags>
-        <tag>IntelliJ IDEA</tag>
+        <tag>分享</tag>
         <tag>Spring Boot</tag>
       </tags>
   </entry>

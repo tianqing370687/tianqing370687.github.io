@@ -102,7 +102,7 @@
 <meta property="og:site_name" content="The Tower of Babel">
 <meta property="og:image" content="http://octlz2jco.bkt.clouddn.com/blog_thumbnails_000_000_017.jpg">
 <meta property="og:image" content="http://octlz2jco.bkt.clouddn.com/blog_content_000_000_040.png">
-<meta property="og:updated_time" content="2017-07-22T02:21:14.183Z">
+<meta property="og:updated_time" content="2017-07-26T14:12:56.936Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Ubuntu 16.04 安装 MongoDB 3.4">
 <meta name="twitter:image" content="http://octlz2jco.bkt.clouddn.com/blog_thumbnails_000_000_017.jpg">
@@ -392,7 +392,7 @@
 <p>将下面的内容黏贴到文件中，然后保存并关闭文件</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">[Unit]</div><div class="line">Description=High-performance, schema-free document-oriented database</div><div class="line">After=network.target</div><div class="line"></div><div class="line">[Service]</div><div class="line">User=mongodb</div><div class="line">ExecStart=/usr/bin/mongod --quiet --config /etc/mongod.conf</div><div class="line"></div><div class="line">[Install]</div><div class="line">WantedBy=multi-user.target</div></pre></td></tr></table></figure>
 <h2 id="启动MongoDB服务"><a href="#启动MongoDB服务" class="headerlink" title="启动MongoDB服务"></a>启动MongoDB服务</h2><p>用systemctl启动新创建的服务。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo systemctl start mongod</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo systemctl start mongodb</div></pre></td></tr></table></figure>
 <p>虽然此命令没有输出，您也可以使用systemctl来检查服务是否已正确启动。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo systemctl status mongodb</div></pre></td></tr></table></figure>
 <p><img src="http://octlz2jco.bkt.clouddn.com/blog_content_000_000_040.png" alt=""></p>
@@ -554,7 +554,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-count">2</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>

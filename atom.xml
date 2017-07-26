@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-07-22T02:21:14.183Z</updated>
+  <updated>2017-07-26T14:12:56.936Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://yoursite.com/2017/07/21/Ubuntu-16-04-%E5%AE%89%E8%A3%85-MongoDB-3-4/"/>
     <id>http://yoursite.com/2017/07/21/Ubuntu-16-04-安装-MongoDB-3-4/</id>
     <published>2017-07-21T02:20:17.000Z</published>
-    <updated>2017-07-22T02:21:14.183Z</updated>
+    <updated>2017-07-26T14:12:56.936Z</updated>
     
     <content type="html"><![CDATA[<p><img src="http://octlz2jco.bkt.clouddn.com/blog_thumbnails_000_000_017.jpg" alt=""><br><a id="more"></a></p>
 <h2 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h2><p>Ubuntu 16.04<br>MongoDB 3.4</p>
@@ -37,7 +37,7 @@
 <p>将下面的内容黏贴到文件中，然后保存并关闭文件</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">[Unit]</div><div class="line">Description=High-performance, schema-free document-oriented database</div><div class="line">After=network.target</div><div class="line"></div><div class="line">[Service]</div><div class="line">User=mongodb</div><div class="line">ExecStart=/usr/bin/mongod --quiet --config /etc/mongod.conf</div><div class="line"></div><div class="line">[Install]</div><div class="line">WantedBy=multi-user.target</div></pre></td></tr></table></figure>
 <h2 id="启动MongoDB服务"><a href="#启动MongoDB服务" class="headerlink" title="启动MongoDB服务"></a>启动MongoDB服务</h2><p>用systemctl启动新创建的服务。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo systemctl start mongod</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo systemctl start mongodb</div></pre></td></tr></table></figure>
 <p>虽然此命令没有输出，您也可以使用systemctl来检查服务是否已正确启动。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo systemctl status mongodb</div></pre></td></tr></table></figure>
 <p><img src="http://octlz2jco.bkt.clouddn.com/blog_content_000_000_040.png" alt=""></p>
@@ -196,30 +196,35 @@
   </entry>
   
   <entry>
-    <title>IntelliJ IDEA搭建Spring Boot工程</title>
-    <link href="http://yoursite.com/2017/02/25/IntelliJ-IDEA%E6%90%AD%E5%BB%BASpring-Boot%E5%B7%A5%E7%A8%8B/"/>
-    <id>http://yoursite.com/2017/02/25/IntelliJ-IDEA搭建Spring-Boot工程/</id>
-    <published>2017-02-25T13:34:52.000Z</published>
-    <updated>2017-07-24T13:45:21.863Z</updated>
+    <title>[分享] Spring Boot学习资料整理</title>
+    <link href="http://yoursite.com/2017/02/25/%E5%88%86%E4%BA%AB-Spring-Boot%E5%AD%A6%E4%B9%A0%E8%B5%84%E6%96%99%E6%95%B4%E7%90%86/"/>
+    <id>http://yoursite.com/2017/02/25/分享-Spring-Boot学习资料整理/</id>
+    <published>2017-02-25T14:05:42.000Z</published>
+    <updated>2017-07-26T14:07:47.211Z</updated>
     
     <content type="html"><![CDATA[<p><img src="http://octlz2jco.bkt.clouddn.com/blog_thumbnails_000_000_020.jpg" alt="https://mengzhonghua.tuchong.com/"><br><a id="more"></a></p>
-<h2 id="创建-Spring-Boot工程"><a href="#创建-Spring-Boot工程" class="headerlink" title="创建 Spring Boot工程"></a>创建 Spring Boot工程</h2><p>依次点击File -&gt; New -&gt; Project… 会出现下图的面板，选择Spring Initializr，并选择工程SDK，生成服务的URL已经自动填写完毕</p>
-<p><img src="http://octlz2jco.bkt.clouddn.com/blog_content_000_000_052.png" alt=""></p>
-<p>进入Maven工程配置步骤，包括工程名、工程类型、打包、Java Version等信息，依照个人需要进行填写</p>
-<p><img src="http://octlz2jco.bkt.clouddn.com/blog_content_000_000_053.png" alt=""></p>
-<p>然后选择Spring Boot版本和其他依赖</p>
-<p><img src="http://octlz2jco.bkt.clouddn.com/blog_content_000_000_054.png" alt=""></p>
-<p>最后一个步骤，完成工程设置</p>
-<p><img src="http://octlz2jco.bkt.clouddn.com/blog_content_000_000_055.png" alt=""></p>
-<h2 id="工程启动"><a href="#工程启动" class="headerlink" title="工程启动"></a>工程启动</h2><p>我们在com.springboot.niklaus包下会发现自动生成一个<code>SpringBootRookieApplication.java</code>文件,运行该静态文件，会发现运行成功之后的控制台信息如下所示：</p>
-<p><img src="http://octlz2jco.bkt.clouddn.com/blog_content_000_000_056.png" alt=""></p>
-<p>创建一个控制器，实现Web应用Controller功能，代码如下</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.springboot.niklaus.controller;</div><div class="line"></div><div class="line"><span class="keyword">import</span> org.springframework.http.MediaType;</div><div class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RequestMapping;</div><div class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RequestMethod;</div><div class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RestController;</div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"> * Created by nicholas.chi on 2017/2/25.</div><div class="line"> */</div><div class="line"><span class="meta">@RequestMapping</span>(<span class="string">"/SpringBootRookie"</span>)</div><div class="line"><span class="meta">@RestController</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestController</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="meta">@RequestMapping</span>(value = <span class="string">"/hello"</span>,method = RequestMethod.GET,produces = &#123;MediaType.APPLICATION_JSON_VALUE&#125;)</div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">helloSpringBoot</span><span class="params">()</span></span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="string">"Hello SpringBoot!"</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>运行<code>SpringBootRookieApplication</code>，并在浏览器上访问<code><a href="http://localhost:8080/SpringBootRookie/hello" target="_blank" rel="external">http://localhost:8080/SpringBootRookie/hello</a></code>，获得结果：</p>
-<p><img src="http://octlz2jco.bkt.clouddn.com/blog_content_000_000_057.png" alt=""></p>
-<p>如此就初步完成了使用IntelliJ IDEA创建Spring Boot工程</p>
-<h2 id="参考-amp-引用"><a href="#参考-amp-引用" class="headerlink" title="参考&amp;引用"></a>参考&amp;引用</h2><p><a href="http://guojohnny.com/2016/05/31/%E4%BD%BF%E7%94%A8IDEA-IntelliJ%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AASpringBoot%E5%B7%A5%E7%A8%8B/" target="_blank" rel="external"><font color="#87CEFA">使用IDEA IntelliJ创建一个SpringBoot工程</font></a></p>
-<h2 id="更新时间"><a href="#更新时间" class="headerlink" title="更新时间"></a>更新时间</h2><p>发布时间 ： 2017-02-25</p>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>最近一段时间在自学Spring Boot的相关知识，做了一些学习笔记，在学习过程中也找到几位大神写的相当不错的Spring Boot系列学习资料，在这里整理一下，做个传送门，以便今后学习。</p>
+<h2 id="《Spring-Boot基础教程》系列"><a href="#《Spring-Boot基础教程》系列" class="headerlink" title="《Spring Boot基础教程》系列"></a><a href="http://blog.didispace.com/Spring-Boot%E5%9F%BA%E7%A1%80%E6%95%99%E7%A8%8B/" target="_blank" rel="external"><font color="#87CEFA">《Spring Boot基础教程》系列</font></a></h2><h2 id="《重拾后端之Spring-Boot》系列"><a href="#《重拾后端之Spring-Boot》系列" class="headerlink" title="《重拾后端之Spring Boot》系列"></a><a href="https://github.com/wpcfan/spring-boot-tut/blob/master/README.md" target="_blank" rel="external"><font color="#87CEFA">《重拾后端之Spring Boot》系列</font></a></h2><ul>
+<li>重拾后端之Spring Boot（一）：REST API的搭建可以这样简单</li>
+<li>重拾后端之Spring Boot（二）：MongoDB的无缝集成</li>
+<li>重拾后端之Spring Boot（三）：找回熟悉的Controller，Service</li>
+<li>重拾后端之Spring Boot（四）：使用JWT和Spring Security保护REST API</li>
+</ul>
+<h2 id="《学习-Spring-Boot》系列"><a href="#《学习-Spring-Boot》系列" class="headerlink" title="《学习 Spring Boot》系列"></a>《学习 Spring Boot》系列</h2><ul>
+<li><a href="http://dyingbleed.com/spring-boot-1/" target="_blank" rel="external"><font color="#87CEFA">学习 Spring Boot（一）：第一个 Spring Boot 应用</font></a></li>
+<li><a href="http://dyingbleed.com/spring-boot-2/" target="_blank" rel="external"><font color="#87CEFA">学习 Spring Boot（二）：集成 MyBatis 和 Druid</font></a></li>
+<li><a href="http://dyingbleed.com/spring-boot-3/" target="_blank" rel="external"><font color="#87CEFA">学习 Spring Boot（三）：单元测试</font></a></li>
+<li><a href="http://dyingbleed.com/spring-boot-4/" target="_blank" rel="external"><font color="#87CEFA">学习 Spring Boot（四）：使用 Maven 构建 Scala 应用</font></a></li>
+<li><a href="http://dyingbleed.com/spring-boot-5/" target="_blank" rel="external"><font color="#87CEFA">学习 Spring Boot（五）：日志</font></a></li>
+<li><a href="http://dyingbleed.com/spring-boot-6/" target="_blank" rel="external"><font color="#87CEFA">学习 Spring Boot（六）：使用 SpringFox 生成接口文档</font></a></li>
+<li><a href="http://dyingbleed.com/spring-boot-7/" target="_blank" rel="external"><font color="#87CEFA">学习 Spring Boot（七）：集成 Apache Shiro 安全框架</font></a></li>
+<li><a href="http://dyingbleed.com/spring-boot-8/" target="_blank" rel="external"><font color="#87CEFA">学习 Spring Boot（八）：使用 Redis 缓存</font></a></li>
+<li><a href="http://dyingbleed.com/spring-boot-9/" target="_blank" rel="external"><font color="#87CEFA">学习 Spring Boot（九）：使用 RabbitMQ 消息队列</font></a></li>
+</ul>
+<h2 id="单点文章"><a href="#单点文章" class="headerlink" title="单点文章"></a>单点文章</h2><ul>
+<li><a href="https://www.bbsmax.com/A/MyJx8x9XJn/" target="_blank" rel="external"><font color="#87CEFA">基于Spring Boot/Spring Session/Redis的分布式Session共享解决方案</font></a></li>
+</ul>
+<h2 id="参考-amp-引用"><a href="#参考-amp-引用" class="headerlink" title="参考&amp;引用"></a>参考&amp;引用</h2><h2 id="更新时间"><a href="#更新时间" class="headerlink" title="更新时间"></a>更新时间</h2><p>发布时间 ： 2017-02-25</p>
 ]]></content>
     
     <summary type="html">
@@ -228,10 +233,8 @@
     
     </summary>
     
-      <category term="Spring Boot学习" scheme="http://yoursite.com/categories/Spring-Boot%E5%AD%A6%E4%B9%A0/"/>
     
-    
-      <category term="IntelliJ IDEA" scheme="http://yoursite.com/tags/IntelliJ-IDEA/"/>
+      <category term="分享" scheme="http://yoursite.com/tags/%E5%88%86%E4%BA%AB/"/>
     
       <category term="Spring Boot" scheme="http://yoursite.com/tags/Spring-Boot/"/>
     
