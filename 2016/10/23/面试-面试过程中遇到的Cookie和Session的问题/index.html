@@ -77,7 +77,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="Session,Cookie,面试," />
 
 
 
@@ -95,15 +95,19 @@
 
 
 
-<meta name="description" content="努力去努力,坚持去坚持">
-<meta property="og:type" content="website">
-<meta property="og:title" content="The Tower of Babel">
-<meta property="og:url" content="http://yoursite.com/tags/多模块/index.html">
+<meta name="keywords" content="Session,Cookie,面试">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[面试] 面试过程中遇到的Cookie和Session的问题">
+<meta property="og:url" content="http://yoursite.com/2016/10/23/面试-面试过程中遇到的Cookie和Session的问题/index.html">
 <meta property="og:site_name" content="The Tower of Babel">
-<meta property="og:description" content="努力去努力,坚持去坚持">
+<meta property="og:image" content="http://octlz2jco.bkt.clouddn.com/blog_thumbnails_000_000_022.jpg">
+<meta property="og:image" content="http://octlz2jco.bkt.clouddn.com/blog_content_000_000_069.png">
+<meta property="og:image" content="http://octlz2jco.bkt.clouddn.com/blog_content_000_000_070.png">
+<meta property="og:image" content="http://octlz2jco.bkt.clouddn.com/blog_content_000_000_071.png">
+<meta property="og:updated_time" content="2017-07-31T13:43:26.321Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="The Tower of Babel">
-<meta name="twitter:description" content="努力去努力,坚持去坚持">
+<meta name="twitter:title" content="[面试] 面试过程中遇到的Cookie和Session的问题">
+<meta name="twitter:image" content="http://octlz2jco.bkt.clouddn.com/blog_thumbnails_000_000_022.jpg">
 
 
 
@@ -131,13 +135,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/tags/多模块/"/>
+  <link rel="canonical" href="http://yoursite.com/2016/10/23/面试-面试过程中遇到的Cookie和Session的问题/"/>
 
 
 
 
 
-  <title>标签: 多模块 | The Tower of Babel</title>
+  <title>[面试] 面试过程中遇到的Cookie和Session的问题 | The Tower of Babel</title>
   
 
 
@@ -162,7 +166,7 @@
     
   
 
-  <div class="container sidebar-position-left  ">
+  <div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -290,44 +294,218 @@
           <div id="content" class="content">
             
 
-  <div id="posts" class="posts-collapse">
-    <div class="collection-title">
-      <h1>多模块<small>标签</small>
-      </h1>
-    </div>
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/10/23/面试-面试过程中遇到的Cookie和Session的问题/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Niklaus.chi">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://octlz2jco.bkt.clouddn.com/blog_avatar_001.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="The Tower of Babel">
+    </span>
 
     
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">[面试] 面试过程中遇到的Cookie和Session的问题</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-10-23T21:29:09+08:00">
+                2016-10-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-comment-o"></i>
+              </span>
+              
+                <a href="/2016/10/23/面试-面试过程中遇到的Cookie和Session的问题/#SOHUCS" itemprop="discussionUrl">
+                  <span id="changyan_count_unit" class="post-comments-count hc-comment-count" data-xid="2016/10/23/面试-面试过程中遇到的Cookie和Session的问题/" itemprop="commentsCount"></span>
+                </a>
+              
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
       
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+      
+        <p><img src="http://octlz2jco.bkt.clouddn.com/blog_thumbnails_000_000_022.jpg" alt="https://tuchong.com/1159583/14369308/"><br><a id="more"></a></p>
+<h2 id="主要问题"><a href="#主要问题" class="headerlink" title="主要问题"></a>主要问题</h2><h3 id="1-说明Cookie和Session这两个概念的联系与区别，解释Session是如何工作的？"><a href="#1-说明Cookie和Session这两个概念的联系与区别，解释Session是如何工作的？" class="headerlink" title="1.说明Cookie和Session这两个概念的联系与区别，解释Session是如何工作的？"></a>1.说明Cookie和Session这两个概念的联系与区别，解释Session是如何工作的？</h3><h3 id="2-为什么要引入Cookie？Cookie通常存在哪里？"><a href="#2-为什么要引入Cookie？Cookie通常存在哪里？" class="headerlink" title="2.为什么要引入Cookie？Cookie通常存在哪里？"></a>2.为什么要引入Cookie？Cookie通常存在哪里？</h3><p>关于Cookie存储在哪里，首先要知道Cookie失效分为两种：<br>1.设置过期时间失效（只要设置了过期时间Cookie就会存储在硬盘里面）。<br>2.在会话结束时失效，即关闭浏览器窗口（因为没有设置Expires，Cookie就会存储在内存中）。<br>下面给出一个demo</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">button</span> <span class="attr">name</span>=<span class="string">"btn1"</span> <span class="attr">onclick</span>=<span class="string">"setCookieBtn1()"</span>&gt;</span>btn1<span class="tag">&lt;/<span class="name">button</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">button</span> <span class="attr">name</span>=<span class="string">"btn2"</span> <span class="attr">onclick</span>=<span class="string">"setCookieBtn2()"</span>&gt;</span>btn2<span class="tag">&lt;/<span class="name">button</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">src</span>=<span class="string">"/resources/js/jquery-3.1.1.min.js"</span> &gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">src</span>=<span class="string">"/resources/js/jquery.cookie.js"</span> &gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"application/javascript"</span>&gt;</span><span class="undefined"></span></div><div class="line"></div><div class="line">    function setCookieBtn1()&#123;</div><div class="line">        $.cookie('Memory','Memory');</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    function setCookieBtn2()&#123;</div><div class="line">        $.cookie('HardDisk','HardDisk',&#123;expires:1&#125;);</div><div class="line">    &#125;</div><div class="line"></div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>依次点击btn1、btn2之后，通过F12调出Chrome的Developer Tools查看Cookie情况</p>
+<p><img src="http://octlz2jco.bkt.clouddn.com/blog_content_000_000_069.png" alt=""></p>
+<p>通过Chrome 的 设置-隐私设置 -内容设置-Cookie-所有Cookie和网站数据可以查看结果如下：</p>
+<p><img src="http://octlz2jco.bkt.clouddn.com/blog_content_000_000_070.png" alt=""></p>
+<p>重启浏览器之后再次查看结果：</p>
+<p><img src="http://octlz2jco.bkt.clouddn.com/blog_content_000_000_071.png" alt=""></p>
+<p>此时名为HardDisk的Cookie存储在 C:\Users\username\AppData\Local\Google\Chrome\User Data\Default中的Cookies文件中。</p>
+<h3 id="3-Session对象何时被创建？何时被销毁？"><a href="#3-Session对象何时被创建？何时被销毁？" class="headerlink" title="3.Session对象何时被创建？何时被销毁？"></a>3.Session对象何时被创建？何时被销毁？</h3><p>1.调用HttpServletRequest.getSession(true)<br>2.Session的销毁</p>
+<ul>
+<li>关闭浏览器</li>
+<li>设置Session过期</li>
+<li>服务器端调用了HttpSession的invalidate()方法。</li>
+</ul>
+<h3 id="4-Session通常存在哪里？是否可以持久化？"><a href="#4-Session通常存在哪里？是否可以持久化？" class="headerlink" title="4.Session通常存在哪里？是否可以持久化？"></a>4.Session通常存在哪里？是否可以持久化？</h3><h3 id="5-Session共享是什么意思？"><a href="#5-Session共享是什么意思？" class="headerlink" title="5.Session共享是什么意思？"></a>5.Session共享是什么意思？</h3><h2 id="参考-amp-引用"><a href="#参考-amp-引用" class="headerlink" title="参考&amp;引用"></a>参考&amp;引用</h2><h2 id="更新时间"><a href="#更新时间" class="headerlink" title="更新时间"></a>更新时间</h2><p>发布时间 ： 2016-10-23</p>
 
-      <h2 class="post-title">
+      
+    </div>
+
+    <div>    
+	 
+	 
+	    <ul class="post-copyright">
+	      <li class="post-copyright-author">
+	          <strong>本文作者：</strong>Niklaus.chi
+	      </li>
+	      <li class="post-copyright-link">
+	        <strong>本文链接：</strong>
+	        <a href="/2016/10/23/面试-面试过程中遇到的Cookie和Session的问题/" title="[面试] 面试过程中遇到的Cookie和Session的问题">2016/10/23/面试-面试过程中遇到的Cookie和Session的问题/</a>
+	      </li>
+	      <li class="post-copyright-license">
+	        <strong>版权声明： </strong>
+	        本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0 CN</a> 许可协议。转载请注明出处！
+	      </li>
+	    </ul>
+	  
+	</div>
+
+    <div>
+      
         
-            <a class="post-title-link" href="/2016/07/23/IntelliJ-IDEA创建Maven多模块项目/" itemprop="url">
-              
-                <span itemprop="name">IntelliJ IDEA创建Maven多模块项目</span>
-              
-            </a>
+
+      
+    </div>
+
+    <div>
+      
         
-      </h2>
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>看你的了！</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="http://octlz2jco.bkt.clouddn.com/blog_reward_wechat.png" alt="Niklaus.chi WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+    </div>
+  </div>
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2016-07-23T21:09:48+08:00"
-              content="2016-07-23" >
-          07-23
-        </time>
-      </div>
 
-    </header>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Session/" rel="tag"># Session</a>
+          
+            <a href="/tags/Cookie/" rel="tag"># Cookie</a>
+          
+            <a href="/tags/面试/" rel="tag"># 面试</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/10/22/转载-深入理解web开发中的Session和Cookie/" rel="next" title="[转载]深入理解web开发中的Session和Cookie">
+                <i class="fa fa-chevron-left"></i> [转载]深入理解web开发中的Session和Cookie
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/02/25/分享-Spring-Boot学习资料整理/" rel="prev" title="[分享] Spring Boot学习资料整理">
+                [分享] Spring Boot学习资料整理 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </article>
 
 
-    
-  </div>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -335,6 +513,12 @@
 
 
           
+  <div class="comments" id="comments">
+    
+      <div id="SOHUCS"></div>
+    
+  </div>
+
 
         </div>
         
@@ -354,8 +538,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="http://octlz2jco.bkt.clouddn.com/blog_avatar_001.jpg"
@@ -461,6 +654,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#主要问题"><span class="nav-number">1.</span> <span class="nav-text">主要问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-说明Cookie和Session这两个概念的联系与区别，解释Session是如何工作的？"><span class="nav-number">1.1.</span> <span class="nav-text">1.说明Cookie和Session这两个概念的联系与区别，解释Session是如何工作的？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-为什么要引入Cookie？Cookie通常存在哪里？"><span class="nav-number">1.2.</span> <span class="nav-text">2.为什么要引入Cookie？Cookie通常存在哪里？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-Session对象何时被创建？何时被销毁？"><span class="nav-number">1.3.</span> <span class="nav-text">3.Session对象何时被创建？何时被销毁？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-Session通常存在哪里？是否可以持久化？"><span class="nav-number">1.4.</span> <span class="nav-text">4.Session通常存在哪里？是否可以持久化？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-Session共享是什么意思？"><span class="nav-number">1.5.</span> <span class="nav-text">5.Session共享是什么意思？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考-amp-引用"><span class="nav-number">2.</span> <span class="nav-text">参考&引用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#更新时间"><span class="nav-number">3.</span> <span class="nav-text">更新时间</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -579,10 +788,10 @@
   
 
   
-    <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
 <script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
 
-  
+
 
   
 

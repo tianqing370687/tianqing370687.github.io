@@ -195,6 +195,303 @@
   </entry>
   
   <entry>
+    <title>[面试] 面试过程中遇到的Cookie和Session的问题</title>
+    <link href="http://yoursite.com/2016/10/23/%E9%9D%A2%E8%AF%95-%E9%9D%A2%E8%AF%95%E8%BF%87%E7%A8%8B%E4%B8%AD%E9%81%87%E5%88%B0%E7%9A%84Cookie%E5%92%8CSession%E7%9A%84%E9%97%AE%E9%A2%98/"/>
+    <id>http://yoursite.com/2016/10/23/面试-面试过程中遇到的Cookie和Session的问题/</id>
+    <published>2016-10-23T13:29:09.000Z</published>
+    <updated>2017-07-31T13:43:26.321Z</updated>
+    
+    <content type="html"><![CDATA[<p><img src="http://octlz2jco.bkt.clouddn.com/blog_thumbnails_000_000_022.jpg" alt="https://tuchong.com/1159583/14369308/"><br><a id="more"></a></p>
+<h2 id="主要问题"><a href="#主要问题" class="headerlink" title="主要问题"></a>主要问题</h2><h3 id="1-说明Cookie和Session这两个概念的联系与区别，解释Session是如何工作的？"><a href="#1-说明Cookie和Session这两个概念的联系与区别，解释Session是如何工作的？" class="headerlink" title="1.说明Cookie和Session这两个概念的联系与区别，解释Session是如何工作的？"></a>1.说明Cookie和Session这两个概念的联系与区别，解释Session是如何工作的？</h3><h3 id="2-为什么要引入Cookie？Cookie通常存在哪里？"><a href="#2-为什么要引入Cookie？Cookie通常存在哪里？" class="headerlink" title="2.为什么要引入Cookie？Cookie通常存在哪里？"></a>2.为什么要引入Cookie？Cookie通常存在哪里？</h3><p>关于Cookie存储在哪里，首先要知道Cookie失效分为两种：<br>1.设置过期时间失效（只要设置了过期时间Cookie就会存储在硬盘里面）。<br>2.在会话结束时失效，即关闭浏览器窗口（因为没有设置Expires，Cookie就会存储在内存中）。<br>下面给出一个demo</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">button</span> <span class="attr">name</span>=<span class="string">"btn1"</span> <span class="attr">onclick</span>=<span class="string">"setCookieBtn1()"</span>&gt;</span>btn1<span class="tag">&lt;/<span class="name">button</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">button</span> <span class="attr">name</span>=<span class="string">"btn2"</span> <span class="attr">onclick</span>=<span class="string">"setCookieBtn2()"</span>&gt;</span>btn2<span class="tag">&lt;/<span class="name">button</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">src</span>=<span class="string">"/resources/js/jquery-3.1.1.min.js"</span> &gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">src</span>=<span class="string">"/resources/js/jquery.cookie.js"</span> &gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"application/javascript"</span>&gt;</span><span class="undefined"></span></div><div class="line"></div><div class="line">    function setCookieBtn1()&#123;</div><div class="line">        $.cookie('Memory','Memory');</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    function setCookieBtn2()&#123;</div><div class="line">        $.cookie('HardDisk','HardDisk',&#123;expires:1&#125;);</div><div class="line">    &#125;</div><div class="line"></div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>依次点击btn1、btn2之后，通过F12调出Chrome的Developer Tools查看Cookie情况</p>
+<p><img src="http://octlz2jco.bkt.clouddn.com/blog_content_000_000_069.png" alt=""></p>
+<p>通过Chrome 的 设置-隐私设置 -内容设置-Cookie-所有Cookie和网站数据可以查看结果如下：</p>
+<p><img src="http://octlz2jco.bkt.clouddn.com/blog_content_000_000_070.png" alt=""></p>
+<p>重启浏览器之后再次查看结果：</p>
+<p><img src="http://octlz2jco.bkt.clouddn.com/blog_content_000_000_071.png" alt=""></p>
+<p>此时名为HardDisk的Cookie存储在 C:\Users\username\AppData\Local\Google\Chrome\User Data\Default中的Cookies文件中。</p>
+<h3 id="3-Session对象何时被创建？何时被销毁？"><a href="#3-Session对象何时被创建？何时被销毁？" class="headerlink" title="3.Session对象何时被创建？何时被销毁？"></a>3.Session对象何时被创建？何时被销毁？</h3><p>1.调用HttpServletRequest.getSession(true)<br>2.Session的销毁</p>
+<ul>
+<li>关闭浏览器</li>
+<li>设置Session过期</li>
+<li>服务器端调用了HttpSession的invalidate()方法。</li>
+</ul>
+<h3 id="4-Session通常存在哪里？是否可以持久化？"><a href="#4-Session通常存在哪里？是否可以持久化？" class="headerlink" title="4.Session通常存在哪里？是否可以持久化？"></a>4.Session通常存在哪里？是否可以持久化？</h3><h3 id="5-Session共享是什么意思？"><a href="#5-Session共享是什么意思？" class="headerlink" title="5.Session共享是什么意思？"></a>5.Session共享是什么意思？</h3><h2 id="参考-amp-引用"><a href="#参考-amp-引用" class="headerlink" title="参考&amp;引用"></a>参考&amp;引用</h2><h2 id="更新时间"><a href="#更新时间" class="headerlink" title="更新时间"></a>更新时间</h2><p>发布时间 ： 2016-10-23</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;img src=&quot;http://octlz2jco.bkt.clouddn.com/blog_thumbnails_000_000_022.jpg&quot; alt=&quot;https://tuchong.com/1159583/14369308/&quot;&gt;&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="Session" scheme="http://yoursite.com/tags/Session/"/>
+    
+      <category term="Cookie" scheme="http://yoursite.com/tags/Cookie/"/>
+    
+      <category term="面试" scheme="http://yoursite.com/tags/%E9%9D%A2%E8%AF%95/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>[转载]深入理解web开发中的Session和Cookie</title>
+    <link href="http://yoursite.com/2016/10/22/%E8%BD%AC%E8%BD%BD-%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3web%E5%BC%80%E5%8F%91%E4%B8%AD%E7%9A%84Session%E5%92%8CCookie/"/>
+    <id>http://yoursite.com/2016/10/22/转载-深入理解web开发中的Session和Cookie/</id>
+    <published>2016-10-22T13:16:54.000Z</published>
+    <updated>2017-07-31T13:26:55.147Z</updated>
+    
+    <content type="html"><![CDATA[<p>Session 与 Cookie 不管是对 Java Web 的初学者还是熟练使用者来说都是一个令人头疼的问题。在初入职场时恐怕很多程序员在面试的时候都被问到过这个问题。其实这个问题回答起来既简单又复杂，简单是因为它们本身只是 HTTP 协议中的一个配置项，在 Servlet 规范中也只是对应到一个类而已；说它复杂原因在于当我们的系统大到需要用到很多 Cookie 的时候，我们不得不考虑 HTTP 协议对 Cookie 数量和大小的限制，那么如何才能解决这个瓶颈呢？ Session 也会有同样的问题，当我们的一个应用系统有几百台服务器的时候如何解决 Session 在多台服务器之间共享？</p>
+<p>Session 与 Cookie 的作用都是为了保持访问用户与后端服务器的交互状态。它们有各自的优点，也有各自的缺陷，然而具有讽刺意味的是它们的优点和它们的使用场景又是矛盾的。例如，使用 Cookie 来传递信息时，随着 Cookie 个数的增多和访问量的增加，它占用的网络带宽也很大，试想假如 Cookie 占用 200 个字节，如果一天的 PV 有几亿，它要占用多少带宽？所以有大访问量的时候希望用 Session，但是 Session 的致命弱点是不容易在多台服务器之间共享，所以这也限制了 Session 的使用。</p>
+<a id="more"></a>
+<h2 id="1-理解Cookie"><a href="#1-理解Cookie" class="headerlink" title="1 理解Cookie"></a>1 理解Cookie</h2><p>Cookie 的作用我想大家都知道，通俗地说就是当一个用户通过 HTTP 协议访问一个服务器的时候，这个服务器会将一些 Key/Value 键值对返回给客户端浏览器，并给这些数据加上一些限制条件，在条件符合时这个用户下次访问这个服务器的时候，数据又被完整地带回给服务器。</p>
+<p>这个作用就像您去超市购物时，第一次给您办张购物卡，这个购物卡里存放了一些您的个人信息，下次您再来这个连锁超市时，超市会识别您的购物卡，下次直接购物就好了。</p>
+<p>当初 W3C 在设计 Cookie 时实际上考虑的是为了记录用户在一段时间内访问 Web 应用的行为路径。由于 HTTP 协议是一种无状态协议，当用户的一次访问请求结束后，后端服务器就无法知道下一次来访问的还是不是上次访问的用户，在设计应用程序时，我们很容易想到两次访问是同一人访问与不同的两个人访问对程序设计和性能来说有很大的不同。例如，在一个很短的时间内，如果与用户相关的数据被频繁访问，可以针对这个数据做缓存，这样可以大大提高数据的访问性能。Cookie 的作用正是在此，由于是同一个客户端发出的请求，每次发出的请求都会带有第一次访问时服务端设置的信息，这样服务端就可以根据 Cookie 值来划分访问的用户了。</p>
+<h3 id="1-1-Cookie属性项"><a href="#1-1-Cookie属性项" class="headerlink" title="1.1 Cookie属性项"></a>1.1 Cookie属性项</h3><p>当前Cookie有两个版本：Version 0和Version 1.通过他们有两种设置响应头的标识，分别是“Set-Cookie”和“Set-Cookie2”。这两个版本的属性项有些不同。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">属性项</th>
+<th style="text-align:left">属性项介绍</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">NAME=VALUE</td>
+<td style="text-align:left">键值对，可以设置要保存的 Key/Value，注意这里的 NAME 不能和其他属性项的名字一样</td>
+</tr>
+<tr>
+<td style="text-align:left">Expires</td>
+<td style="text-align:left">过期时间，在设置的某个时间点后该 Cookie 就会失效，如 expires=Wednesday, 09-Nov-99 23:12:40 GMT</td>
+</tr>
+<tr>
+<td style="text-align:left">Domain</td>
+<td style="text-align:left">生成该 Cookie 的域名，如 domain=”xulingbo.net”</td>
+</tr>
+<tr>
+<td style="text-align:left">Path</td>
+<td style="text-align:left">该 Cookie 是在当前的哪个路径下生成的，如 path=/wp-admin/</td>
+</tr>
+<tr>
+<td style="text-align:left">Secure</td>
+<td style="text-align:left">如果设置了这个属性，那么只会在 SSH 连接时才会回传该 Cookie</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">属性项</th>
+<th style="text-align:left">属性项介绍</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">NAME=VALUE</td>
+<td style="text-align:left">与 Version 0 相同</td>
+</tr>
+<tr>
+<td style="text-align:left">Version</td>
+<td style="text-align:left">通过 Set-Cookie2 设置的响应头创建必须符合 RFC2965 规范，如果通过 Set-Cookie 响应头设置，默认值为 0，如果要设置为 1，则该 Cookie 要遵循 RFC 2109 规范</td>
+</tr>
+<tr>
+<td style="text-align:left">Comment</td>
+<td style="text-align:left">注释项，用户说明该 Cookie 有何用途</td>
+</tr>
+<tr>
+<td style="text-align:left">CommentURL</td>
+<td style="text-align:left">服务器为此  Cookie 提供的 URI 注释</td>
+</tr>
+<tr>
+<td style="text-align:left">Discard</td>
+<td style="text-align:left">是否在会话结束后丢弃该 Cookie 项，默认为 fasle</td>
+</tr>
+<tr>
+<td style="text-align:left">Domain</td>
+<td style="text-align:left">生类似于 Version 0</td>
+</tr>
+<tr>
+<td style="text-align:left">Max-Age</td>
+<td style="text-align:left">最大失效时间，与 Version 0 不同的是这里设置的是在多少秒后失效</td>
+</tr>
+<tr>
+<td style="text-align:left">Port</td>
+<td style="text-align:left">该 Cookie 在什么端口下可以回传服务端，如果有多个端口，以逗号隔开，如 Port=”80,81,8080”</td>
+</tr>
+<tr>
+<td style="text-align:left">Path</td>
+<td style="text-align:left">类似于 Version 0</td>
+</tr>
+<tr>
+<td style="text-align:left">Secure</td>
+<td style="text-align:left">类似于 Version 0</td>
+</tr>
+</tbody>
+</table>
+<p>以上两个版本的 Cookie 中设置的 Header 头的标识符是不同的，我们常用的是 Set-Cookie：userName=“junshan”; Domain=“xulingbo.net”，这是 Version 0 的形式。针对 Set-Cookie2 是这样设置的：Set-Cookie2：userName=“junshan”; Domain=“xulingbo.net”; Max-Age=1000。但是在 Java Web 的 Servlet 规范中并不支持 Set-Cookie2 响应头，在实际应用中 Set-Cookie2 的一些属性项却可以设置在 Set-Cookie 中，如这样设置：Set-Cookie：userName=“junshan”; Version=“1”;Domain=“xulingbo.net”;Max-Age=1000。</p>
+<h3 id="1-2-Cookie如何工作"><a href="#1-2-Cookie如何工作" class="headerlink" title="1.2 Cookie如何工作"></a>1.2 Cookie如何工作</h3><p>当我们用如下方式创建Cookie时：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="function">String <span class="title">getCookie</span><span class="params">(Cookie[] cookies, String key)</span> </span>&#123; </div><div class="line">    <span class="keyword">if</span> (cookies != <span class="keyword">null</span>) &#123; </div><div class="line">        <span class="keyword">for</span> (Cookie cookie : cookies) &#123; </div><div class="line">            <span class="keyword">if</span> (cookie.getName().equals(key)) &#123; </div><div class="line">                <span class="keyword">return</span> cookie.getValue(); </div><div class="line">            &#125; </div><div class="line">        &#125; </div><div class="line">    &#125; </div><div class="line">    <span class="keyword">return</span> <span class="keyword">null</span>; </div><div class="line">&#125; </div><div class="line"></div><div class="line"><span class="meta">@Override</span> </div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doGet</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span><span class="keyword">throws</span> IOException, ServletException </span>&#123; </div><div class="line">    Cookie[] cookies = request.getCookies(); </div><div class="line">    String userName = getCookie(cookies, <span class="string">"userName"</span>); </div><div class="line">    String userAge = getCookie(cookies, <span class="string">"userAge"</span>); </div><div class="line">    <span class="keyword">if</span> (userName == <span class="keyword">null</span>) &#123; </div><div class="line">        response.addCookie(<span class="keyword">new</span> Cookie(<span class="string">"userName"</span>, <span class="string">"junshan"</span>)); </div><div class="line">    &#125; </div><div class="line">    <span class="keyword">if</span> (userAge == <span class="keyword">null</span>) &#123; </div><div class="line">        response.addCookie(<span class="keyword">new</span> Cookie(<span class="string">"userAge"</span>, <span class="string">"28"</span>)); </div><div class="line">    &#125; </div><div class="line">    response.getHeaders(<span class="string">"Set-Cookie"</span>); </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>Cookie是如何加到HTTP的Header中的呢？当我们用Servlet 3.0规范来创建一个Cookie对象时，该Cookie既支持Version 0又支持Version 1，如果你设置了Version 1中的配置项，即使您没有设置版本号，Tomcat在最后构建HTTP响应头时也会自动将Version的版本设置为1。下面看一下Tomcat是如何调用addCookie方法。</p>
+<p><img src="http://octlz2jco.bkt.clouddn.com/blog_content_000_000_056.jpg" alt="Tomcat 创建 Set-Cookie 响应头的时序图"></p>
+<p>从图中可以看出，真正构建Cookie是在org.apache.catalina.connector.Response类中完成的，调用generateCookieString方法将Cookie对象构建成一个字符串，构造的字符串格式如userName=“junshan”;Version=“1”; Domain=“xulingbo.net”; Max-Age=1000。然后将这个字符串命名为 Set-Cookie 添加到 MimeHeaders 中。 </p>
+<p>在这里有几点需要注意：</p>
+<ul>
+<li>创建的Cookie的NAME不能和Set-Cookie或者Set-Cookie2的属性项值一样，如果一样会抛 IllegalArgumentException异常。</li>
+<li>创建Cookie的NAME和VALUE的值不能设置成非ASSIC字符，如果要使用中文，可以通过URLEncoder 将其编码，否则将会抛 IllegalArgumentException 异常。</li>
+<li>当 NAME 和 VALUE 的值出现一些 TOKEN 字符（如“\”、“,”等）时，构建返回头会将该 Cookie 的 Version 自动设置为 1。</li>
+<li>当该 Cookie 的属性项中出现 Version 为 1 的属性项时，构建 HTTP 响应头同样会将 Version 设置为 1。</li>
+</ul>
+<p>不知道您有没有注意一个问题，就是当我们通过response.addCookie创建多个Cookie时，这些Cookie最终是在一个Header项中还是以独立的Header存在的，通俗的说也就是我们每次创建Cookie时是否都是创建一个以NAME为Set-Cookie的MineHeaders？答案是肯定的。从上面的图中可以看出每次调用addCookie的时候，最终都会创建一个Header，但是我们还不知道最终在请求返回时构造HTTP响应头是否将相同Header标识的Set-Cookie值进行合并。</p>
+<p>我们找到Tomcat最终构造HTTP响应头的代码，这段代码位于org.apache.coyote.http11. Http11Processor类的prepareResponse 方法中，如下所示：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">int</span> size = headers.size(); </div><div class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; size; i++) &#123; </div><div class="line">   outputBuffer.sendHeader(headers.getName(i), headers.getValue(i)); </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这段代码清楚地表示，在构建HTTP返回字节流时是将Header终所有的项顺序地写出，而没有进行任何修改。所以可以想象浏览器在接收HTTP协议返回的数据时是分别解析每一个Header项的。</p>
+<p>另外，目前很多工具都可以观察甚至可以修改浏览器中的 Cookie 数据。例如，在 Firefox 中可以通过 HttpFox 插件来查看返回的 Cookie 数据，如下图所示。</p>
+<p><img src="http://octlz2jco.bkt.clouddn.com/blog_content_000_000_057.jpg" alt="HttpFox 插件展示的 Header 数据"></p>
+<p>在 cookie 项中可以详细查看 Cookie 属性项，如下图所示。</p>
+<p><img src="http://octlz2jco.bkt.clouddn.com/blog_content_000_000_058.jpg" alt="HttpFox 插件展示的 Cookie 数据"></p>
+<p>前面主要介绍了服务端如何创建 Cookie，下面看一下如何从客户端获取 Cookie。</p>
+<p>当我们请求某个 URL 路径时，浏览器会根据这个 URL 路径将符合条件的 Cookie 放在 Request 请求头中传回给服务端，服务端通过 request.getCookies() 来取得所有 Cookie。</p>
+<h3 id="1-3-使用Cookie的限制"><a href="#1-3-使用Cookie的限制" class="headerlink" title="1.3 使用Cookie的限制"></a>1.3 使用Cookie的限制</h3><p>Cookie是HTTP协议头中的一个字段，虽然HTTP协议本身对着这个字段并没有多少限制，但是Cookie最终还是存储在浏览器里，所以不同的浏览器对Cookie的存储都有一些限制，下表是一些通常的浏览器对Cookie的大小和数量的限制。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">浏览器版本</th>
+<th style="text-align:left">Cookie数限制</th>
+<th style="text-align:left">Cookie总大小限制</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">IE6</td>
+<td style="text-align:left">20 个 / 每个域名</td>
+<td style="text-align:left">4095 个字节</td>
+</tr>
+<tr>
+<td style="text-align:left">IE7</td>
+<td style="text-align:left">50 个 / 每个域名</td>
+<td style="text-align:left">4095 个字节</td>
+</tr>
+<tr>
+<td style="text-align:left">IE8</td>
+<td style="text-align:left">50 个 / 每个域名</td>
+<td style="text-align:left">4095 个字节</td>
+</tr>
+<tr>
+<td style="text-align:left">IE9</td>
+<td style="text-align:left">50 个 / 每个域名</td>
+<td style="text-align:left">4095 个字节</td>
+</tr>
+<tr>
+<td style="text-align:left">Chrome</td>
+<td style="text-align:left">50 个 / 每个域名</td>
+<td style="text-align:left">大于 80000</td>
+</tr>
+<tr>
+<td style="text-align:left">FireFox</td>
+<td style="text-align:left">50 个 / 每个域名</td>
+<td style="text-align:left">4095 个字节</td>
+</tr>
+</tbody>
+</table>
+<h2 id="2-理解Session"><a href="#2-理解Session" class="headerlink" title="2 理解Session"></a>2 理解Session</h2><p>前面介绍了Cookie可以让服务端程序追踪到每个客户端的访问，但是每次客户端的访问都必须传回这些Cookie，如果Cookie很多，这无形地增加了客户端与服务端的数据传输量，而Session的出现正是为了解决这个问题。</p>
+<p>同一个客户端每次和服务端交互时，不需要每次都传回所有的Cookie值，而是只要传回一个ID，这个ID是客户端第一次访问服务器的时候生成的，而且每个客户端是唯一的。这样每个客户端就有了一个唯一的ID，客户端只要传回这个ID就行了，这个ID通常是NAME为JSESSIONID的一个Cookie。</p>
+<h3 id="2-1-Session与Cookie"><a href="#2-1-Session与Cookie" class="headerlink" title="2.1 Session与Cookie"></a>2.1 Session与Cookie</h3><p>下面详细讲一下Session如何给予Cookie来工作。实际上有三种方式可以让Session正常工作：</p>
+<ul>
+<li>基于URL Path Parameter ，默认支持。</li>
+<li>基于Cookie，如果没有修改Context容器的cookies标识，默认也是支持的。</li>
+<li>基于SSL，默认不支持，只有connector.getAttribute(“SSLEnabled”) 为TRUE时才支持。</li>
+</ul>
+<p>第一种情况下，当浏览器不支持Cookie功能时，浏览器会将用户的SessionCookieName重写到用请求的URL参数中，它的传递格式如/path/Servlet;name=value;name2=value2? Name3=value3，其中“Servlet；”后面的K-V就是要传递的Path Parameters，服务器会从这个Path Parameters中拿到用户配置的SessionCookieName。关于这个SessionCookieName，如果在web.xml中配置session-config配置项，其cookie-config下的name属性就是这个SessionCookieName值。如果没有配置session-config配置项，默认的SessionCookieName就是大家熟悉的“JSESSIONID”。需要说明的一点是，与Session关联的Cookie与其他Cookie没有什么不同。接着Request根据这个SessionCookieName倒Parameters中拿到Session ID并设置到request.setRequestedSessionId中。</p>
+<p>请注意，如果客户端也支持Cookie，Tomcat仍然会解析Cookie中的Session ID，并会覆盖URL中的Session ID。<br>如果是第三情况，将会根据 javax.servlet.request.ssl_session 属性值设置 Session ID。</p>
+<h3 id="2-2-Session如何工作"><a href="#2-2-Session如何工作" class="headerlink" title="2.2 Session如何工作"></a>2.2 Session如何工作</h3><p>有了Session ID服务端就可以创建HttpSession对象了，第一次触发通过request.getSession()方法。如果当前的Session ID还没有对应的HttpSession对象，那么就创建一个新的，并将这个对象加到org.apache.catalina.Manager的sessions容器中保存。Manager类将管理所有Session的生命周期，Session过期将被回收，服务器关闭，Session将被序列化到磁盘等。只要这个HttpSession对象存在，用户就可以根据Session ID来获取这个对象，也就达到了状态的保持。</p>
+<p><img src="http://octlz2jco.bkt.clouddn.com/blog_content_000_000_059.jpg" alt="Session 相关类图"></p>
+<p>从上图可以看出，从request.getSession中获取的HttpSession对象实际上是StandardSession对象的门面对象，这与前面的Request和Servlet是一样的原理。</p>
+<p><img src="http://octlz2jco.bkt.clouddn.com/blog_content_000_000_060.jpg" alt="Session 工作的时序图"></p>
+<p>从时序图中可以看到，从Request中获取的Session对象保存在org.apache. catalina.Manager 类中，它的实现类是org.apache.catalina.session.StandardManager，通过requestedSessionId从StandardManager 的sessions集合中取出StandardSession 对象。由于一个requestedSessionId 对应一个访问的客户端，所以一个客户端，也就是对应一个StandardSession 对象，这个对象正式保存我们创建的Session值的。下面我们看一下StandardManager这个类是如何管理StandardSession 的生命周期的。</p>
+<p><img src="http://octlz2jco.bkt.clouddn.com/blog_content_000_000_061.jpg" alt="StandardManager 与 StandardSession 的类关系图"></p>
+<p>StandardManager 类负责 Servlet 容器中所有的 StandardSession 对象的生命周期管理。当 Servlet 容器重启或关闭时 StandardManager 负责持久化没有过期的 StandardSession 对象，它会将所有的 StandardSession 对象持久化到一个以“SESSIONS.ser”为文件名的文件中。到 Servlet 容器重启时，也就是 StandardManager 初始化时，会重新读取这个文件解析出所有 Session 对象，重新保存在 StandardManager 的 sessions 集合中。Session 恢复状态图如下图所示。</p>
+<p><img src="http://octlz2jco.bkt.clouddn.com/blog_content_000_000_062.jpg" alt="Session 恢复状态图"></p>
+<p>当 Servlet 容器关闭时 StandardManager 类会调用 unload 方法将 sessions 集合中的 StandardSession 对象写到“SESSIONS.ser”[^1]文件中，然后在启动时再按照上面的状态图重新恢复，注意要持久化保存 Servlet 容器中的 Session 对象，必须调用 Servlet 容器的 stop 和 start 命令，而不能直接结束（kill）Servlet 容器的进程，因为直接结束进程，Servlet 容器没有机会调用 unload 方法来持久化这些 Session 对象。</p>
+<p>另外，StandardManager 中的 sessions 集合中的 StandardSession 对象并不是永远保存的，否则 Servlet 容器的内存将很容易被消耗尽，所以必须给每个 Session 对象定义一个有效时间，超过这个时间 Session 对象将被清除。在 Tomcat 中这个有效时间是 60（maxInactiveInterval 属性控制）秒，超过 60 秒该 Session 将会过期。检查每个 Session 是否失效是在 Tomcat 的一个后台线程中完成的（backgroundProcess() 方法中）。过期 Session 状态图如下图所示。</p>
+<p><img src="http://octlz2jco.bkt.clouddn.com/blog_content_000_000_063.jpg" alt=""></p>
+<p>除了后台进程检查 Session 是否失效外，当调用 request.getSession() 时也会检查该 Session 是否过期。值得注意的是，request.getSession() 方法调用的 StandardSession 永远都会存在，即使与这个客户端关联的 Session 对象已经过期。如果过期，又会重新创建一个全新的 StandardSession 对象，但是以前设置的 Session 值将会丢失。如果您取到了 Session 对象但是通过 session.getAttribute 取不到前面设置的 Session 值，请不要奇怪，因为很可能它已经失效了，请检查一下 <code>&lt; Manager pathname=”” maxInactiveInterval=”60” /&gt; </code>中 maxInactiveInterval 配置项的值，如果不想让 Session 过期可以设置为 -1。但是您要仔细评估一下，网站的访问量和设置的 Session 的大小，防止将您的 Servlet 容器内存撑爆。如果不想自动创建 Session 对象，也可以通过 request.getSession(boolean create) 方法来判断该客户端关联的 Session 对象是否存在。</p>
+<h2 id="3-Cookie安全问题"><a href="#3-Cookie安全问题" class="headerlink" title="3 Cookie安全问题"></a>3 Cookie安全问题</h2><p>虽然Cookie和Session都可以跟踪客户端的访问记录，但是他们的工作方式显然是不同的，Cookie通过吧所有要保存的数据通过HTTP协议的头部从客户端传递到服务端，又从服务端再传回到客户端，所有的数据都存储在客户端的浏览器里，所以这些Cookie数据可以被访问到，就像我们可以通过Firefox的插件HttpFox查看Cookie，设置可以通过FireCookie插件添加、修改Cookie，所以Cookie的安全性受到了很大的挑战。</p>
+<p>相较而言Session的安全性要高很多，因为Session是将数据保存在服务端，只是通过Cookie传递一个SessionID而已，所以Session更适合存储用户隐私和重要的数据。</p>
+<h2 id="4-分布式-Session-框架"><a href="#4-分布式-Session-框架" class="headerlink" title="4 分布式 Session 框架"></a>4 分布式 Session 框架</h2><p>从前面的分析可知，Session 和 Cookie 各自有优点和缺点。在大型互联网系统中，单独使用 Cookie 和 Session 都是不可行的，原因很简单。因为如果使用 Cookie，可以很好地解决应用的分布式部署问题，大型互联网应用系统一个应用有上百台机器，而且有很多不同的应用系统协同工作，由于 Cookie 是将值存储在客户端的浏览器里，用户每次访问都会将最新的值带回给处理该请求的服务器，所以也就解决了同一个用户的请求可能不在同一台服务器处理而导致的 Cookie 不一致的问题。</p>
+<h3 id="4-1-存在哪些问题"><a href="#4-1-存在哪些问题" class="headerlink" title="4.1 存在哪些问题"></a>4.1 存在哪些问题</h3><p>这种“谁家的孩子谁抱走”的处理方式的确是大型互联网的一个比较简单但是的确可以解决问题的处理方式，但是这种处理方式也会带来了很多其他问题，如：</p>
+<ul>
+<li>客户端 Cookie 存储限制。随着应用系统的增多 Cookie 数量也快速增加，但浏览器对于用户 Cookie 的存储是有限制的。例如，IE7 之前的 IE 浏览器，Cookie 个数的限制是 20 个，后续的版本，包括 Firefox 等，Cookie 个数的限制都是 50 个。总大小不超过 4KB，超过限制就会出现丢弃 Cookie 的现象发生，这会严重影响应用系统的正常使用。</li>
+<li>Cookie 管理的混乱。在大型互联网应用系统中，如果每个应用系统都自己管理每个应用使用的 Cookie，将会导致混乱，由于通常应用系统都在同一个域名下，Cookie 又有上面一条提到的限制，所以没有统一管理很容易出现 Cookie 超出限制的情况。</li>
+<li>安全令人担忧。虽然可以通过设置 HttpOnly 属性防止一些私密 Cookie 被客户端访问，但是仍然不能保证 Cookie 无法被篡改。为了保证 Cookie 的私密性通常会对 Cookie 进行加密，但是维护这个加密 Key 也是一件麻烦的事情，无法保证定期来更新加密 Key 也是带来安全性问题的一个重要因素。</li>
+</ul>
+<p>当以上问题不能再容忍下去的时候，就不得不想其他办法处理了。</p>
+<h3 id="4-2-可以解决哪些问题"><a href="#4-2-可以解决哪些问题" class="headerlink" title="4.2 可以解决哪些问题"></a>4.2 可以解决哪些问题</h3><p>既然 Cookie 有以上这些问题，Session 也有它的好处，为何不结合使用 Session 和 Cookie 呢？下面是分布式 Session 框架可以解决的问题：</p>
+<ul>
+<li>Session 配置的统一管理。</li>
+<li>Cookie 使用的监控和统一规范管理。</li>
+<li>Session 存储的多元化。</li>
+<li>Session 配置的动态修改。</li>
+<li>Session 加密 key 的定期修改。</li>
+<li>充分的容灾机制，保持框架的使用稳定性。</li>
+<li>Session 各种存储的监控和报警支持。</li>
+<li>Session 框架的可扩展性，兼容更多的 session 机制如 wapSession。</li>
+<li>跨域名 Session 与 Cookie 如何共享，现在同一个网站可能存在多个域名，如何将 Session 和 Cookie 在不同的域名之间共享是一个具有挑战性的问题。</li>
+</ul>
+<h3 id="4-3-总体实现思路"><a href="#4-3-总体实现思路" class="headerlink" title="4.3 总体实现思路"></a>4.3 总体实现思路</h3><p>分布式 Session 框架的架构图如下图所示。</p>
+<p><img src="http://octlz2jco.bkt.clouddn.com/blog_content_000_000_064.jpg" alt="Session 框架的架构图"></p>
+<p>为了达成上面所说的几点目标，我们需要一个服务订阅服务器，在应用启动时可以从这个订阅服务器订阅这个应用需要的可写 Session 项和可写 Cookie 项，这些配置的 Session 和 Cookie 可以限制这个应用能够使用哪些 Session 和 Cookie，甚至可以控制 Session 和 Cookie 可读或者可写。这样可以精确地控制哪些应用可以操作哪些 Session 和 Cookie，可以有效控制 Session 的安全性和 Cookie 的数量。</p>
+<p>如 Session 的配置项可以为如下形式：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">session</span>&gt;</span> </div><div class="line">       <span class="tag">&lt;<span class="name">key</span>&gt;</span>sessionID<span class="tag">&lt;/<span class="name">key</span>&gt;</span> </div><div class="line">      <span class="tag">&lt;<span class="name">ookiekey</span>&gt;</span>sessionID<span class="tag">&lt;/<span class="name">ookiekey</span> &gt;</span> </div><div class="line">       <span class="tag">&lt;<span class="name">lifeCycle</span>&gt;</span>9000<span class="tag">&lt;/<span class="name">lifeCycle</span>&gt;</span> </div><div class="line">      <span class="tag">&lt;<span class="name">base64</span>&gt;</span>true<span class="tag">&lt;/<span class="name">base64</span>&gt;</span> </div><div class="line"> <span class="tag">&lt;/<span class="name">session</span> &gt;</span></div></pre></td></tr></table></figure>
+<p>Cookie 的配置可以为如下形式：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">cookie</span>&gt;</span> </div><div class="line">       <span class="tag">&lt;<span class="name">key</span>&gt;</span>cookie<span class="tag">&lt;/<span class="name">key</span>&gt;</span> </div><div class="line">       <span class="tag">&lt;<span class="name">lifeCycle</span>&gt;</span><span class="tag">&lt;/<span class="name">lifeCycle</span>&gt;</span> </div><div class="line">       <span class="tag">&lt;<span class="name">type</span>&gt;</span>1<span class="tag">&lt;/<span class="name">type</span>&gt;</span> </div><div class="line">       <span class="tag">&lt;<span class="name">path</span>&gt;</span>/wp<span class="tag">&lt;/<span class="name">path</span>&gt;</span> </div><div class="line">      <span class="tag">&lt;<span class="name">domain</span>&gt;</span>xulingbo.net<span class="tag">&lt;/ <span class="attr">domain</span>&gt;</span> </div><div class="line">       <span class="tag">&lt;<span class="name">decrypt</span>&gt;</span>false<span class="tag">&lt;/<span class="name">decrypt</span>&gt;</span> </div><div class="line">      <span class="tag">&lt;<span class="name">httpOnly</span>&gt;</span>false<span class="tag">&lt;/ <span class="attr">httpOnly</span> &gt;</span> </div><div class="line"> <span class="tag">&lt;/<span class="name">cookie</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>统一通过订阅服务器推送配置可以有效地集中管理资源，所以可以省去每个应用都来配置 Cookie，简化 Cookie 的管理。如果应用要使用一个新增 Cookie，可以通过一个统一的平台来申请，申请通过才将这个配置项增加到订阅服务器。如果是一个所有应用都要使用的全局 Cookie，那么只需将这个 Cookie 通过订阅服务器统一推送过去就行了，省去了要在每个应用中手动增加 Cookie 的配置。</p>
+<p>关于这个订阅服务器现在有很多开源的配置服务器，如 Zookeeper 集群管理服务器，可以统一管理所有服务器的配置文件。</p>
+<p>既然是一个分布式 Session 的处理框架，必然会重新实现 HttpSession 的操作接口，使得应用操作 Session 的对象都是我们实现的 InnerHttpSession 对象，这个操作必须在进入应用之前完成，所以可以配置一个 filter 拦截用户的请求。</p>
+<p>先看一下如何封装 HttpSession 对象和拦截请求。</p>
+<p><img src="http://octlz2jco.bkt.clouddn.com/blog_content_000_000_065.jpg" alt="HttpSession 拦截请求时序图"></p>
+<p>我们可以在应用的 web.xml 中配置一个 SessionFilter，用于在请求到达 MVC 框架之前封装 HttpServletRequest 和 HttpServletResponse 对象，并创建我们自己的 InnerHttpSession 对象，把它设置到 request 和 response 对象中。这样应用系统通过 request.getHttpSession() 返回的就是我们创建的 InnerHttpSession 对象了，我们可以拦截 response 的 addCookies 设置的 Cookie。</p>
+<p>在时序图中，应用创建的所有 Session 对象都会保存在 InnerHttpSession 对象中，当用户的这次访问请求完成时，Session 框架将会把这个 InnerHttpSession 的所有内容再更新到分布式缓存中，以便于这个用户通过其他服务器再次访问这个应用系统。另外，为了保证一些应用对 Session 稳定性的特殊要求可以将一些非常关键的 Session 再存储到 Cookie 中，如当分布式缓存存在问题时，可以将部分 Session 存储到 Cookie 中，这样即使分布式缓存出现问题也不会影响关键业务的正常运行。</p>
+<p>还有一个非常重要的问题就是如何处理跨域名来共享 Cookie 的问题。我们知道 Cookie 是有域名限制的，也就是一个域名下的 Cookie 不能被另一个域名访问，所以如果在一个域名下已经登录成功，如何访问到另外一个域名的应用且保证登录状态仍然有效，这个问题大型网站应该经常会遇到。如何解决这个问题呢？下面介绍一种处理方式，如下图所示。</p>
+<p><img src="http://octlz2jco.bkt.clouddn.com/blog_content_000_000_066.jpg" alt="跨域名同步 session"></p>
+<p>从图中可以看出，要实现 Session 同步，需要另外一个跳转应用，这个应用可以被一个或者多个域名访问，它的主要功能是从一个域名下取得 sessionID，然后将这个 sessionID 同步到另外一个域名下。这个 sessionID 其实就是一个 Cookie，相当于我们经常遇到的 JSESSIONID，所以要实现两个域名下的 Session 同步，必须要将同一个 sessionID 作为 Cookie 写到两个域名下。</p>
+<p>总共 12 步，一个域名不用登录就取到了另外一个域名下的 Session，当然这中间有些步骤还可以简化，也可以做一些额外的工作，如可以写一些需要的 Cookie，而不仅仅只传一个 sessionID。</p>
+<p>除此之外，该框架还能处理 Cookie 被盗取的问题。如您的密码没有丢失，但是您的账号却有可能被别人登录的情况，这种情况很可能就是因为您登录成功后，您的 Cookie 被别人盗取了，盗取您的 Cookie 的人将您的 Cookie 加入到他的浏览器，然后他就可以通过您的 Cookie 正常访问您的个人信息了，这是一个非常严重的问题。在这个框架中我们可以设置一个 Session 签名，当用户登录成功后我们根据用户的私密信息生成的一个签名，以表示当前这个唯一的合法登录状态，然后将这个签名作为一个 Cookie 在当前这个用户的浏览器进程中和服务器传递，用户每次访问服务器都会检查这个签名和从服务端分布式缓存中取得的 Session 重新生成的签名是否一致，如果不一致，显然这个用户的登录状态不合法，服务端将清除这个 sessionID 在分布式缓存中的 Session 信息，让用户重新登录。</p>
+<h2 id="5-Cookie-压缩"><a href="#5-Cookie-压缩" class="headerlink" title="5 Cookie 压缩"></a>5 Cookie 压缩</h2><p>Cookie 是在 HTTP 的头部，所以通常的 gzip 和 deflate 针对 HTTP Body 的压缩不能压缩 Cookie，如果 Cookie 量非常大，可以考虑将 Cookie 也做压缩，压缩方式是将 Cookie 的多个 k/v 对看成普通的文本，做文本压缩。压缩算法同样可以使用 gzip 和 deflate 算法，但是需要注意的一点是，根据 Cookie 的规范，Cookie 中不能包含控制字符，仅仅只能包含 ASCII 码为（34 ～ 126）的可见字符。所以要将压缩后的结果再进行转码，可以进行 Base32 或者 Base64 编码。</p>
+<p>可以配置一个 Filter 在页面输出时对 Cookie 进行全部或者部分压缩，如下代码所示：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">private void compressCookie(Cookie c, HttpServletResponse res) &#123; </div><div class="line">       try &#123; </div><div class="line">           ByteArrayOutputStream bos = null; </div><div class="line">           bos = new ByteArrayOutputStream(); </div><div class="line">           DeflaterOutputStream dos = new DeflaterOutputStream(bos); </div><div class="line">           dos.write(c.getValue().getBytes()); </div><div class="line">           dos.close(); </div><div class="line">           System.out.println("</div><div class="line">           before compress length:" + c.getValue(). getBytes().length); </div><div class="line">           String compress = new sun.misc.BASE64Encoder().encode(bos. toByteArray()); </div><div class="line">           res.addCookie(new Cookie("compress", compress)); </div><div class="line">           System.out.println("after compress length:" + compress.getBytes(). length); </div><div class="line">       &#125; catch (IOException e) &#123; </div><div class="line">           e.printStackTrace(); </div><div class="line">       &#125; </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>上面的代码是用 DeflaterOutputStream 对 Cookie 进行压缩的，Deflater 压缩后再进行 BASE64 编码，相应地用 InflaterInputStream 进行解压。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">unCompressCookie</span><span class="params">(Cookie c)</span> </span>&#123; </div><div class="line">        <span class="keyword">try</span> &#123; </div><div class="line">            ByteArrayOutputStream out = <span class="keyword">new</span> ByteArrayOutputStream(); </div><div class="line">            <span class="keyword">byte</span>[] compress = </div><div class="line">        <span class="keyword">new</span> sun.misc.BASE64Decoder().decodeBuffer(<span class="keyword">new</span> String(c.getValue().getBytes())); </div><div class="line">            ByteArrayInputStream bis = <span class="keyword">new</span> ByteArrayInputStream(compress); </div><div class="line">            InflaterInputStream inflater = <span class="keyword">new</span> InflaterInputStream(bis); </div><div class="line">            <span class="keyword">byte</span>[] b = <span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">1024</span>]; </div><div class="line">            <span class="keyword">int</span> count; </div><div class="line">            <span class="keyword">while</span> ((count = inflater.read(b)) &gt;= <span class="number">0</span>) &#123; </div><div class="line">                out.write(b, <span class="number">0</span>, count); </div><div class="line">            &#125; </div><div class="line">            inflater.close(); </div><div class="line">            System.out.println(out.toByteArray());; </div><div class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123; </div><div class="line">            e.printStackTrace(); </div><div class="line">        &#125; </div><div class="line"> &#125;</div></pre></td></tr></table></figure>
+<p>2KB 大小的 Cookie 压缩前与压缩后字节数相差 20% 左右，如果您的网站的 Cookie 在 2KB~3KB 左右，一天有 1 亿的 PV，那么一天就能够产生 4TB 的带宽流量了，从节省带宽成本来说压缩还是很有必要的。</p>
+<h2 id="6-表单重复提交问题"><a href="#6-表单重复提交问题" class="headerlink" title="6 表单重复提交问题"></a>6 表单重复提交问题</h2><p>网站中在很多地方都有表单重复提交问题，一种情况是用户在网速慢的情况下可能会重复提交表单，还有就是恶意用户通过程序来发送恶意请求，在这些情况下都要设计一个防止表单重复提交的机制。</p>
+<p>要能够防止表单重复提交，就要标识用户的每一次访问请求，使得每一次访问对服务端来说都是唯一确定的。为了标识用户的每次访问请求，可以在用户请求一个表单域时增加一个隐藏表单项，这个表单项的值每次都是唯一的 token，如：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">id</span>=<span class="string">”form”</span> <span class="attr">method</span>=<span class="string">”post”</span>&gt;</span> </div><div class="line"> <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">hidden</span> <span class="attr">name</span>=<span class="string">“crsf_token”</span> <span class="attr">value</span>=<span class="string">“xxxx”/</span>&gt;</span> </div><div class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>当用户在请求时生成这个唯一的 token 时，同时将这个 token 保存在用户的 Session 中，等用户提交请求时检查这个 token 和当前的 Session 中保存的 token 是否一致。如果一致，说明没有重复提交，否则用户提交上来的 token 已经不是当前的这个请求的合法 token。其工作过程如图所示。</p>
+<p><img src="http://octlz2jco.bkt.clouddn.com/blog_content_000_000_067.jpg" alt="工作过程"></p>
+<p>上图是用户发起对表单页面的请求过程，生成唯一的 token 需要一个算法，最简单的就是可以根据一个种子作为 key 生成一个随机数，并保存在 Session 中，等下次用户提交表单时做验证。验证表单的过程如下图所示。</p>
+<p><img src="http://octlz2jco.bkt.clouddn.com/blog_content_000_000_068.jpg" alt=".验证表单的过程"></p>
+<p>当用户提交表单时会将请求时生成的 token 带回来，这样就可以和 Session 中保存的 token 做对比，从而确认这次表单验证是否合法。</p>
+<h2 id="7-总结"><a href="#7-总结" class="headerlink" title="7 总结"></a>7 总结</h2><p>Cookie 和 Session 都是为了保持用户访问的连续状态，之所以要保持这种状态，一方面是为了方便业务实现，另一方面就是简化服务端程序设计，提高访问性能，但是这也带来了另外一些挑战，如安全问题、应用的分布式部署带来的 Session 的同步问题及跨域名 Session 的同步等一系列问题。本章分析了 Cookie 和 Session 的工作原理，并介绍了一致分布式 Session 的解决方案。</p>
+<p>[^1]:  tomcat停止的时候在 /tomcat-6.0.26/work/Catalina/localhost/_/下面生成session.ser文件。文件里面保存了session信息。tomcat启动的时候，从session.ser中读取信息，然后删除session.ser文件。</p>
+<h2 id="参考-amp-引用"><a href="#参考-amp-引用" class="headerlink" title="参考&amp;引用"></a>参考&amp;引用</h2><p><a href="http://www.jiagoushuo.com/article/1000083.html" target="_blank" rel="external"><font color="#87CEFA">深入理解web开发中的Session和Cookie</font></a></p>
+<h2 id="更新时间"><a href="#更新时间" class="headerlink" title="更新时间"></a>更新时间</h2><p>发布时间 ： 2016-10-22</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Session 与 Cookie 不管是对 Java Web 的初学者还是熟练使用者来说都是一个令人头疼的问题。在初入职场时恐怕很多程序员在面试的时候都被问到过这个问题。其实这个问题回答起来既简单又复杂，简单是因为它们本身只是 HTTP 协议中的一个配置项，在 Servlet 规范中也只是对应到一个类而已；说它复杂原因在于当我们的系统大到需要用到很多 Cookie 的时候，我们不得不考虑 HTTP 协议对 Cookie 数量和大小的限制，那么如何才能解决这个瓶颈呢？ Session 也会有同样的问题，当我们的一个应用系统有几百台服务器的时候如何解决 Session 在多台服务器之间共享？&lt;/p&gt;
+&lt;p&gt;Session 与 Cookie 的作用都是为了保持访问用户与后端服务器的交互状态。它们有各自的优点，也有各自的缺陷，然而具有讽刺意味的是它们的优点和它们的使用场景又是矛盾的。例如，使用 Cookie 来传递信息时，随着 Cookie 个数的增多和访问量的增加，它占用的网络带宽也很大，试想假如 Cookie 占用 200 个字节，如果一天的 PV 有几亿，它要占用多少带宽？所以有大访问量的时候希望用 Session，但是 Session 的致命弱点是不容易在多台服务器之间共享，所以这也限制了 Session 的使用。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Session" scheme="http://yoursite.com/tags/Session/"/>
+    
+      <category term="Cookie" scheme="http://yoursite.com/tags/Cookie/"/>
+    
+  </entry>
+  
+  <entry>
     <title>垃圾对象的判定及垃圾收集算法</title>
     <link href="http://yoursite.com/2016/09/17/%E5%9E%83%E5%9C%BE%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%88%A4%E5%AE%9A%E5%8F%8A%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E7%AE%97%E6%B3%95/"/>
     <id>http://yoursite.com/2016/09/17/垃圾对象的判定及垃圾收集算法/</id>
@@ -1022,106 +1319,6 @@
     
       <category term="Spring MVC菜鸟之旅" scheme="http://yoursite.com/categories/Spring-MVC%E8%8F%9C%E9%B8%9F%E4%B9%8B%E6%97%85/"/>
     
-    
-  </entry>
-  
-  <entry>
-    <title>如何在同一台电脑配置多个git或者github账号</title>
-    <link href="http://yoursite.com/2016/06/18/%E5%A6%82%E4%BD%95%E5%9C%A8%E5%90%8C%E4%B8%80%E5%8F%B0%E7%94%B5%E8%84%91%E9%85%8D%E7%BD%AE%E5%A4%9A%E4%B8%AAgit%E6%88%96%E8%80%85github%E8%B4%A6%E5%8F%B7/"/>
-    <id>http://yoursite.com/2016/06/18/如何在同一台电脑配置多个git或者github账号/</id>
-    <published>2016-06-18T01:02:21.000Z</published>
-    <updated>2017-07-15T01:53:31.462Z</updated>
-    
-    <content type="html"><![CDATA[<p><img src="http://octlz2jco.bkt.clouddn.com/blog_thumbnails_000_000_002.jpg" alt=""><br><a id="more"></a></p>
-<h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><p>当有多个git账号的时候，比如一个github，用于自己进行一些开发活动，再来一个gitlab，一般是公司内部的git。这两者你的邮箱如果不同的话，就会涉及到一个问题，生成第二个git的key的时候会覆盖第一个的key，导致必然有一个用不了。</p>
-<h2 id="问题解决"><a href="#问题解决" class="headerlink" title="问题解决"></a>问题解决</h2><p>所谓多个git账号，可能有两种情况：</p>
-<p>1 拥有多个github账号，不同的账号对应不同的repo，需要push的时候自动区分账号。</p>
-<p>2 拥有多个git的账号，有的是github的，有个事gitlab的，不同的账号对应不同的repo url，需要push的时候自动区分账号。</p>
-<p>这两种情况的处理方法是一样的，假设我有两个账号，一个是github上的，一个是gitlab上面的。</p>
-<h3 id="生成SSH-Key"><a href="#生成SSH-Key" class="headerlink" title="生成SSH Key"></a>生成SSH Key</h3><h4 id="生成第一个ssh-key（这里我用于github）"><a href="#生成第一个ssh-key（这里我用于github）" class="headerlink" title="生成第一个ssh key（这里我用于github）"></a>生成第一个ssh key（这里我用于github）</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ssh-keygen -t rsa -C &quot;yourmail@github.com&quot;</div></pre></td></tr></table></figure>
-<p>一路回车下去，生成结果如下图所示：</p>
-<p><img src="http://octlz2jco.bkt.clouddn.com/blog_content_000_000_004.png" alt=""></p>
-<p>默认情况下，这个rsa秘钥是在你个人账户的.ssh目录下，存在id_rsa私钥文件和id_rsa.pub公钥文件。然后复制公钥文件中的字符串。进入github账户setting选项SSh and GPC keys，把复制的公钥字符串黏贴到Key的输入框中，保存退出即可。</p>
-<p><img src="http://octlz2jco.bkt.clouddn.com/blog_content_000_000_005.png" alt=""></p>
-<p>通过终端ssh测试可知，出现如下提示内容，说明秘钥已经生成并且添加成功。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ssh -T git@github.com</div></pre></td></tr></table></figure>
-<p><img src="http://octlz2jco.bkt.clouddn.com/blog_content_000_000_006.png" alt=""></p>
-<h4 id="生成第二个ssh-key（这里我用于gitLab）"><a href="#生成第二个ssh-key（这里我用于gitLab）" class="headerlink" title="生成第二个ssh key（这里我用于gitLab）"></a>生成第二个ssh key（这里我用于gitLab）</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ssh-keygen -t rsa  -f ~/.ssh/id_rsa_gitLab -C &quot;youremail@gitLab.com&quot;</div></pre></td></tr></table></figure>
-<p>通过上面的命令，你会发现在~/.ssh目录下又多了id_rsa_gitLab和id_rsa_gitLab.pub两个文件。同样复制id_rsa_gitLab.pub公钥文件中的字符串，进入gitLab账户Profile选项SSH keys下，把复制的公钥字符串黏贴到Key的输入框中，保存退出即可。</p>
-<h3 id="添加秘钥到SSH-agent"><a href="#添加秘钥到SSH-agent" class="headerlink" title="添加秘钥到SSH agent"></a>添加秘钥到SSH agent</h3><p>因为默认只读取id_rsa,为了让SSH识别新的私钥，需将其添加的SSH agent中。这里如果你用的github官方的bash，ssh-agent -s,如果是其他的，比如msysgit,eval $(ssh-agent -s)</p>
-<p>如果出现 <font size="red">Could not open a connection to your authentication agent</font> 的错误，就是这用一下命令：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">ssh-agent bash</div><div class="line">ssh-add ~/.ssh/id_rsa_git</div><div class="line">ssh-add ~/.ssh/id_rsa_gitLab</div></pre></td></tr></table></figure>
-<p>最后可以通过下面命令，查看key的设置</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ssh-add -l</div></pre></td></tr></table></figure>
-<h3 id="创建并配置config文件"><a href="#创建并配置config文件" class="headerlink" title="创建并配置config文件"></a>创建并配置config文件</h3><p>在windows下新建一个txt文本，然后将名字后缀一起改成config即可；而在Linux下的话，在.ssh 目录下，直接vim config,如果在bash下，可以通过以下命令生成config文件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">touch config</div></pre></td></tr></table></figure>
-<p>向空白的config文件中添加一下内容</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"># gitlab</div><div class="line">Host git.aspectgaming.com</div><div class="line">HostName git.aspectgaming.com </div><div class="line">PreferredAuthentications publickey</div><div class="line">IdentityFile ~/.ssh/id_rsa_gitLab</div><div class="line">User nicholas.chi</div><div class="line"></div><div class="line"># github</div><div class="line">Host github.com</div><div class="line">HostName github.com</div><div class="line">PreferredAuthentications publickey</div><div class="line">IdentityFile ~/.ssh/id_rsa</div><div class="line">User git</div></pre></td></tr></table></figure>
-<h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h3><p><img src="http://octlz2jco.bkt.clouddn.com/blog_content_000_000_007.png" alt=""></p>
-<h2 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h2><p>如果之前有设置全局用户名和邮箱的话，需要unset一下</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">git config --global --unset user.name</div><div class="line">git config --global --unset user.email</div></pre></td></tr></table></figure>
-<p>然后在不同的仓库下设置局部的用户名和邮箱</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">git config user.email “xxxx@xx.com”</div><div class="line">git config user.name “xxxx</div></pre></td></tr></table></figure>
-<p>这样，以后每次在对应的repo下提交修改，都会自动匹配相应的SSH-Key。</p>
-<h2 id="参考-amp-引用"><a href="#参考-amp-引用" class="headerlink" title="参考&amp;引用"></a>参考&amp;引用</h2><p><a href="http://www.jianshu.com/p/f7f4142a1556" target="_blank" rel="external"><font color="#87CEFA">管理git生成的多个ssh key</font></a></p>
-<p><a href="http://www.cnblogs.com/qingguo/p/5686247.html" target="_blank" rel="external"><font color="#87CEFA">一台电脑存放多个git账户的多个rsa秘钥</font></a></p>
-<p><a href="http://notes.seirhsiao.com/2016/01/24/2014-09-30-github-multiple-account-and-multiple-repository/" target="_blank" rel="external"><font color="#87CEFA">如何同一台电脑配置多个git或github账号</font></a></p>
-<h2 id="更新时间"><a href="#更新时间" class="headerlink" title="更新时间"></a>更新时间</h2><p>发布时间 ： 2016-06-18</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;img src=&quot;http://octlz2jco.bkt.clouddn.com/blog_thumbnails_000_000_002.jpg&quot; alt=&quot;&quot;&gt;&lt;br&gt;
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>git将本地仓库上传到远程仓库</title>
-    <link href="http://yoursite.com/2016/06/11/git%E5%B0%86%E6%9C%AC%E5%9C%B0%E4%BB%93%E5%BA%93%E4%B8%8A%E4%BC%A0%E5%88%B0%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93/"/>
-    <id>http://yoursite.com/2016/06/11/git将本地仓库上传到远程仓库/</id>
-    <published>2016-06-11T01:01:50.000Z</published>
-    <updated>2017-07-15T01:38:03.081Z</updated>
-    
-    <content type="html"><![CDATA[<p><img src="http://octlz2jco.bkt.clouddn.com/blog_thumbnails_000_000_002.jpg" alt=""><br><a id="more"></a></p>
-<h2 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h2><p>在已有的git库中搭建新库，并且将本地的git仓库，上传到远程服务器的git库中，从而开始一个新的项目。</p>
-<h2 id="不登录远程git服务器直接本地操作"><a href="#不登录远程git服务器直接本地操作" class="headerlink" title="不登录远程git服务器直接本地操作"></a>不登录远程git服务器直接本地操作</h2><h3 id="初始化仓库"><a href="#初始化仓库" class="headerlink" title="初始化仓库"></a>初始化仓库</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git init</div></pre></td></tr></table></figure>
-<p>该命令将创建一个名为.git的子目录，这个子目录含有你初始化的git仓库中所有的必须文件，这些文件是Git仓库的骨干。但是，在这个时候，我们仅仅是做了一个初始化的操作，你的项目里的文件还没有被跟踪。</p>
-<h3 id="对指定文件的追踪"><a href="#对指定文件的追踪" class="headerlink" title="对指定文件的追踪"></a>对指定文件的追踪</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git add .</div></pre></td></tr></table></figure>
-<h3 id="提交操作"><a href="#提交操作" class="headerlink" title="提交操作"></a>提交操作</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git commit -m &apos;first commit&apos;</div></pre></td></tr></table></figure>
-<p>当使用 git commit 进行提交操作时，Git 会先计算每一个子目录（本例中只有项目根目录）的校验和，然后在 Git 仓库中这些校验和保存为树对象。 随后，Git 便会创建一个提交对象，它除了包含上面提到的那些信息外，还包含指向这个树对象（项目根目录）的指针。如此一来，Git 就可以在需要的时候重现此次保存的快照</p>
-<h3 id="添加远程仓库"><a href="#添加远程仓库" class="headerlink" title="添加远程仓库"></a>添加远程仓库</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git remote add origin git@xx.xx.xx.xx:repos/xxx/xxx/xxx.git</div></pre></td></tr></table></figure>
-<h3 id="推送本地分支到远程仓库"><a href="#推送本地分支到远程仓库" class="headerlink" title="推送本地分支到远程仓库"></a>推送本地分支到远程仓库</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git push origin (remote):(branch)</div></pre></td></tr></table></figure>
-<p>推送本地的 remote 分支，将其作为远程仓库的 branch 分支，可以通过这种格式来推送本地分支到一个命名不相同的远程分支。</p>
-<h2 id="出现问题"><a href="#出现问题" class="headerlink" title="出现问题"></a>出现问题</h2><h3 id="问题1"><a href="#问题1" class="headerlink" title="问题1"></a>问题1</h3><font color="red">the file will have its original line endings in your working directory</font>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git config --global core.autocrlf  false</div></pre></td></tr></table></figure>
-<h3 id="问题2"><a href="#问题2" class="headerlink" title="问题2"></a>问题2</h3><font color="red">fatal:unable to access ‘xxx/xxx/xxx/…’:Filename too long</font>
-
-<p>相关问题<a href="http://stackoverflow.com/questions/22575662/filename-too-long-in-git-for-windows" target="_blank" rel="external"><font color="#87CEFA">Filename too long in git for windows</font></a></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git config --global core.longpaths true</div></pre></td></tr></table></figure>
-<h3 id="问题3"><a href="#问题3" class="headerlink" title="问题3"></a>问题3</h3><font color="red">fatal: Not a valid object name: ‘master’</font> 
-
-<p>相关问题<a href="http://blog.chinaunix.net/uid-26557245-id-3328748.html" target="_blank" rel="external"><font color="#87CEFA">git 错误 fatal: Not a valid object name: ‘master’. </font></a></p>
-<h3 id="问题4"><a href="#问题4" class="headerlink" title="问题4"></a>问题4</h3><font color="red">error:dst ref refs/heads/source receives form more than one src.</font>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git push origin (remote):(branch)</div></pre></td></tr></table></figure>
-<p>在remote与branch中间的：不要遗漏，否则就会出现以上问题</p>
-<h2 id="参考-amp-引用"><a href="#参考-amp-引用" class="headerlink" title="参考&amp;引用"></a>参考&amp;引用</h2><p><a href="https://git-scm.com/book/zh/v2" target="_blank" rel="external"><font color="#87CEFA">git官方文档</font></a></p>
-<p><a href="http://blog.csdn.net/w13770269691/article/details/38704941" target="_blank" rel="external"><font color="#87CEFA">git将本地仓库上传到远程仓库</font></a></p>
-<h2 id="更新时间"><a href="#更新时间" class="headerlink" title="更新时间"></a>更新时间</h2><p>发布时间 ： 2016-06-11</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;img src=&quot;http://octlz2jco.bkt.clouddn.com/blog_thumbnails_000_000_002.jpg&quot; alt=&quot;&quot;&gt;&lt;br&gt;
-    
-    </summary>
-    
-    
-      <category term="Git" scheme="http://yoursite.com/tags/Git/"/>
     
   </entry>
   
