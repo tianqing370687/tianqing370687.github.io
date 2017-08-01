@@ -195,6 +195,240 @@
   </entry>
   
   <entry>
+    <title>[转载] Restful API 的设计规范</title>
+    <link href="http://yoursite.com/2016/10/29/%E8%BD%AC%E8%BD%BD-Restful-API-%E7%9A%84%E8%AE%BE%E8%AE%A1%E8%A7%84%E8%8C%83/"/>
+    <id>http://yoursite.com/2016/10/29/转载-Restful-API-的设计规范/</id>
+    <published>2016-10-29T13:58:55.000Z</published>
+    <updated>2017-08-01T14:00:26.818Z</updated>
+    
+    <content type="html"><![CDATA[<p><img src="http://octlz2jco.bkt.clouddn.com/blog_thumbnails_000_000_023.jpg" alt=""><br><a id="more"></a></p>
+<p>本文总结了 RESTful API 设计相关的一些原则，只覆盖了常见的场景。有些规则只是针对自己项目而言，并非其他做法都是错误的。</p>
+<h2 id="URI"><a href="#URI" class="headerlink" title="URI"></a>URI</h2><p>URI 表示资源，资源一般对应服务器端领域模型中的实体类。</p>
+<h3 id="URI规范"><a href="#URI规范" class="headerlink" title="URI规范"></a>URI规范</h3><ol>
+<li>不用大写；</li>
+<li>用中杠<code>-</code>不用下杠<code>_</code>；</li>
+<li>参数列表要encode；</li>
+<li>URI中的名词表示资源集合，使用复数形式。</li>
+</ol>
+<h3 id="资源集合-vs-单个资源"><a href="#资源集合-vs-单个资源" class="headerlink" title="资源集合 vs 单个资源"></a>资源集合 vs 单个资源</h3><p>URI表示资源的两种方式：资源集合、单个资源。<br>资源集合：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">/zoos //所有动物园</div><div class="line">/zoos/1/animals //id为1的动物园中的所有动物</div></pre></td></tr></table></figure>
+<p>单个资源：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">/zoos/1 //id为1的动物园</div><div class="line">/zoos/1;2;3 //id为1，2，3的动物园</div></pre></td></tr></table></figure>
+<h3 id="避免层级过深的URI"><a href="#避免层级过深的URI" class="headerlink" title="避免层级过深的URI"></a>避免层级过深的URI</h3><p><code>/</code>在url中表达层级，用于<strong>按实体关联关系进行对象导航</strong>，一般根据id导航。</p>
+<p>过深的导航容易导致url膨胀，不易维护，如<code> GET /zoos/1/areas/3/animals/4</code>，尽量使用查询参数代替路径中的实体导航，如<code>GET /animals?zoo=1&amp;area=3</code>；</p>
+<h3 id="对Composite资源的访问"><a href="#对Composite资源的访问" class="headerlink" title="对Composite资源的访问"></a>对Composite资源的访问</h3><p>服务器端的组合实体必须在uri中通过父实体的id导航访问。</p>
+<blockquote>
+<p>组合实体不是first-class的实体，它的生命周期完全依赖父实体，无法独立存在，在实现上通常是对数据库表中某些列的抽象，不直接对应表，也无id。一个常见的例子是 User — Address，Address是对User表中zipCode/country/city三个字段的简单抽象，无法独立于User存在。必须通过User索引到Address：<code>GET /user/1/addresses</code></p>
+</blockquote>
+<h2 id="Request"><a href="#Request" class="headerlink" title="Request"></a>Request</h2><h3 id="HTTP方法"><a href="#HTTP方法" class="headerlink" title="HTTP方法"></a>HTTP方法</h3><p>通过标准HTTP方法对资源CRUD：<br>GET：查询</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">GET /zoos</div><div class="line">GET /zoos/1</div><div class="line">GET /zoos/1/employees</div></pre></td></tr></table></figure>
+<p>POST：创建单个资源。<strong>POST一般向“资源集合”型uri发起</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">POST /animals  //新增动物</div><div class="line">POST /zoos/1/employees //为id为1的动物园雇佣员工</div></pre></td></tr></table></figure>
+<p>PUT：更新单个资源（全量），客户端提供完整的更新后的资源。与之对应的是 PATCH，PATCH 负责部分更新，客户端提供要更新的那些字段。<strong>PUT/PATCH一般向“单个资源”型uri发起</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">PUT /animals/1</div><div class="line">PUT /zoos/1</div></pre></td></tr></table></figure>
+<p>DELETE：删除</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">DELETE /zoos/1/employees/2</div><div class="line">DELETE /zoos/1/employees/2;4;5</div><div class="line">DELETE /zoos/1/animals  //删除id为1的动物园内的所有动物</div></pre></td></tr></table></figure>
+<p>HEAD / OPTION 用的不多，就不多解释了。</p>
+<h3 id="安全性和幂等性"><a href="#安全性和幂等性" class="headerlink" title="安全性和幂等性"></a>安全性和幂等性</h3><ol>
+<li>安全性：不会改变资源状态，可以理解为只读的；</li>
+<li>幂等性：执行1次和执行N次，对资源状态改变的效果是等价的。</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">.</th>
+<th style="text-align:left">安全性</th>
+<th style="text-align:left">幂等性</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">GET</td>
+<td style="text-align:left">√</td>
+<td style="text-align:left">√</td>
+</tr>
+<tr>
+<td style="text-align:left">POST</td>
+<td style="text-align:left">×</td>
+<td style="text-align:left">×</td>
+</tr>
+<tr>
+<td style="text-align:left">PUT</td>
+<td style="text-align:left">×</td>
+<td style="text-align:left">√</td>
+</tr>
+<tr>
+<td style="text-align:left">DELETE</td>
+<td style="text-align:left">×</td>
+<td style="text-align:left">√</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>安全性和幂等性均不保证反复请求能拿到相同的response。以 DELETE 为例，第一次DELETE返回200表示删除成功，第二次返回404提示资源不存在，这是允许的。</p>
+</blockquote>
+<h3 id="复杂查询"><a href="#复杂查询" class="headerlink" title="复杂查询"></a>复杂查询</h3><p>查询可以捎带以下参数：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">.</th>
+<th style="text-align:left">示例</th>
+<th style="text-align:left">备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">过滤条件</td>
+<td style="text-align:left"><code>?type=1&amp;age=16</code></td>
+<td style="text-align:left">允许一定的uri冗余，如<code>/zoos/1</code>与<code>/zoos?id=1</code></td>
+</tr>
+<tr>
+<td style="text-align:left">排序</td>
+<td style="text-align:left"><code>?sort=age,desc</code></td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">投影</td>
+<td style="text-align:left"><code>?whitelist=id,name,email</code></td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">分页</td>
+<td style="text-align:left"><code>?limit=10&amp;offset=3</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="Bookmarker"><a href="#Bookmarker" class="headerlink" title="Bookmarker"></a>Bookmarker</h3><p>经常使用的、复杂的查询标签化，降低维护成本。<br>如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">GET /trades?status=closed&amp;sort=created,desc</div></pre></td></tr></table></figure>
+<p>快捷方式：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">GET /trades#recently-closed</div><div class="line">或者</div><div class="line">GET /trades/recently-closed</div></pre></td></tr></table></figure>
+<h3 id="Format"><a href="#Format" class="headerlink" title="Format"></a>Format</h3><p>只用以下常见的3种body format：</p>
+<ol>
+<li><p>Content-Type: application/json</p>
+ <figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">POST /v1/animal HTTP/1.1</div><div class="line">Host: api.example.org</div><div class="line">Accept: application/json</div><div class="line">Content-Type: application/json</div><div class="line">Content-Length: 24</div><div class="line"></div><div class="line">&#123;   </div><div class="line">  "name": "Gir",</div><div class="line">  "animalType": "12"</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>Content-Type: application/x-www-form-urlencoded (浏览器POST表单用的格式)</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">POST /login HTTP/1.1</div><div class="line">Host: example.com</div><div class="line">Content-Length: 31</div><div class="line">Accept: text/html</div><div class="line">Content-Type: application/x-www-form-urlencoded</div><div class="line"></div><div class="line">username=root&amp;password=Zion0101</div></pre></td></tr></table></figure>
+</li>
+<li><p>Content-Type: multipart/form-data; boundary=—-RANDOM_jDMUxq4Ot5 (表单有文件上传时的格式)</p>
+</li>
+</ol>
+<h3 id="Content-Negotiation"><a href="#Content-Negotiation" class="headerlink" title="Content Negotiation"></a>Content Negotiation</h3><p>资源可以有多种表示方式，如json、xml、pdf、excel等等，客户端可以指定自己期望的格式，通常有两种方式：</p>
+<ol>
+<li><p>http header <code>Accept</code>：</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Accept:application/xml;q=0.6,application/atom+xml;q=1.0</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<pre><code>q为各项格式的偏好程度
+</code></pre><ol>
+<li>url中加文件后缀：<code>/zoo/1.json</code></li>
+</ol>
+<h2 id="Response"><a href="#Response" class="headerlink" title="Response"></a>Response</h2><ol>
+<li><p>不要包装：</p>
+<p> response 的 body 直接就是数据，不要做多余的包装。错误示例：</p>
+ <figure class="highlight json"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    <span class="attr">"success"</span>:<span class="literal">true</span>,</div><div class="line">    <span class="attr">"data"</span>:&#123;<span class="attr">"id"</span>:<span class="number">1</span>,<span class="attr">"name"</span>:<span class="string">"xiaotuan"</span>&#125;,</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>各HTTP方法成功处理后的数据格式：</p>
+<p> | .         | response 格式 |<br> | :——– | :———— |<br> | GET       | 单个对象、集合  |<br> | POST      | 新增成功的对象  |<br> | PUT/PATCH | 更新成功的对象  |<br> | DELETE    | 空            |</p>
+</li>
+<li><p>json格式的约定：</p>
+<ol>
+<li>时间用长整形(毫秒数)，客户端自己按需解析</li>
+<li>不传<code>null</code>字段</li>
+</ol>
+</li>
+</ol>
+<h3 id="分页response"><a href="#分页response" class="headerlink" title="分页response"></a>分页response</h3><figure class="highlight json"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    <span class="attr">"paging"</span>:&#123;<span class="attr">"limit"</span>:<span class="number">10</span>,<span class="attr">"offset"</span>:<span class="number">0</span>,<span class="attr">"total"</span>:<span class="number">729</span>&#125;,</div><div class="line">    <span class="attr">"data"</span>:[&#123;&#125;,&#123;&#125;,&#123;&#125;...]</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="错误处理"><a href="#错误处理" class="headerlink" title="错误处理"></a>错误处理</h2><ol>
+<li>不要发生了错误但给2xx响应，客户端可能会缓存成功的http请求；</li>
+<li>正确设置http状态码，不要自定义；</li>
+<li>Response body 提供 1) 错误的代码（日志/问题追查）；2) 错误的描述文本（展示给用户）。</li>
+</ol>
+<p>对第三点的实现稍微多说一点：<br>Java 服务器端一般用异常表示 RESTful API 的错误。API 可能抛出两类异常：业务异常和非业务异常。<strong>业务异常</strong>由自己的业务代码抛出，表示一个用例的前置条件不满足、业务规则冲突等，比如参数校验不通过、权限校验失败。<strong>非业务类异常</strong>表示不在预期内的问题，通常由类库、框架抛出，或由于自己的代码逻辑错误导致，比如数据库连接失败、空指针异常、除0错误等等。</p>
+<p>业务类异常必须提供2种信息：</p>
+<ol>
+<li>如果抛出该类异常，HTTP 响应状态码应该设成什么；</li>
+<li>异常的文本描述；</li>
+</ol>
+<p>在Controller层使用统一的异常拦截器：</p>
+<ol>
+<li>设置 HTTP 响应状态码：对业务类异常，用它指定的 HTTP code；对非业务类异常，统一500；</li>
+<li>Response Body 的错误码：异常类名</li>
+<li>Response Body 的错误描述：对业务类异常，用它指定的错误文本；对非业务类异常，线上可以统一文案如“服务器端错误，请稍后再试”，开发或测试环境中用异常的 stacktrace，服务器端提供该行为的开关。</li>
+</ol>
+<p>常用的http状态码及使用场景：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">状态码</th>
+<th style="text-align:left">使用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">400 bad request</td>
+<td style="text-align:left">常用在参数校验</td>
+</tr>
+<tr>
+<td style="text-align:left">401 unauthorized</td>
+<td style="text-align:left">未经验证的用户，常见于未登录。如果经过验证后依然没权限，应该 403（即 authentication 和 authorization 的区别）。</td>
+</tr>
+<tr>
+<td style="text-align:left">403 forbidden</td>
+<td style="text-align:left">无权限</td>
+</tr>
+<tr>
+<td style="text-align:left">404 not found</td>
+<td style="text-align:left">资源不存在</td>
+</tr>
+<tr>
+<td style="text-align:left">500 internal server error</td>
+<td style="text-align:left">非业务类异常</td>
+</tr>
+<tr>
+<td style="text-align:left">503 service unavaliable</td>
+<td style="text-align:left">由容器抛出，自己的代码不要抛这个异常</td>
+</tr>
+</tbody>
+</table>
+<h2 id="服务型资源"><a href="#服务型资源" class="headerlink" title="服务型资源"></a>服务型资源</h2><p>除了资源简单的CRUD，服务器端经常还会提供其他服务，这些服务无法直接用上面提到的URI映射。如：</p>
+<ol>
+<li>按关键字搜索；</li>
+<li>计算地球上两点间的距离；</li>
+<li>批量向用户推送消息</li>
+</ol>
+<p>可以把这些服务看成资源，计算的结果是资源的presentation，按服务属性选择合适的HTTP方法。例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">GET /search?q=filter?category=file  搜索</div><div class="line">GET /distance-calc?lats=47.480&amp;lngs=-122.389&amp;late=37.108&amp;lnge=-122.448</div><div class="line">POST /batch-publish-msg</div><div class="line">[&#123;&quot;from&quot;:0,&quot;to&quot;:1,&quot;text&quot;:&quot;abc&quot;&#125;,&#123;&#125;,&#123;&#125;...]</div></pre></td></tr></table></figure>
+<h2 id="异步任务"><a href="#异步任务" class="headerlink" title="异步任务"></a>异步任务</h2><p>对耗时的异步任务，服务器端接受客户端传递的参数后，应返回创建成功的任务资源，其中包含了任务的执行状态。客户端可以轮训该任务获得最新的执行进度。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">提交任务：</div><div class="line">POST /batch-publish-msg</div><div class="line">[&#123;&quot;from&quot;:0,&quot;to&quot;:1,&quot;text&quot;:&quot;abc&quot;&#125;,&#123;&#125;,&#123;&#125;...]</div><div class="line"></div><div class="line">返回：</div><div class="line">&#123;&quot;taskId&quot;:3,&quot;createBy&quot;:&quot;Anonymous&quot;,&quot;status&quot;:&quot;running&quot;&#125;</div><div class="line"></div><div class="line">GET /task/3</div><div class="line">&#123;&quot;taskId&quot;:3,&quot;createBy&quot;:&quot;Anonymous&quot;,&quot;status&quot;:&quot;success&quot;&#125;</div></pre></td></tr></table></figure>
+<p>如果任务的执行状态包括较多信息，可以把“执行状态”抽象成组合资源，客户端查询该状态资源了解任务的执行情况。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">提交任务：</div><div class="line">POST /batch-publish-msg</div><div class="line">[&#123;&quot;from&quot;:0,&quot;to&quot;:1,&quot;text&quot;:&quot;abc&quot;&#125;,&#123;&#125;,&#123;&#125;...]</div><div class="line"></div><div class="line">返回：</div><div class="line">&#123;&quot;taskId&quot;:3,&quot;createBy&quot;:&quot;Anonymous&quot;&#125;</div><div class="line"></div><div class="line">GET /task/3/status</div><div class="line">&#123;&quot;progress&quot;:&quot;50%&quot;,&quot;total&quot;:18,&quot;success&quot;:8,&quot;fail&quot;:1&#125;</div></pre></td></tr></table></figure>
+<h2 id="API的演进"><a href="#API的演进" class="headerlink" title="API的演进"></a>API的演进</h2><h3 id="版本"><a href="#版本" class="headerlink" title="版本"></a>版本</h3><p>常见的三种方式：</p>
+<ol>
+<li>在uri中放版本信息：<code>GET /v1/users/1</code></li>
+<li>Accept Header：<code>Accept: application/json+v1</code></li>
+<li>自定义 Header：<code>X-Api-Version: 1</code></li>
+</ol>
+<p>用第一种，虽然没有那么优雅，但最明显最方便。</p>
+<h3 id="URI失效"><a href="#URI失效" class="headerlink" title="URI失效"></a>URI失效</h3><p>随着系统发展，总有一些API失效或者迁移，对失效的API，返回404 not found 或 410 gone；对迁移的API，返回 301 重定向。</p>
+<h2 id="参考-amp-引用"><a href="#参考-amp-引用" class="headerlink" title="参考&amp;引用"></a>参考&amp;引用</h2><p>转自– <a href="http://novoland.github.io/%E8%AE%BE%E8%AE%A1/2015/08/17/Restful%20API%20%E7%9A%84%E8%AE%BE%E8%AE%A1%E8%A7%84%E8%8C%83.html" target="_blank" rel="external"><font color="#87CEFA">Restful API 的设计规范</font></a><br><a href="http://www.ruanyifeng.com/blog/2011/09/restful.html" target="_blank" rel="external"><font color="#87CEFA">理解RESTful架构</font></a><br><a href="http://www.ruanyifeng.com/blog/2014/05/restful_api.html" target="_blank" rel="external"><font color="#87CEFA">RESTful API 设计指南</font></a><br><a href="https://thomashunter.name/consumer-centric-api-design/Consumer-Centric%20API%20Design%20v0.3.1.pdf" target="_blank" rel="external"><font color="#87CEFA">Consumer-Centric API Design</font></a></p>
+<h2 id="更新时间"><a href="#更新时间" class="headerlink" title="更新时间"></a>更新时间</h2><p>发布时间 ： 2016-10-29</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;img src=&quot;http://octlz2jco.bkt.clouddn.com/blog_thumbnails_000_000_023.jpg&quot; alt=&quot;&quot;&gt;&lt;br&gt;
+    
+    </summary>
+    
+    
+      <category term="Restful API" scheme="http://yoursite.com/tags/Restful-API/"/>
+    
+      <category term="转载" scheme="http://yoursite.com/tags/%E8%BD%AC%E8%BD%BD/"/>
+    
+  </entry>
+  
+  <entry>
     <title>[面试] 面试过程中遇到的Cookie和Session的问题</title>
     <link href="http://yoursite.com/2016/10/23/%E9%9D%A2%E8%AF%95-%E9%9D%A2%E8%AF%95%E8%BF%87%E7%A8%8B%E4%B8%AD%E9%81%87%E5%88%B0%E7%9A%84Cookie%E5%92%8CSession%E7%9A%84%E9%97%AE%E9%A2%98/"/>
     <id>http://yoursite.com/2016/10/23/面试-面试过程中遇到的Cookie和Session的问题/</id>
@@ -240,15 +474,15 @@
     <link href="http://yoursite.com/2016/10/22/%E8%BD%AC%E8%BD%BD-%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3web%E5%BC%80%E5%8F%91%E4%B8%AD%E7%9A%84Session%E5%92%8CCookie/"/>
     <id>http://yoursite.com/2016/10/22/转载-深入理解web开发中的Session和Cookie/</id>
     <published>2016-10-22T13:16:54.000Z</published>
-    <updated>2017-07-31T13:26:55.147Z</updated>
+    <updated>2017-07-31T13:54:16.339Z</updated>
     
     <content type="html"><![CDATA[<p>Session 与 Cookie 不管是对 Java Web 的初学者还是熟练使用者来说都是一个令人头疼的问题。在初入职场时恐怕很多程序员在面试的时候都被问到过这个问题。其实这个问题回答起来既简单又复杂，简单是因为它们本身只是 HTTP 协议中的一个配置项，在 Servlet 规范中也只是对应到一个类而已；说它复杂原因在于当我们的系统大到需要用到很多 Cookie 的时候，我们不得不考虑 HTTP 协议对 Cookie 数量和大小的限制，那么如何才能解决这个瓶颈呢？ Session 也会有同样的问题，当我们的一个应用系统有几百台服务器的时候如何解决 Session 在多台服务器之间共享？</p>
 <p>Session 与 Cookie 的作用都是为了保持访问用户与后端服务器的交互状态。它们有各自的优点，也有各自的缺陷，然而具有讽刺意味的是它们的优点和它们的使用场景又是矛盾的。例如，使用 Cookie 来传递信息时，随着 Cookie 个数的增多和访问量的增加，它占用的网络带宽也很大，试想假如 Cookie 占用 200 个字节，如果一天的 PV 有几亿，它要占用多少带宽？所以有大访问量的时候希望用 Session，但是 Session 的致命弱点是不容易在多台服务器之间共享，所以这也限制了 Session 的使用。</p>
 <a id="more"></a>
-<h2 id="1-理解Cookie"><a href="#1-理解Cookie" class="headerlink" title="1 理解Cookie"></a>1 理解Cookie</h2><p>Cookie 的作用我想大家都知道，通俗地说就是当一个用户通过 HTTP 协议访问一个服务器的时候，这个服务器会将一些 Key/Value 键值对返回给客户端浏览器，并给这些数据加上一些限制条件，在条件符合时这个用户下次访问这个服务器的时候，数据又被完整地带回给服务器。</p>
+<h2 id="理解Cookie"><a href="#理解Cookie" class="headerlink" title="理解Cookie"></a>理解Cookie</h2><p>Cookie 的作用我想大家都知道，通俗地说就是当一个用户通过 HTTP 协议访问一个服务器的时候，这个服务器会将一些 Key/Value 键值对返回给客户端浏览器，并给这些数据加上一些限制条件，在条件符合时这个用户下次访问这个服务器的时候，数据又被完整地带回给服务器。</p>
 <p>这个作用就像您去超市购物时，第一次给您办张购物卡，这个购物卡里存放了一些您的个人信息，下次您再来这个连锁超市时，超市会识别您的购物卡，下次直接购物就好了。</p>
 <p>当初 W3C 在设计 Cookie 时实际上考虑的是为了记录用户在一段时间内访问 Web 应用的行为路径。由于 HTTP 协议是一种无状态协议，当用户的一次访问请求结束后，后端服务器就无法知道下一次来访问的还是不是上次访问的用户，在设计应用程序时，我们很容易想到两次访问是同一人访问与不同的两个人访问对程序设计和性能来说有很大的不同。例如，在一个很短的时间内，如果与用户相关的数据被频繁访问，可以针对这个数据做缓存，这样可以大大提高数据的访问性能。Cookie 的作用正是在此，由于是同一个客户端发出的请求，每次发出的请求都会带有第一次访问时服务端设置的信息，这样服务端就可以根据 Cookie 值来划分访问的用户了。</p>
-<h3 id="1-1-Cookie属性项"><a href="#1-1-Cookie属性项" class="headerlink" title="1.1 Cookie属性项"></a>1.1 Cookie属性项</h3><p>当前Cookie有两个版本：Version 0和Version 1.通过他们有两种设置响应头的标识，分别是“Set-Cookie”和“Set-Cookie2”。这两个版本的属性项有些不同。</p>
+<h3 id="Cookie属性项"><a href="#Cookie属性项" class="headerlink" title="Cookie属性项"></a>Cookie属性项</h3><p>当前Cookie有两个版本：Version 0和Version 1.通过他们有两种设置响应头的标识，分别是“Set-Cookie”和“Set-Cookie2”。这两个版本的属性项有些不同。</p>
 <table>
 <thead>
 <tr>
@@ -330,7 +564,7 @@
 </tbody>
 </table>
 <p>以上两个版本的 Cookie 中设置的 Header 头的标识符是不同的，我们常用的是 Set-Cookie：userName=“junshan”; Domain=“xulingbo.net”，这是 Version 0 的形式。针对 Set-Cookie2 是这样设置的：Set-Cookie2：userName=“junshan”; Domain=“xulingbo.net”; Max-Age=1000。但是在 Java Web 的 Servlet 规范中并不支持 Set-Cookie2 响应头，在实际应用中 Set-Cookie2 的一些属性项却可以设置在 Set-Cookie 中，如这样设置：Set-Cookie：userName=“junshan”; Version=“1”;Domain=“xulingbo.net”;Max-Age=1000。</p>
-<h3 id="1-2-Cookie如何工作"><a href="#1-2-Cookie如何工作" class="headerlink" title="1.2 Cookie如何工作"></a>1.2 Cookie如何工作</h3><p>当我们用如下方式创建Cookie时：</p>
+<h3 id="Cookie如何工作"><a href="#Cookie如何工作" class="headerlink" title="Cookie如何工作"></a>Cookie如何工作</h3><p>当我们用如下方式创建Cookie时：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="function">String <span class="title">getCookie</span><span class="params">(Cookie[] cookies, String key)</span> </span>&#123; </div><div class="line">    <span class="keyword">if</span> (cookies != <span class="keyword">null</span>) &#123; </div><div class="line">        <span class="keyword">for</span> (Cookie cookie : cookies) &#123; </div><div class="line">            <span class="keyword">if</span> (cookie.getName().equals(key)) &#123; </div><div class="line">                <span class="keyword">return</span> cookie.getValue(); </div><div class="line">            &#125; </div><div class="line">        &#125; </div><div class="line">    &#125; </div><div class="line">    <span class="keyword">return</span> <span class="keyword">null</span>; </div><div class="line">&#125; </div><div class="line"></div><div class="line"><span class="meta">@Override</span> </div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doGet</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span><span class="keyword">throws</span> IOException, ServletException </span>&#123; </div><div class="line">    Cookie[] cookies = request.getCookies(); </div><div class="line">    String userName = getCookie(cookies, <span class="string">"userName"</span>); </div><div class="line">    String userAge = getCookie(cookies, <span class="string">"userAge"</span>); </div><div class="line">    <span class="keyword">if</span> (userName == <span class="keyword">null</span>) &#123; </div><div class="line">        response.addCookie(<span class="keyword">new</span> Cookie(<span class="string">"userName"</span>, <span class="string">"junshan"</span>)); </div><div class="line">    &#125; </div><div class="line">    <span class="keyword">if</span> (userAge == <span class="keyword">null</span>) &#123; </div><div class="line">        response.addCookie(<span class="keyword">new</span> Cookie(<span class="string">"userAge"</span>, <span class="string">"28"</span>)); </div><div class="line">    &#125; </div><div class="line">    response.getHeaders(<span class="string">"Set-Cookie"</span>); </div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>Cookie是如何加到HTTP的Header中的呢？当我们用Servlet 3.0规范来创建一个Cookie对象时，该Cookie既支持Version 0又支持Version 1，如果你设置了Version 1中的配置项，即使您没有设置版本号，Tomcat在最后构建HTTP响应头时也会自动将Version的版本设置为1。下面看一下Tomcat是如何调用addCookie方法。</p>
 <p><img src="http://octlz2jco.bkt.clouddn.com/blog_content_000_000_056.jpg" alt="Tomcat 创建 Set-Cookie 响应头的时序图"></p>
@@ -352,7 +586,7 @@
 <p><img src="http://octlz2jco.bkt.clouddn.com/blog_content_000_000_058.jpg" alt="HttpFox 插件展示的 Cookie 数据"></p>
 <p>前面主要介绍了服务端如何创建 Cookie，下面看一下如何从客户端获取 Cookie。</p>
 <p>当我们请求某个 URL 路径时，浏览器会根据这个 URL 路径将符合条件的 Cookie 放在 Request 请求头中传回给服务端，服务端通过 request.getCookies() 来取得所有 Cookie。</p>
-<h3 id="1-3-使用Cookie的限制"><a href="#1-3-使用Cookie的限制" class="headerlink" title="1.3 使用Cookie的限制"></a>1.3 使用Cookie的限制</h3><p>Cookie是HTTP协议头中的一个字段，虽然HTTP协议本身对着这个字段并没有多少限制，但是Cookie最终还是存储在浏览器里，所以不同的浏览器对Cookie的存储都有一些限制，下表是一些通常的浏览器对Cookie的大小和数量的限制。</p>
+<h3 id="使用Cookie的限制"><a href="#使用Cookie的限制" class="headerlink" title="使用Cookie的限制"></a>使用Cookie的限制</h3><p>Cookie是HTTP协议头中的一个字段，虽然HTTP协议本身对着这个字段并没有多少限制，但是Cookie最终还是存储在浏览器里，所以不同的浏览器对Cookie的存储都有一些限制，下表是一些通常的浏览器对Cookie的大小和数量的限制。</p>
 <table>
 <thead>
 <tr>
@@ -394,9 +628,9 @@
 </tr>
 </tbody>
 </table>
-<h2 id="2-理解Session"><a href="#2-理解Session" class="headerlink" title="2 理解Session"></a>2 理解Session</h2><p>前面介绍了Cookie可以让服务端程序追踪到每个客户端的访问，但是每次客户端的访问都必须传回这些Cookie，如果Cookie很多，这无形地增加了客户端与服务端的数据传输量，而Session的出现正是为了解决这个问题。</p>
+<h2 id="理解Session"><a href="#理解Session" class="headerlink" title="理解Session"></a>理解Session</h2><p>前面介绍了Cookie可以让服务端程序追踪到每个客户端的访问，但是每次客户端的访问都必须传回这些Cookie，如果Cookie很多，这无形地增加了客户端与服务端的数据传输量，而Session的出现正是为了解决这个问题。</p>
 <p>同一个客户端每次和服务端交互时，不需要每次都传回所有的Cookie值，而是只要传回一个ID，这个ID是客户端第一次访问服务器的时候生成的，而且每个客户端是唯一的。这样每个客户端就有了一个唯一的ID，客户端只要传回这个ID就行了，这个ID通常是NAME为JSESSIONID的一个Cookie。</p>
-<h3 id="2-1-Session与Cookie"><a href="#2-1-Session与Cookie" class="headerlink" title="2.1 Session与Cookie"></a>2.1 Session与Cookie</h3><p>下面详细讲一下Session如何给予Cookie来工作。实际上有三种方式可以让Session正常工作：</p>
+<h3 id="Session与Cookie"><a href="#Session与Cookie" class="headerlink" title="Session与Cookie"></a>Session与Cookie</h3><p>下面详细讲一下Session如何给予Cookie来工作。实际上有三种方式可以让Session正常工作：</p>
 <ul>
 <li>基于URL Path Parameter ，默认支持。</li>
 <li>基于Cookie，如果没有修改Context容器的cookies标识，默认也是支持的。</li>
@@ -404,7 +638,7 @@
 </ul>
 <p>第一种情况下，当浏览器不支持Cookie功能时，浏览器会将用户的SessionCookieName重写到用请求的URL参数中，它的传递格式如/path/Servlet;name=value;name2=value2? Name3=value3，其中“Servlet；”后面的K-V就是要传递的Path Parameters，服务器会从这个Path Parameters中拿到用户配置的SessionCookieName。关于这个SessionCookieName，如果在web.xml中配置session-config配置项，其cookie-config下的name属性就是这个SessionCookieName值。如果没有配置session-config配置项，默认的SessionCookieName就是大家熟悉的“JSESSIONID”。需要说明的一点是，与Session关联的Cookie与其他Cookie没有什么不同。接着Request根据这个SessionCookieName倒Parameters中拿到Session ID并设置到request.setRequestedSessionId中。</p>
 <p>请注意，如果客户端也支持Cookie，Tomcat仍然会解析Cookie中的Session ID，并会覆盖URL中的Session ID。<br>如果是第三情况，将会根据 javax.servlet.request.ssl_session 属性值设置 Session ID。</p>
-<h3 id="2-2-Session如何工作"><a href="#2-2-Session如何工作" class="headerlink" title="2.2 Session如何工作"></a>2.2 Session如何工作</h3><p>有了Session ID服务端就可以创建HttpSession对象了，第一次触发通过request.getSession()方法。如果当前的Session ID还没有对应的HttpSession对象，那么就创建一个新的，并将这个对象加到org.apache.catalina.Manager的sessions容器中保存。Manager类将管理所有Session的生命周期，Session过期将被回收，服务器关闭，Session将被序列化到磁盘等。只要这个HttpSession对象存在，用户就可以根据Session ID来获取这个对象，也就达到了状态的保持。</p>
+<h3 id="Session如何工作"><a href="#Session如何工作" class="headerlink" title="Session如何工作"></a>Session如何工作</h3><p>有了Session ID服务端就可以创建HttpSession对象了，第一次触发通过request.getSession()方法。如果当前的Session ID还没有对应的HttpSession对象，那么就创建一个新的，并将这个对象加到org.apache.catalina.Manager的sessions容器中保存。Manager类将管理所有Session的生命周期，Session过期将被回收，服务器关闭，Session将被序列化到磁盘等。只要这个HttpSession对象存在，用户就可以根据Session ID来获取这个对象，也就达到了状态的保持。</p>
 <p><img src="http://octlz2jco.bkt.clouddn.com/blog_content_000_000_059.jpg" alt="Session 相关类图"></p>
 <p>从上图可以看出，从request.getSession中获取的HttpSession对象实际上是StandardSession对象的门面对象，这与前面的Request和Servlet是一样的原理。</p>
 <p><img src="http://octlz2jco.bkt.clouddn.com/blog_content_000_000_060.jpg" alt="Session 工作的时序图"></p>
@@ -416,17 +650,17 @@
 <p>另外，StandardManager 中的 sessions 集合中的 StandardSession 对象并不是永远保存的，否则 Servlet 容器的内存将很容易被消耗尽，所以必须给每个 Session 对象定义一个有效时间，超过这个时间 Session 对象将被清除。在 Tomcat 中这个有效时间是 60（maxInactiveInterval 属性控制）秒，超过 60 秒该 Session 将会过期。检查每个 Session 是否失效是在 Tomcat 的一个后台线程中完成的（backgroundProcess() 方法中）。过期 Session 状态图如下图所示。</p>
 <p><img src="http://octlz2jco.bkt.clouddn.com/blog_content_000_000_063.jpg" alt=""></p>
 <p>除了后台进程检查 Session 是否失效外，当调用 request.getSession() 时也会检查该 Session 是否过期。值得注意的是，request.getSession() 方法调用的 StandardSession 永远都会存在，即使与这个客户端关联的 Session 对象已经过期。如果过期，又会重新创建一个全新的 StandardSession 对象，但是以前设置的 Session 值将会丢失。如果您取到了 Session 对象但是通过 session.getAttribute 取不到前面设置的 Session 值，请不要奇怪，因为很可能它已经失效了，请检查一下 <code>&lt; Manager pathname=”” maxInactiveInterval=”60” /&gt; </code>中 maxInactiveInterval 配置项的值，如果不想让 Session 过期可以设置为 -1。但是您要仔细评估一下，网站的访问量和设置的 Session 的大小，防止将您的 Servlet 容器内存撑爆。如果不想自动创建 Session 对象，也可以通过 request.getSession(boolean create) 方法来判断该客户端关联的 Session 对象是否存在。</p>
-<h2 id="3-Cookie安全问题"><a href="#3-Cookie安全问题" class="headerlink" title="3 Cookie安全问题"></a>3 Cookie安全问题</h2><p>虽然Cookie和Session都可以跟踪客户端的访问记录，但是他们的工作方式显然是不同的，Cookie通过吧所有要保存的数据通过HTTP协议的头部从客户端传递到服务端，又从服务端再传回到客户端，所有的数据都存储在客户端的浏览器里，所以这些Cookie数据可以被访问到，就像我们可以通过Firefox的插件HttpFox查看Cookie，设置可以通过FireCookie插件添加、修改Cookie，所以Cookie的安全性受到了很大的挑战。</p>
+<h2 id="Cookie安全问题"><a href="#Cookie安全问题" class="headerlink" title="Cookie安全问题"></a>Cookie安全问题</h2><p>虽然Cookie和Session都可以跟踪客户端的访问记录，但是他们的工作方式显然是不同的，Cookie通过吧所有要保存的数据通过HTTP协议的头部从客户端传递到服务端，又从服务端再传回到客户端，所有的数据都存储在客户端的浏览器里，所以这些Cookie数据可以被访问到，就像我们可以通过Firefox的插件HttpFox查看Cookie，设置可以通过FireCookie插件添加、修改Cookie，所以Cookie的安全性受到了很大的挑战。</p>
 <p>相较而言Session的安全性要高很多，因为Session是将数据保存在服务端，只是通过Cookie传递一个SessionID而已，所以Session更适合存储用户隐私和重要的数据。</p>
-<h2 id="4-分布式-Session-框架"><a href="#4-分布式-Session-框架" class="headerlink" title="4 分布式 Session 框架"></a>4 分布式 Session 框架</h2><p>从前面的分析可知，Session 和 Cookie 各自有优点和缺点。在大型互联网系统中，单独使用 Cookie 和 Session 都是不可行的，原因很简单。因为如果使用 Cookie，可以很好地解决应用的分布式部署问题，大型互联网应用系统一个应用有上百台机器，而且有很多不同的应用系统协同工作，由于 Cookie 是将值存储在客户端的浏览器里，用户每次访问都会将最新的值带回给处理该请求的服务器，所以也就解决了同一个用户的请求可能不在同一台服务器处理而导致的 Cookie 不一致的问题。</p>
-<h3 id="4-1-存在哪些问题"><a href="#4-1-存在哪些问题" class="headerlink" title="4.1 存在哪些问题"></a>4.1 存在哪些问题</h3><p>这种“谁家的孩子谁抱走”的处理方式的确是大型互联网的一个比较简单但是的确可以解决问题的处理方式，但是这种处理方式也会带来了很多其他问题，如：</p>
+<h2 id="分布式-Session-框架"><a href="#分布式-Session-框架" class="headerlink" title="分布式 Session 框架"></a>分布式 Session 框架</h2><p>从前面的分析可知，Session 和 Cookie 各自有优点和缺点。在大型互联网系统中，单独使用 Cookie 和 Session 都是不可行的，原因很简单。因为如果使用 Cookie，可以很好地解决应用的分布式部署问题，大型互联网应用系统一个应用有上百台机器，而且有很多不同的应用系统协同工作，由于 Cookie 是将值存储在客户端的浏览器里，用户每次访问都会将最新的值带回给处理该请求的服务器，所以也就解决了同一个用户的请求可能不在同一台服务器处理而导致的 Cookie 不一致的问题。</p>
+<h3 id="存在哪些问题"><a href="#存在哪些问题" class="headerlink" title="存在哪些问题"></a>存在哪些问题</h3><p>这种“谁家的孩子谁抱走”的处理方式的确是大型互联网的一个比较简单但是的确可以解决问题的处理方式，但是这种处理方式也会带来了很多其他问题，如：</p>
 <ul>
 <li>客户端 Cookie 存储限制。随着应用系统的增多 Cookie 数量也快速增加，但浏览器对于用户 Cookie 的存储是有限制的。例如，IE7 之前的 IE 浏览器，Cookie 个数的限制是 20 个，后续的版本，包括 Firefox 等，Cookie 个数的限制都是 50 个。总大小不超过 4KB，超过限制就会出现丢弃 Cookie 的现象发生，这会严重影响应用系统的正常使用。</li>
 <li>Cookie 管理的混乱。在大型互联网应用系统中，如果每个应用系统都自己管理每个应用使用的 Cookie，将会导致混乱，由于通常应用系统都在同一个域名下，Cookie 又有上面一条提到的限制，所以没有统一管理很容易出现 Cookie 超出限制的情况。</li>
 <li>安全令人担忧。虽然可以通过设置 HttpOnly 属性防止一些私密 Cookie 被客户端访问，但是仍然不能保证 Cookie 无法被篡改。为了保证 Cookie 的私密性通常会对 Cookie 进行加密，但是维护这个加密 Key 也是一件麻烦的事情，无法保证定期来更新加密 Key 也是带来安全性问题的一个重要因素。</li>
 </ul>
 <p>当以上问题不能再容忍下去的时候，就不得不想其他办法处理了。</p>
-<h3 id="4-2-可以解决哪些问题"><a href="#4-2-可以解决哪些问题" class="headerlink" title="4.2 可以解决哪些问题"></a>4.2 可以解决哪些问题</h3><p>既然 Cookie 有以上这些问题，Session 也有它的好处，为何不结合使用 Session 和 Cookie 呢？下面是分布式 Session 框架可以解决的问题：</p>
+<h3 id="可以解决哪些问题"><a href="#可以解决哪些问题" class="headerlink" title="可以解决哪些问题"></a>可以解决哪些问题</h3><p>既然 Cookie 有以上这些问题，Session 也有它的好处，为何不结合使用 Session 和 Cookie 呢？下面是分布式 Session 框架可以解决的问题：</p>
 <ul>
 <li>Session 配置的统一管理。</li>
 <li>Cookie 使用的监控和统一规范管理。</li>
@@ -438,7 +672,7 @@
 <li>Session 框架的可扩展性，兼容更多的 session 机制如 wapSession。</li>
 <li>跨域名 Session 与 Cookie 如何共享，现在同一个网站可能存在多个域名，如何将 Session 和 Cookie 在不同的域名之间共享是一个具有挑战性的问题。</li>
 </ul>
-<h3 id="4-3-总体实现思路"><a href="#4-3-总体实现思路" class="headerlink" title="4.3 总体实现思路"></a>4.3 总体实现思路</h3><p>分布式 Session 框架的架构图如下图所示。</p>
+<h3 id="总体实现思路"><a href="#总体实现思路" class="headerlink" title="总体实现思路"></a>总体实现思路</h3><p>分布式 Session 框架的架构图如下图所示。</p>
 <p><img src="http://octlz2jco.bkt.clouddn.com/blog_content_000_000_064.jpg" alt="Session 框架的架构图"></p>
 <p>为了达成上面所说的几点目标，我们需要一个服务订阅服务器，在应用启动时可以从这个订阅服务器订阅这个应用需要的可写 Session 项和可写 Cookie 项，这些配置的 Session 和 Cookie 可以限制这个应用能够使用哪些 Session 和 Cookie，甚至可以控制 Session 和 Cookie 可读或者可写。这样可以精确地控制哪些应用可以操作哪些 Session 和 Cookie，可以有效控制 Session 的安全性和 Cookie 的数量。</p>
 <p>如 Session 的配置项可以为如下形式：</p>
@@ -457,13 +691,13 @@
 <p>从图中可以看出，要实现 Session 同步，需要另外一个跳转应用，这个应用可以被一个或者多个域名访问，它的主要功能是从一个域名下取得 sessionID，然后将这个 sessionID 同步到另外一个域名下。这个 sessionID 其实就是一个 Cookie，相当于我们经常遇到的 JSESSIONID，所以要实现两个域名下的 Session 同步，必须要将同一个 sessionID 作为 Cookie 写到两个域名下。</p>
 <p>总共 12 步，一个域名不用登录就取到了另外一个域名下的 Session，当然这中间有些步骤还可以简化，也可以做一些额外的工作，如可以写一些需要的 Cookie，而不仅仅只传一个 sessionID。</p>
 <p>除此之外，该框架还能处理 Cookie 被盗取的问题。如您的密码没有丢失，但是您的账号却有可能被别人登录的情况，这种情况很可能就是因为您登录成功后，您的 Cookie 被别人盗取了，盗取您的 Cookie 的人将您的 Cookie 加入到他的浏览器，然后他就可以通过您的 Cookie 正常访问您的个人信息了，这是一个非常严重的问题。在这个框架中我们可以设置一个 Session 签名，当用户登录成功后我们根据用户的私密信息生成的一个签名，以表示当前这个唯一的合法登录状态，然后将这个签名作为一个 Cookie 在当前这个用户的浏览器进程中和服务器传递，用户每次访问服务器都会检查这个签名和从服务端分布式缓存中取得的 Session 重新生成的签名是否一致，如果不一致，显然这个用户的登录状态不合法，服务端将清除这个 sessionID 在分布式缓存中的 Session 信息，让用户重新登录。</p>
-<h2 id="5-Cookie-压缩"><a href="#5-Cookie-压缩" class="headerlink" title="5 Cookie 压缩"></a>5 Cookie 压缩</h2><p>Cookie 是在 HTTP 的头部，所以通常的 gzip 和 deflate 针对 HTTP Body 的压缩不能压缩 Cookie，如果 Cookie 量非常大，可以考虑将 Cookie 也做压缩，压缩方式是将 Cookie 的多个 k/v 对看成普通的文本，做文本压缩。压缩算法同样可以使用 gzip 和 deflate 算法，但是需要注意的一点是，根据 Cookie 的规范，Cookie 中不能包含控制字符，仅仅只能包含 ASCII 码为（34 ～ 126）的可见字符。所以要将压缩后的结果再进行转码，可以进行 Base32 或者 Base64 编码。</p>
+<h2 id="Cookie-压缩"><a href="#Cookie-压缩" class="headerlink" title="Cookie 压缩"></a>Cookie 压缩</h2><p>Cookie 是在 HTTP 的头部，所以通常的 gzip 和 deflate 针对 HTTP Body 的压缩不能压缩 Cookie，如果 Cookie 量非常大，可以考虑将 Cookie 也做压缩，压缩方式是将 Cookie 的多个 k/v 对看成普通的文本，做文本压缩。压缩算法同样可以使用 gzip 和 deflate 算法，但是需要注意的一点是，根据 Cookie 的规范，Cookie 中不能包含控制字符，仅仅只能包含 ASCII 码为（34 ～ 126）的可见字符。所以要将压缩后的结果再进行转码，可以进行 Base32 或者 Base64 编码。</p>
 <p>可以配置一个 Filter 在页面输出时对 Cookie 进行全部或者部分压缩，如下代码所示：</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">private void compressCookie(Cookie c, HttpServletResponse res) &#123; </div><div class="line">       try &#123; </div><div class="line">           ByteArrayOutputStream bos = null; </div><div class="line">           bos = new ByteArrayOutputStream(); </div><div class="line">           DeflaterOutputStream dos = new DeflaterOutputStream(bos); </div><div class="line">           dos.write(c.getValue().getBytes()); </div><div class="line">           dos.close(); </div><div class="line">           System.out.println("</div><div class="line">           before compress length:" + c.getValue(). getBytes().length); </div><div class="line">           String compress = new sun.misc.BASE64Encoder().encode(bos. toByteArray()); </div><div class="line">           res.addCookie(new Cookie("compress", compress)); </div><div class="line">           System.out.println("after compress length:" + compress.getBytes(). length); </div><div class="line">       &#125; catch (IOException e) &#123; </div><div class="line">           e.printStackTrace(); </div><div class="line">       &#125; </div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>上面的代码是用 DeflaterOutputStream 对 Cookie 进行压缩的，Deflater 压缩后再进行 BASE64 编码，相应地用 InflaterInputStream 进行解压。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">unCompressCookie</span><span class="params">(Cookie c)</span> </span>&#123; </div><div class="line">        <span class="keyword">try</span> &#123; </div><div class="line">            ByteArrayOutputStream out = <span class="keyword">new</span> ByteArrayOutputStream(); </div><div class="line">            <span class="keyword">byte</span>[] compress = </div><div class="line">        <span class="keyword">new</span> sun.misc.BASE64Decoder().decodeBuffer(<span class="keyword">new</span> String(c.getValue().getBytes())); </div><div class="line">            ByteArrayInputStream bis = <span class="keyword">new</span> ByteArrayInputStream(compress); </div><div class="line">            InflaterInputStream inflater = <span class="keyword">new</span> InflaterInputStream(bis); </div><div class="line">            <span class="keyword">byte</span>[] b = <span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">1024</span>]; </div><div class="line">            <span class="keyword">int</span> count; </div><div class="line">            <span class="keyword">while</span> ((count = inflater.read(b)) &gt;= <span class="number">0</span>) &#123; </div><div class="line">                out.write(b, <span class="number">0</span>, count); </div><div class="line">            &#125; </div><div class="line">            inflater.close(); </div><div class="line">            System.out.println(out.toByteArray());; </div><div class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123; </div><div class="line">            e.printStackTrace(); </div><div class="line">        &#125; </div><div class="line"> &#125;</div></pre></td></tr></table></figure>
 <p>2KB 大小的 Cookie 压缩前与压缩后字节数相差 20% 左右，如果您的网站的 Cookie 在 2KB~3KB 左右，一天有 1 亿的 PV，那么一天就能够产生 4TB 的带宽流量了，从节省带宽成本来说压缩还是很有必要的。</p>
-<h2 id="6-表单重复提交问题"><a href="#6-表单重复提交问题" class="headerlink" title="6 表单重复提交问题"></a>6 表单重复提交问题</h2><p>网站中在很多地方都有表单重复提交问题，一种情况是用户在网速慢的情况下可能会重复提交表单，还有就是恶意用户通过程序来发送恶意请求，在这些情况下都要设计一个防止表单重复提交的机制。</p>
+<h2 id="表单重复提交问题"><a href="#表单重复提交问题" class="headerlink" title="表单重复提交问题"></a>表单重复提交问题</h2><p>网站中在很多地方都有表单重复提交问题，一种情况是用户在网速慢的情况下可能会重复提交表单，还有就是恶意用户通过程序来发送恶意请求，在这些情况下都要设计一个防止表单重复提交的机制。</p>
 <p>要能够防止表单重复提交，就要标识用户的每一次访问请求，使得每一次访问对服务端来说都是唯一确定的。为了标识用户的每次访问请求，可以在用户请求一个表单域时增加一个隐藏表单项，这个表单项的值每次都是唯一的 token，如：</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">id</span>=<span class="string">”form”</span> <span class="attr">method</span>=<span class="string">”post”</span>&gt;</span> </div><div class="line"> <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">hidden</span> <span class="attr">name</span>=<span class="string">“crsf_token”</span> <span class="attr">value</span>=<span class="string">“xxxx”/</span>&gt;</span> </div><div class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></div></pre></td></tr></table></figure>
 <p>当用户在请求时生成这个唯一的 token 时，同时将这个 token 保存在用户的 Session 中，等用户提交请求时检查这个 token 和当前的 Session 中保存的 token 是否一致。如果一致，说明没有重复提交，否则用户提交上来的 token 已经不是当前的这个请求的合法 token。其工作过程如图所示。</p>
@@ -471,7 +705,7 @@
 <p>上图是用户发起对表单页面的请求过程，生成唯一的 token 需要一个算法，最简单的就是可以根据一个种子作为 key 生成一个随机数，并保存在 Session 中，等下次用户提交表单时做验证。验证表单的过程如下图所示。</p>
 <p><img src="http://octlz2jco.bkt.clouddn.com/blog_content_000_000_068.jpg" alt=".验证表单的过程"></p>
 <p>当用户提交表单时会将请求时生成的 token 带回来，这样就可以和 Session 中保存的 token 做对比，从而确认这次表单验证是否合法。</p>
-<h2 id="7-总结"><a href="#7-总结" class="headerlink" title="7 总结"></a>7 总结</h2><p>Cookie 和 Session 都是为了保持用户访问的连续状态，之所以要保持这种状态，一方面是为了方便业务实现，另一方面就是简化服务端程序设计，提高访问性能，但是这也带来了另外一些挑战，如安全问题、应用的分布式部署带来的 Session 的同步问题及跨域名 Session 的同步等一系列问题。本章分析了 Cookie 和 Session 的工作原理，并介绍了一致分布式 Session 的解决方案。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>Cookie 和 Session 都是为了保持用户访问的连续状态，之所以要保持这种状态，一方面是为了方便业务实现，另一方面就是简化服务端程序设计，提高访问性能，但是这也带来了另外一些挑战，如安全问题、应用的分布式部署带来的 Session 的同步问题及跨域名 Session 的同步等一系列问题。本章分析了 Cookie 和 Session 的工作原理，并介绍了一致分布式 Session 的解决方案。</p>
 <p>[^1]:  tomcat停止的时候在 /tomcat-6.0.26/work/Catalina/localhost/_/下面生成session.ser文件。文件里面保存了session信息。tomcat启动的时候，从session.ser中读取信息，然后删除session.ser文件。</p>
 <h2 id="参考-amp-引用"><a href="#参考-amp-引用" class="headerlink" title="参考&amp;引用"></a>参考&amp;引用</h2><p><a href="http://www.jiagoushuo.com/article/1000083.html" target="_blank" rel="external"><font color="#87CEFA">深入理解web开发中的Session和Cookie</font></a></p>
 <h2 id="更新时间"><a href="#更新时间" class="headerlink" title="更新时间"></a>更新时间</h2><p>发布时间 ： 2016-10-22</p>
@@ -1280,40 +1514,6 @@
     <summary type="html">
     
       &lt;p&gt;&lt;img src=&quot;http://octlz2jco.bkt.clouddn.com/blog_thumbnails_000_000_005.jpg&quot; alt=&quot;&quot;&gt;&lt;br&gt;
-    
-    </summary>
-    
-      <category term="Spring MVC菜鸟之旅" scheme="http://yoursite.com/categories/Spring-MVC%E8%8F%9C%E9%B8%9F%E4%B9%8B%E6%97%85/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>[Spring MVC菜鸟之旅] 搭建一个最简单的Spring MVC应用程序</title>
-    <link href="http://yoursite.com/2016/06/25/Spring-MVC%E8%8F%9C%E9%B8%9F%E4%B9%8B%E6%97%85-%E6%90%AD%E5%BB%BA%E4%B8%80%E4%B8%AA%E6%9C%80%E7%AE%80%E5%8D%95%E7%9A%84Spring-MVC%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F/"/>
-    <id>http://yoursite.com/2016/06/25/Spring-MVC菜鸟之旅-搭建一个最简单的Spring-MVC应用程序/</id>
-    <published>2016-06-25T15:56:05.000Z</published>
-    <updated>2017-07-15T02:24:19.790Z</updated>
-    
-    <content type="html"><![CDATA[<p><img src="http://octlz2jco.bkt.clouddn.com/blog_thumbnails_000_000_004.jpg" alt=""><br><a id="more"></a></p>
-<h2 id="应用结构"><a href="#应用结构" class="headerlink" title="应用结构"></a>应用结构</h2><p>先贴上一张本文最终运行成功的Spring MVC程序的结构图</p>
-<p><img src="http://octlz2jco.bkt.clouddn.com/blog_content_000_000_008.png" alt="结构图"></p>
-<h2 id="项目搭建"><a href="#项目搭建" class="headerlink" title="项目搭建"></a>项目搭建</h2><h3 id="1-使用Maven导入SpringMVC所依赖的包，修改pom-xml文件"><a href="#1-使用Maven导入SpringMVC所依赖的包，修改pom-xml文件" class="headerlink" title="1.使用Maven导入SpringMVC所依赖的包，修改pom.xml文件"></a>1.使用Maven导入SpringMVC所依赖的包，修改pom.xml文件</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">project</span> <span class="attr">xmlns</span>=<span class="string">"http://maven.apache.org/POM/4.0.0"</span> </span></div><div class="line"><span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span> </div><div class="line"><span class="attr">xsi:schemaLocation</span>=<span class="string">"http://maven.apache.org/POM/4.0.0 </span></div><div class="line">http://maven.apache.org/xsd/maven-4.0.0.xsd"&gt;</div><div class="line">  <span class="tag">&lt;<span class="name">modelVersion</span>&gt;</span>4.0.0<span class="tag">&lt;/<span class="name">modelVersion</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.niklaus.learning<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>learning<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">version</span>&gt;</span>0.0.1-SNAPSHOT<span class="tag">&lt;/<span class="name">version</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">packaging</span>&gt;</span>war<span class="tag">&lt;/<span class="name">packaging</span>&gt;</span></div><div class="line">  </div><div class="line">  <span class="tag">&lt;<span class="name">properties</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">project.build.sourceEncoding</span>&gt;</span>UTF-8<span class="tag">&lt;/<span class="name">project.build.sourceEncoding</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">spring.version</span>&gt;</span>4.3.0.RELEASE<span class="tag">&lt;/<span class="name">spring.version</span>&gt;</span></div><div class="line">  <span class="tag">&lt;/<span class="name">properties</span>&gt;</span></div><div class="line">  </div><div class="line">  <span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></div><div class="line">    </div><div class="line">    <span class="comment">&lt;!-- spring start --&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-core<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;spring.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div><div class="line">    </div><div class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-aop<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;spring.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div><div class="line">    </div><div class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-beans<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;spring.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div><div class="line">    </div><div class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-context<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;spring.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div><div class="line">    </div><div class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;spring.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div><div class="line">    </div><div class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-webmvc<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;spring.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div><div class="line">    <span class="comment">&lt;!-- spring end --&gt;</span></div><div class="line">    </div><div class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>javax.servlet<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>javax.servlet-api<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">version</span>&gt;</span>4.0.0-b01<span class="tag">&lt;/<span class="name">version</span>&gt;</span></div><div class="line">  <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div><div class="line">  </div><div class="line">  <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">project</span>&gt;</span></div></pre></td></tr></table></figure>
-<h3 id="2-修改WEB-INF下的web-xml"><a href="#2-修改WEB-INF下的web-xml" class="headerlink" title="2.修改WEB-INF下的web.xml"></a>2.修改WEB-INF下的web.xml</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</div><div class="line"><span class="tag">&lt;<span class="name">web-app</span> <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span> </span></div><div class="line"><span class="attr">xmlns</span>=<span class="string">"http://java.sun.com/xml/ns/javaee"</span> </div><div class="line"><span class="attr">xsi:schemaLocation</span>=<span class="string">"http://java.sun.com/xml/ns/javaee </span></div><div class="line">http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" </div><div class="line"><span class="attr">id</span>=<span class="string">"WebApp_ID"</span> <span class="attr">version</span>=<span class="string">"3.0"</span>&gt;</div><div class="line"></div><div class="line">  <span class="comment">&lt;!-- 配置spring核心servlet --&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">servlet</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>dispatcher<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">servlet-class</span>&gt;</span>org.springframework.web.servlet.DispatcherServlet<span class="tag">&lt;/<span class="name">servlet-class</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">load-on-startup</span>&gt;</span>1<span class="tag">&lt;/<span class="name">load-on-startup</span>&gt;</span></div><div class="line">  <span class="tag">&lt;/<span class="name">servlet</span>&gt;</span></div><div class="line"></div><div class="line">  <span class="tag">&lt;<span class="name">servlet-mapping</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>dispatcher<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">url-pattern</span>&gt;</span>/<span class="tag">&lt;/<span class="name">url-pattern</span>&gt;</span></div><div class="line">  <span class="tag">&lt;/<span class="name">servlet-mapping</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;/<span class="name">web-app</span>&gt;</span></div></pre></td></tr></table></figure>
-<h3 id="3-在WEB-INF下创建dispatcher-servlet-xml"><a href="#3-在WEB-INF下创建dispatcher-servlet-xml" class="headerlink" title="3.在WEB-INF下创建dispatcher-servlet.xml"></a>3.在WEB-INF下创建dispatcher-servlet.xml</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</div><div class="line"><span class="tag">&lt;<span class="name">beans</span> <span class="attr">xmlns</span>=<span class="string">"http://www.springframework.org/schema/beans"</span>  </span></div><div class="line">    <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span>  </div><div class="line">    <span class="attr">xmlns:context</span>=<span class="string">"http://www.springframework.org/schema/context"</span>  </div><div class="line">    <span class="attr">xmlns:mvc</span>=<span class="string">"http://www.springframework.org/schema/mvc"</span>  </div><div class="line">    <span class="attr">xmlns:p</span>=<span class="string">"http://www.springframework.org/schema/p"</span>  </div><div class="line">    <span class="attr">xsi:schemaLocation</span>=<span class="string">"http://www.springframework.org/schema/beans  </span></div><div class="line">            http://www.springframework.org/schema/beans/spring-beans.xsd  </div><div class="line">            http://www.springframework.org/schema/mvc  </div><div class="line">            http://www.springframework.org/schema/mvc/spring-mvc.xsd  </div><div class="line">            http://www.springframework.org/schema/context  </div><div class="line">            http://www.springframework.org/schema/context/spring-context.xsd"  </div><div class="line">    <span class="attr">default-lazy-init</span>=<span class="string">"true"</span>&gt;</div><div class="line">    </div><div class="line">    <span class="comment">&lt;!-- 处理对静态资源的请求 --&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">mvc:resources</span> <span class="attr">location</span>=<span class="string">"/resources/**"</span> <span class="attr">mapping</span>=<span class="string">"/resources/"</span> /&gt;</span>    </div><div class="line">  </div><div class="line">    <span class="comment">&lt;!-- 添加注解驱动 --&gt;</span>  </div><div class="line">    <span class="tag">&lt;<span class="name">mvc:annotation-driven</span> /&gt;</span>  </div><div class="line">    </div><div class="line">    <span class="comment">&lt;!-- 默认扫描的包路径 --&gt;</span>  </div><div class="line">    <span class="tag">&lt;<span class="name">context:component-scan</span> <span class="attr">base-package</span>=<span class="string">"com.niklaus.learn"</span> /&gt;</span> </div><div class="line">    </div><div class="line">    <span class="comment">&lt;!-- 对模型视图名称的解析，在请求时模型视图名称添加前后缀 --&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">class</span>=<span class="string">"org.springframework.web.servlet.view.InternalResourceViewResolver"</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"viewClass"</span> <span class="attr">value</span>=<span class="string">"org.springframework.web.servlet.view.JstlView"</span> /&gt;</span>  </div><div class="line">      <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"prefix"</span> <span class="attr">value</span>=<span class="string">"/WEB-INF/views/"</span> /&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"suffix"</span> <span class="attr">value</span>=<span class="string">".jsp"</span>/&gt;</span> </div><div class="line">    <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></div></pre></td></tr></table></figure>
-<hr>
-<h2 id="项目测试"><a href="#项目测试" class="headerlink" title="项目测试"></a>项目测试</h2><h3 id="根据dispatcher-servlet-xml配置在-WEB-INF-views下创建前台页面login-jsp"><a href="#根据dispatcher-servlet-xml配置在-WEB-INF-views下创建前台页面login-jsp" class="headerlink" title="根据dispatcher-servlet.xml配置在/WEB-INF/views下创建前台页面login.jsp"></a>根据dispatcher-servlet.xml配置在/WEB-INF/views下创建前台页面login.jsp</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">%@</span> <span class="attr">page</span> <span class="attr">language</span>=<span class="string">"java"</span> <span class="attr">contentType</span>=<span class="string">"text/html; charset=UTF-8"</span></span></div><div class="line">    <span class="attr">pageEncoding</span>=<span class="string">"UTF-8"</span>%&gt;</div><div class="line"><span class="meta">&lt;!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"Content-Type"</span> <span class="attr">content</span>=<span class="string">"text/html; charset=UTF-8"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">title</span>&gt;</span>LOGIN<span class="tag">&lt;/<span class="name">title</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">p</span>&gt;</span>Hello,World!<span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></div></pre></td></tr></table></figure>
-<h3 id="根据dispatcher-servlet-xml配置的包路径，创建controller"><a href="#根据dispatcher-servlet-xml配置的包路径，创建controller" class="headerlink" title="根据dispatcher-servlet.xml配置的包路径，创建controller"></a>根据dispatcher-servlet.xml配置的包路径，创建controller</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.niklaus.learn.controller;</div><div class="line"></div><div class="line"><span class="keyword">import</span> org.springframework.stereotype.Controller;</div><div class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RequestMapping;</div><div class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RequestMethod;</div><div class="line"><span class="keyword">import</span> org.springframework.web.servlet.ModelAndView;</div><div class="line"></div><div class="line"><span class="meta">@Controller</span></div><div class="line"><span class="meta">@RequestMapping</span>(value=<span class="string">"/system"</span>)</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SystemController</span> </span>&#123;</div><div class="line"></div><div class="line">  <span class="meta">@RequestMapping</span>(value=<span class="string">"/login"</span>,method=RequestMethod.GET)</div><div class="line">  <span class="function"><span class="keyword">public</span> ModelAndView <span class="title">login</span><span class="params">()</span></span>&#123;</div><div class="line">    ModelAndView mav = <span class="keyword">new</span> ModelAndView(<span class="string">"login"</span>);</div><div class="line">    System.out.println(<span class="string">"login"</span>);</div><div class="line">    <span class="keyword">return</span> mav;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="部署项目，并访问http-localhost-8080-system-login"><a href="#部署项目，并访问http-localhost-8080-system-login" class="headerlink" title="部署项目，并访问http://localhost:8080/system/login"></a>部署项目，并访问<a href="http://localhost:8080/system/login" target="_blank" rel="external">http://localhost:8080/system/login</a></h3><hr>
-<h2 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h2><p>如此我们就完成了一个最为简单的SpringMVC项目</p>
-<h2 id="更新时间"><a href="#更新时间" class="headerlink" title="更新时间"></a>更新时间</h2><ul>
-<li>发布时间 ： 2016-06-25</li>
-</ul>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;img src=&quot;http://octlz2jco.bkt.clouddn.com/blog_thumbnails_000_000_004.jpg&quot; alt=&quot;&quot;&gt;&lt;br&gt;
     
     </summary>
     

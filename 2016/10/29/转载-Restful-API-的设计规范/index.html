@@ -77,7 +77,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Git," />
+  <meta name="keywords" content="Restful API,转载," />
 
 
 
@@ -95,16 +95,16 @@
 
 
 
-<meta name="keywords" content="Git">
+<meta name="keywords" content="Restful API,转载">
 <meta property="og:type" content="article">
-<meta property="og:title" content="git将本地仓库上传到远程仓库">
-<meta property="og:url" content="http://yoursite.com/2016/06/11/git将本地仓库上传到远程仓库/index.html">
+<meta property="og:title" content="[转载] Restful API 的设计规范">
+<meta property="og:url" content="http://yoursite.com/2016/10/29/转载-Restful-API-的设计规范/index.html">
 <meta property="og:site_name" content="The Tower of Babel">
-<meta property="og:image" content="http://octlz2jco.bkt.clouddn.com/blog_thumbnails_000_000_002.jpg">
-<meta property="og:updated_time" content="2017-07-15T01:38:03.081Z">
+<meta property="og:image" content="http://octlz2jco.bkt.clouddn.com/blog_thumbnails_000_000_023.jpg">
+<meta property="og:updated_time" content="2017-08-01T14:00:26.818Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="git将本地仓库上传到远程仓库">
-<meta name="twitter:image" content="http://octlz2jco.bkt.clouddn.com/blog_thumbnails_000_000_002.jpg">
+<meta name="twitter:title" content="[转载] Restful API 的设计规范">
+<meta name="twitter:image" content="http://octlz2jco.bkt.clouddn.com/blog_thumbnails_000_000_023.jpg">
 
 
 
@@ -132,13 +132,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2016/06/11/git将本地仓库上传到远程仓库/"/>
+  <link rel="canonical" href="http://yoursite.com/2016/10/29/转载-Restful-API-的设计规范/"/>
 
 
 
 
 
-  <title>git将本地仓库上传到远程仓库 | The Tower of Babel</title>
+  <title>[转载] Restful API 的设计规范 | The Tower of Babel</title>
   
 
 
@@ -301,7 +301,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/06/11/git将本地仓库上传到远程仓库/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/10/29/转载-Restful-API-的设计规范/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Niklaus.chi">
@@ -318,7 +318,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">git将本地仓库上传到远程仓库</h1>
+          <h1 class="post-title" itemprop="name headline">[转载] Restful API 的设计规范</h1>
         
 
         <div class="post-meta">
@@ -330,8 +330,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-06-11T09:01:50+08:00">
-                2016-06-11
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-10-29T21:58:55+08:00">
+                2016-10-29
               </time>
             
 
@@ -350,8 +350,8 @@
                 <i class="fa fa-comment-o"></i>
               </span>
               
-                <a href="/2016/06/11/git将本地仓库上传到远程仓库/#SOHUCS" itemprop="discussionUrl">
-                  <span id="changyan_count_unit" class="post-comments-count hc-comment-count" data-xid="2016/06/11/git将本地仓库上传到远程仓库/" itemprop="commentsCount"></span>
+                <a href="/2016/10/29/转载-Restful-API-的设计规范/#SOHUCS" itemprop="discussionUrl">
+                  <span id="changyan_count_unit" class="post-comments-count hc-comment-count" data-xid="2016/10/29/转载-Restful-API-的设计规范/" itemprop="commentsCount"></span>
                 </a>
               
             
@@ -376,33 +376,218 @@
       
 
       
-        <p><img src="http://octlz2jco.bkt.clouddn.com/blog_thumbnails_000_000_002.jpg" alt=""><br><a id="more"></a></p>
-<h2 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h2><p>在已有的git库中搭建新库，并且将本地的git仓库，上传到远程服务器的git库中，从而开始一个新的项目。</p>
-<h2 id="不登录远程git服务器直接本地操作"><a href="#不登录远程git服务器直接本地操作" class="headerlink" title="不登录远程git服务器直接本地操作"></a>不登录远程git服务器直接本地操作</h2><h3 id="初始化仓库"><a href="#初始化仓库" class="headerlink" title="初始化仓库"></a>初始化仓库</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git init</div></pre></td></tr></table></figure>
-<p>该命令将创建一个名为.git的子目录，这个子目录含有你初始化的git仓库中所有的必须文件，这些文件是Git仓库的骨干。但是，在这个时候，我们仅仅是做了一个初始化的操作，你的项目里的文件还没有被跟踪。</p>
-<h3 id="对指定文件的追踪"><a href="#对指定文件的追踪" class="headerlink" title="对指定文件的追踪"></a>对指定文件的追踪</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git add .</div></pre></td></tr></table></figure>
-<h3 id="提交操作"><a href="#提交操作" class="headerlink" title="提交操作"></a>提交操作</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git commit -m &apos;first commit&apos;</div></pre></td></tr></table></figure>
-<p>当使用 git commit 进行提交操作时，Git 会先计算每一个子目录（本例中只有项目根目录）的校验和，然后在 Git 仓库中这些校验和保存为树对象。 随后，Git 便会创建一个提交对象，它除了包含上面提到的那些信息外，还包含指向这个树对象（项目根目录）的指针。如此一来，Git 就可以在需要的时候重现此次保存的快照</p>
-<h3 id="添加远程仓库"><a href="#添加远程仓库" class="headerlink" title="添加远程仓库"></a>添加远程仓库</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git remote add origin git@xx.xx.xx.xx:repos/xxx/xxx/xxx.git</div></pre></td></tr></table></figure>
-<h3 id="推送本地分支到远程仓库"><a href="#推送本地分支到远程仓库" class="headerlink" title="推送本地分支到远程仓库"></a>推送本地分支到远程仓库</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git push origin (remote):(branch)</div></pre></td></tr></table></figure>
-<p>推送本地的 remote 分支，将其作为远程仓库的 branch 分支，可以通过这种格式来推送本地分支到一个命名不相同的远程分支。</p>
-<h2 id="出现问题"><a href="#出现问题" class="headerlink" title="出现问题"></a>出现问题</h2><h3 id="问题1"><a href="#问题1" class="headerlink" title="问题1"></a>问题1</h3><font color="red">the file will have its original line endings in your working directory</font>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git config --global core.autocrlf  false</div></pre></td></tr></table></figure>
-<h3 id="问题2"><a href="#问题2" class="headerlink" title="问题2"></a>问题2</h3><font color="red">fatal:unable to access ‘xxx/xxx/xxx/…’:Filename too long</font>
-
-<p>相关问题<a href="http://stackoverflow.com/questions/22575662/filename-too-long-in-git-for-windows" target="_blank" rel="external"><font color="#87CEFA">Filename too long in git for windows</font></a></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git config --global core.longpaths true</div></pre></td></tr></table></figure>
-<h3 id="问题3"><a href="#问题3" class="headerlink" title="问题3"></a>问题3</h3><font color="red">fatal: Not a valid object name: ‘master’</font> 
-
-<p>相关问题<a href="http://blog.chinaunix.net/uid-26557245-id-3328748.html" target="_blank" rel="external"><font color="#87CEFA">git 错误 fatal: Not a valid object name: ‘master’. </font></a></p>
-<h3 id="问题4"><a href="#问题4" class="headerlink" title="问题4"></a>问题4</h3><font color="red">error:dst ref refs/heads/source receives form more than one src.</font>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git push origin (remote):(branch)</div></pre></td></tr></table></figure>
-<p>在remote与branch中间的：不要遗漏，否则就会出现以上问题</p>
-<h2 id="参考-amp-引用"><a href="#参考-amp-引用" class="headerlink" title="参考&amp;引用"></a>参考&amp;引用</h2><p><a href="https://git-scm.com/book/zh/v2" target="_blank" rel="external"><font color="#87CEFA">git官方文档</font></a></p>
-<p><a href="http://blog.csdn.net/w13770269691/article/details/38704941" target="_blank" rel="external"><font color="#87CEFA">git将本地仓库上传到远程仓库</font></a></p>
-<h2 id="更新时间"><a href="#更新时间" class="headerlink" title="更新时间"></a>更新时间</h2><p>发布时间 ： 2016-06-11</p>
+        <p><img src="http://octlz2jco.bkt.clouddn.com/blog_thumbnails_000_000_023.jpg" alt=""><br><a id="more"></a></p>
+<p>本文总结了 RESTful API 设计相关的一些原则，只覆盖了常见的场景。有些规则只是针对自己项目而言，并非其他做法都是错误的。</p>
+<h2 id="URI"><a href="#URI" class="headerlink" title="URI"></a>URI</h2><p>URI 表示资源，资源一般对应服务器端领域模型中的实体类。</p>
+<h3 id="URI规范"><a href="#URI规范" class="headerlink" title="URI规范"></a>URI规范</h3><ol>
+<li>不用大写；</li>
+<li>用中杠<code>-</code>不用下杠<code>_</code>；</li>
+<li>参数列表要encode；</li>
+<li>URI中的名词表示资源集合，使用复数形式。</li>
+</ol>
+<h3 id="资源集合-vs-单个资源"><a href="#资源集合-vs-单个资源" class="headerlink" title="资源集合 vs 单个资源"></a>资源集合 vs 单个资源</h3><p>URI表示资源的两种方式：资源集合、单个资源。<br>资源集合：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">/zoos //所有动物园</div><div class="line">/zoos/1/animals //id为1的动物园中的所有动物</div></pre></td></tr></table></figure>
+<p>单个资源：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">/zoos/1 //id为1的动物园</div><div class="line">/zoos/1;2;3 //id为1，2，3的动物园</div></pre></td></tr></table></figure>
+<h3 id="避免层级过深的URI"><a href="#避免层级过深的URI" class="headerlink" title="避免层级过深的URI"></a>避免层级过深的URI</h3><p><code>/</code>在url中表达层级，用于<strong>按实体关联关系进行对象导航</strong>，一般根据id导航。</p>
+<p>过深的导航容易导致url膨胀，不易维护，如<code> GET /zoos/1/areas/3/animals/4</code>，尽量使用查询参数代替路径中的实体导航，如<code>GET /animals?zoo=1&amp;area=3</code>；</p>
+<h3 id="对Composite资源的访问"><a href="#对Composite资源的访问" class="headerlink" title="对Composite资源的访问"></a>对Composite资源的访问</h3><p>服务器端的组合实体必须在uri中通过父实体的id导航访问。</p>
+<blockquote>
+<p>组合实体不是first-class的实体，它的生命周期完全依赖父实体，无法独立存在，在实现上通常是对数据库表中某些列的抽象，不直接对应表，也无id。一个常见的例子是 User — Address，Address是对User表中zipCode/country/city三个字段的简单抽象，无法独立于User存在。必须通过User索引到Address：<code>GET /user/1/addresses</code></p>
+</blockquote>
+<h2 id="Request"><a href="#Request" class="headerlink" title="Request"></a>Request</h2><h3 id="HTTP方法"><a href="#HTTP方法" class="headerlink" title="HTTP方法"></a>HTTP方法</h3><p>通过标准HTTP方法对资源CRUD：<br>GET：查询</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">GET /zoos</div><div class="line">GET /zoos/1</div><div class="line">GET /zoos/1/employees</div></pre></td></tr></table></figure>
+<p>POST：创建单个资源。<strong>POST一般向“资源集合”型uri发起</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">POST /animals  //新增动物</div><div class="line">POST /zoos/1/employees //为id为1的动物园雇佣员工</div></pre></td></tr></table></figure>
+<p>PUT：更新单个资源（全量），客户端提供完整的更新后的资源。与之对应的是 PATCH，PATCH 负责部分更新，客户端提供要更新的那些字段。<strong>PUT/PATCH一般向“单个资源”型uri发起</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">PUT /animals/1</div><div class="line">PUT /zoos/1</div></pre></td></tr></table></figure>
+<p>DELETE：删除</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">DELETE /zoos/1/employees/2</div><div class="line">DELETE /zoos/1/employees/2;4;5</div><div class="line">DELETE /zoos/1/animals  //删除id为1的动物园内的所有动物</div></pre></td></tr></table></figure>
+<p>HEAD / OPTION 用的不多，就不多解释了。</p>
+<h3 id="安全性和幂等性"><a href="#安全性和幂等性" class="headerlink" title="安全性和幂等性"></a>安全性和幂等性</h3><ol>
+<li>安全性：不会改变资源状态，可以理解为只读的；</li>
+<li>幂等性：执行1次和执行N次，对资源状态改变的效果是等价的。</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">.</th>
+<th style="text-align:left">安全性</th>
+<th style="text-align:left">幂等性</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">GET</td>
+<td style="text-align:left">√</td>
+<td style="text-align:left">√</td>
+</tr>
+<tr>
+<td style="text-align:left">POST</td>
+<td style="text-align:left">×</td>
+<td style="text-align:left">×</td>
+</tr>
+<tr>
+<td style="text-align:left">PUT</td>
+<td style="text-align:left">×</td>
+<td style="text-align:left">√</td>
+</tr>
+<tr>
+<td style="text-align:left">DELETE</td>
+<td style="text-align:left">×</td>
+<td style="text-align:left">√</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>安全性和幂等性均不保证反复请求能拿到相同的response。以 DELETE 为例，第一次DELETE返回200表示删除成功，第二次返回404提示资源不存在，这是允许的。</p>
+</blockquote>
+<h3 id="复杂查询"><a href="#复杂查询" class="headerlink" title="复杂查询"></a>复杂查询</h3><p>查询可以捎带以下参数：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">.</th>
+<th style="text-align:left">示例</th>
+<th style="text-align:left">备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">过滤条件</td>
+<td style="text-align:left"><code>?type=1&amp;age=16</code></td>
+<td style="text-align:left">允许一定的uri冗余，如<code>/zoos/1</code>与<code>/zoos?id=1</code></td>
+</tr>
+<tr>
+<td style="text-align:left">排序</td>
+<td style="text-align:left"><code>?sort=age,desc</code></td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">投影</td>
+<td style="text-align:left"><code>?whitelist=id,name,email</code></td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left">分页</td>
+<td style="text-align:left"><code>?limit=10&amp;offset=3</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="Bookmarker"><a href="#Bookmarker" class="headerlink" title="Bookmarker"></a>Bookmarker</h3><p>经常使用的、复杂的查询标签化，降低维护成本。<br>如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">GET /trades?status=closed&amp;sort=created,desc</div></pre></td></tr></table></figure>
+<p>快捷方式：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">GET /trades#recently-closed</div><div class="line">或者</div><div class="line">GET /trades/recently-closed</div></pre></td></tr></table></figure>
+<h3 id="Format"><a href="#Format" class="headerlink" title="Format"></a>Format</h3><p>只用以下常见的3种body format：</p>
+<ol>
+<li><p>Content-Type: application/json</p>
+ <figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">POST /v1/animal HTTP/1.1</div><div class="line">Host: api.example.org</div><div class="line">Accept: application/json</div><div class="line">Content-Type: application/json</div><div class="line">Content-Length: 24</div><div class="line"></div><div class="line">&#123;   </div><div class="line">  "name": "Gir",</div><div class="line">  "animalType": "12"</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>Content-Type: application/x-www-form-urlencoded (浏览器POST表单用的格式)</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">POST /login HTTP/1.1</div><div class="line">Host: example.com</div><div class="line">Content-Length: 31</div><div class="line">Accept: text/html</div><div class="line">Content-Type: application/x-www-form-urlencoded</div><div class="line"></div><div class="line">username=root&amp;password=Zion0101</div></pre></td></tr></table></figure>
+</li>
+<li><p>Content-Type: multipart/form-data; boundary=—-RANDOM_jDMUxq4Ot5 (表单有文件上传时的格式)</p>
+</li>
+</ol>
+<h3 id="Content-Negotiation"><a href="#Content-Negotiation" class="headerlink" title="Content Negotiation"></a>Content Negotiation</h3><p>资源可以有多种表示方式，如json、xml、pdf、excel等等，客户端可以指定自己期望的格式，通常有两种方式：</p>
+<ol>
+<li><p>http header <code>Accept</code>：</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Accept:application/xml;q=0.6,application/atom+xml;q=1.0</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<pre><code>q为各项格式的偏好程度
+</code></pre><ol>
+<li>url中加文件后缀：<code>/zoo/1.json</code></li>
+</ol>
+<h2 id="Response"><a href="#Response" class="headerlink" title="Response"></a>Response</h2><ol>
+<li><p>不要包装：</p>
+<p> response 的 body 直接就是数据，不要做多余的包装。错误示例：</p>
+ <figure class="highlight json"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    <span class="attr">"success"</span>:<span class="literal">true</span>,</div><div class="line">    <span class="attr">"data"</span>:&#123;<span class="attr">"id"</span>:<span class="number">1</span>,<span class="attr">"name"</span>:<span class="string">"xiaotuan"</span>&#125;,</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><p>各HTTP方法成功处理后的数据格式：</p>
+<p> | .         | response 格式 |<br> | :——– | :———— |<br> | GET       | 单个对象、集合  |<br> | POST      | 新增成功的对象  |<br> | PUT/PATCH | 更新成功的对象  |<br> | DELETE    | 空            |</p>
+</li>
+<li><p>json格式的约定：</p>
+<ol>
+<li>时间用长整形(毫秒数)，客户端自己按需解析</li>
+<li>不传<code>null</code>字段</li>
+</ol>
+</li>
+</ol>
+<h3 id="分页response"><a href="#分页response" class="headerlink" title="分页response"></a>分页response</h3><figure class="highlight json"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    <span class="attr">"paging"</span>:&#123;<span class="attr">"limit"</span>:<span class="number">10</span>,<span class="attr">"offset"</span>:<span class="number">0</span>,<span class="attr">"total"</span>:<span class="number">729</span>&#125;,</div><div class="line">    <span class="attr">"data"</span>:[&#123;&#125;,&#123;&#125;,&#123;&#125;...]</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="错误处理"><a href="#错误处理" class="headerlink" title="错误处理"></a>错误处理</h2><ol>
+<li>不要发生了错误但给2xx响应，客户端可能会缓存成功的http请求；</li>
+<li>正确设置http状态码，不要自定义；</li>
+<li>Response body 提供 1) 错误的代码（日志/问题追查）；2) 错误的描述文本（展示给用户）。</li>
+</ol>
+<p>对第三点的实现稍微多说一点：<br>Java 服务器端一般用异常表示 RESTful API 的错误。API 可能抛出两类异常：业务异常和非业务异常。<strong>业务异常</strong>由自己的业务代码抛出，表示一个用例的前置条件不满足、业务规则冲突等，比如参数校验不通过、权限校验失败。<strong>非业务类异常</strong>表示不在预期内的问题，通常由类库、框架抛出，或由于自己的代码逻辑错误导致，比如数据库连接失败、空指针异常、除0错误等等。</p>
+<p>业务类异常必须提供2种信息：</p>
+<ol>
+<li>如果抛出该类异常，HTTP 响应状态码应该设成什么；</li>
+<li>异常的文本描述；</li>
+</ol>
+<p>在Controller层使用统一的异常拦截器：</p>
+<ol>
+<li>设置 HTTP 响应状态码：对业务类异常，用它指定的 HTTP code；对非业务类异常，统一500；</li>
+<li>Response Body 的错误码：异常类名</li>
+<li>Response Body 的错误描述：对业务类异常，用它指定的错误文本；对非业务类异常，线上可以统一文案如“服务器端错误，请稍后再试”，开发或测试环境中用异常的 stacktrace，服务器端提供该行为的开关。</li>
+</ol>
+<p>常用的http状态码及使用场景：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">状态码</th>
+<th style="text-align:left">使用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">400 bad request</td>
+<td style="text-align:left">常用在参数校验</td>
+</tr>
+<tr>
+<td style="text-align:left">401 unauthorized</td>
+<td style="text-align:left">未经验证的用户，常见于未登录。如果经过验证后依然没权限，应该 403（即 authentication 和 authorization 的区别）。</td>
+</tr>
+<tr>
+<td style="text-align:left">403 forbidden</td>
+<td style="text-align:left">无权限</td>
+</tr>
+<tr>
+<td style="text-align:left">404 not found</td>
+<td style="text-align:left">资源不存在</td>
+</tr>
+<tr>
+<td style="text-align:left">500 internal server error</td>
+<td style="text-align:left">非业务类异常</td>
+</tr>
+<tr>
+<td style="text-align:left">503 service unavaliable</td>
+<td style="text-align:left">由容器抛出，自己的代码不要抛这个异常</td>
+</tr>
+</tbody>
+</table>
+<h2 id="服务型资源"><a href="#服务型资源" class="headerlink" title="服务型资源"></a>服务型资源</h2><p>除了资源简单的CRUD，服务器端经常还会提供其他服务，这些服务无法直接用上面提到的URI映射。如：</p>
+<ol>
+<li>按关键字搜索；</li>
+<li>计算地球上两点间的距离；</li>
+<li>批量向用户推送消息</li>
+</ol>
+<p>可以把这些服务看成资源，计算的结果是资源的presentation，按服务属性选择合适的HTTP方法。例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">GET /search?q=filter?category=file  搜索</div><div class="line">GET /distance-calc?lats=47.480&amp;lngs=-122.389&amp;late=37.108&amp;lnge=-122.448</div><div class="line">POST /batch-publish-msg</div><div class="line">[&#123;&quot;from&quot;:0,&quot;to&quot;:1,&quot;text&quot;:&quot;abc&quot;&#125;,&#123;&#125;,&#123;&#125;...]</div></pre></td></tr></table></figure>
+<h2 id="异步任务"><a href="#异步任务" class="headerlink" title="异步任务"></a>异步任务</h2><p>对耗时的异步任务，服务器端接受客户端传递的参数后，应返回创建成功的任务资源，其中包含了任务的执行状态。客户端可以轮训该任务获得最新的执行进度。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">提交任务：</div><div class="line">POST /batch-publish-msg</div><div class="line">[&#123;&quot;from&quot;:0,&quot;to&quot;:1,&quot;text&quot;:&quot;abc&quot;&#125;,&#123;&#125;,&#123;&#125;...]</div><div class="line"></div><div class="line">返回：</div><div class="line">&#123;&quot;taskId&quot;:3,&quot;createBy&quot;:&quot;Anonymous&quot;,&quot;status&quot;:&quot;running&quot;&#125;</div><div class="line"></div><div class="line">GET /task/3</div><div class="line">&#123;&quot;taskId&quot;:3,&quot;createBy&quot;:&quot;Anonymous&quot;,&quot;status&quot;:&quot;success&quot;&#125;</div></pre></td></tr></table></figure>
+<p>如果任务的执行状态包括较多信息，可以把“执行状态”抽象成组合资源，客户端查询该状态资源了解任务的执行情况。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">提交任务：</div><div class="line">POST /batch-publish-msg</div><div class="line">[&#123;&quot;from&quot;:0,&quot;to&quot;:1,&quot;text&quot;:&quot;abc&quot;&#125;,&#123;&#125;,&#123;&#125;...]</div><div class="line"></div><div class="line">返回：</div><div class="line">&#123;&quot;taskId&quot;:3,&quot;createBy&quot;:&quot;Anonymous&quot;&#125;</div><div class="line"></div><div class="line">GET /task/3/status</div><div class="line">&#123;&quot;progress&quot;:&quot;50%&quot;,&quot;total&quot;:18,&quot;success&quot;:8,&quot;fail&quot;:1&#125;</div></pre></td></tr></table></figure>
+<h2 id="API的演进"><a href="#API的演进" class="headerlink" title="API的演进"></a>API的演进</h2><h3 id="版本"><a href="#版本" class="headerlink" title="版本"></a>版本</h3><p>常见的三种方式：</p>
+<ol>
+<li>在uri中放版本信息：<code>GET /v1/users/1</code></li>
+<li>Accept Header：<code>Accept: application/json+v1</code></li>
+<li>自定义 Header：<code>X-Api-Version: 1</code></li>
+</ol>
+<p>用第一种，虽然没有那么优雅，但最明显最方便。</p>
+<h3 id="URI失效"><a href="#URI失效" class="headerlink" title="URI失效"></a>URI失效</h3><p>随着系统发展，总有一些API失效或者迁移，对失效的API，返回404 not found 或 410 gone；对迁移的API，返回 301 重定向。</p>
+<h2 id="参考-amp-引用"><a href="#参考-amp-引用" class="headerlink" title="参考&amp;引用"></a>参考&amp;引用</h2><p>转自– <a href="http://novoland.github.io/%E8%AE%BE%E8%AE%A1/2015/08/17/Restful%20API%20%E7%9A%84%E8%AE%BE%E8%AE%A1%E8%A7%84%E8%8C%83.html" target="_blank" rel="external"><font color="#87CEFA">Restful API 的设计规范</font></a><br><a href="http://www.ruanyifeng.com/blog/2011/09/restful.html" target="_blank" rel="external"><font color="#87CEFA">理解RESTful架构</font></a><br><a href="http://www.ruanyifeng.com/blog/2014/05/restful_api.html" target="_blank" rel="external"><font color="#87CEFA">RESTful API 设计指南</font></a><br><a href="https://thomashunter.name/consumer-centric-api-design/Consumer-Centric%20API%20Design%20v0.3.1.pdf" target="_blank" rel="external"><font color="#87CEFA">Consumer-Centric API Design</font></a></p>
+<h2 id="更新时间"><a href="#更新时间" class="headerlink" title="更新时间"></a>更新时间</h2><p>发布时间 ： 2016-10-29</p>
 
       
     </div>
@@ -416,7 +601,7 @@
 	      </li>
 	      <li class="post-copyright-link">
 	        <strong>本文链接：</strong>
-	        <a href="/2016/06/11/git将本地仓库上传到远程仓库/" title="git将本地仓库上传到远程仓库">2016/06/11/git将本地仓库上传到远程仓库/</a>
+	        <a href="/2016/10/29/转载-Restful-API-的设计规范/" title="[转载] Restful API 的设计规范">2016/10/29/转载-Restful-API-的设计规范/</a>
 	      </li>
 	      <li class="post-copyright-license">
 	        <strong>版权声明： </strong>
@@ -467,7 +652,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Git/" rel="tag"># Git</a>
+            <a href="/tags/Restful-API/" rel="tag"># Restful API</a>
+          
+            <a href="/tags/转载/" rel="tag"># 转载</a>
           
         </div>
       
@@ -480,8 +667,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/06/04/IntelliJ-Idea使用那些事/" rel="next" title="IntelliJ Idea使用那些事">
-                <i class="fa fa-chevron-left"></i> IntelliJ Idea使用那些事
+              <a href="/2016/10/23/面试-面试过程中遇到的Cookie和Session的问题/" rel="next" title="[面试] 面试过程中遇到的Cookie和Session的问题">
+                <i class="fa fa-chevron-left"></i> [面试] 面试过程中遇到的Cookie和Session的问题
               </a>
             
           </div>
@@ -490,8 +677,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2016/06/18/如何在同一台电脑配置多个git或者github账号/" rel="prev" title="如何在同一台电脑配置多个git或者github账号">
-                如何在同一台电脑配置多个git或者github账号 <i class="fa fa-chevron-right"></i>
+              <a href="/2017/02/25/分享-Spring-Boot学习资料整理/" rel="prev" title="[分享] Spring Boot学习资料整理">
+                [分享] Spring Boot学习资料整理 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -667,7 +854,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#目的"><span class="nav-number">1.</span> <span class="nav-text">目的</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#不登录远程git服务器直接本地操作"><span class="nav-number">2.</span> <span class="nav-text">不登录远程git服务器直接本地操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#初始化仓库"><span class="nav-number">2.1.</span> <span class="nav-text">初始化仓库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#对指定文件的追踪"><span class="nav-number">2.2.</span> <span class="nav-text">对指定文件的追踪</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#提交操作"><span class="nav-number">2.3.</span> <span class="nav-text">提交操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#添加远程仓库"><span class="nav-number">2.4.</span> <span class="nav-text">添加远程仓库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#推送本地分支到远程仓库"><span class="nav-number">2.5.</span> <span class="nav-text">推送本地分支到远程仓库</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#出现问题"><span class="nav-number">3.</span> <span class="nav-text">出现问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#问题1"><span class="nav-number">3.1.</span> <span class="nav-text">问题1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#问题2"><span class="nav-number">3.2.</span> <span class="nav-text">问题2</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#问题3"><span class="nav-number">3.3.</span> <span class="nav-text">问题3</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#问题4"><span class="nav-number">3.4.</span> <span class="nav-text">问题4</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考-amp-引用"><span class="nav-number">4.</span> <span class="nav-text">参考&引用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#更新时间"><span class="nav-number">5.</span> <span class="nav-text">更新时间</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#URI"><span class="nav-number">1.</span> <span class="nav-text">URI</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#URI规范"><span class="nav-number">1.1.</span> <span class="nav-text">URI规范</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#资源集合-vs-单个资源"><span class="nav-number">1.2.</span> <span class="nav-text">资源集合 vs 单个资源</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#避免层级过深的URI"><span class="nav-number">1.3.</span> <span class="nav-text">避免层级过深的URI</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#对Composite资源的访问"><span class="nav-number">1.4.</span> <span class="nav-text">对Composite资源的访问</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Request"><span class="nav-number">2.</span> <span class="nav-text">Request</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTP方法"><span class="nav-number">2.1.</span> <span class="nav-text">HTTP方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安全性和幂等性"><span class="nav-number">2.2.</span> <span class="nav-text">安全性和幂等性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#复杂查询"><span class="nav-number">2.3.</span> <span class="nav-text">复杂查询</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Bookmarker"><span class="nav-number">2.4.</span> <span class="nav-text">Bookmarker</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Format"><span class="nav-number">2.5.</span> <span class="nav-text">Format</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Content-Negotiation"><span class="nav-number">2.6.</span> <span class="nav-text">Content Negotiation</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Response"><span class="nav-number">3.</span> <span class="nav-text">Response</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#分页response"><span class="nav-number">3.1.</span> <span class="nav-text">分页response</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#错误处理"><span class="nav-number">4.</span> <span class="nav-text">错误处理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#服务型资源"><span class="nav-number">5.</span> <span class="nav-text">服务型资源</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#异步任务"><span class="nav-number">6.</span> <span class="nav-text">异步任务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#API的演进"><span class="nav-number">7.</span> <span class="nav-text">API的演进</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#版本"><span class="nav-number">7.1.</span> <span class="nav-text">版本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#URI失效"><span class="nav-number">7.2.</span> <span class="nav-text">URI失效</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考-amp-引用"><span class="nav-number">8.</span> <span class="nav-text">参考&引用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#更新时间"><span class="nav-number">9.</span> <span class="nav-text">更新时间</span></a></li></ol></div>
             
 
           </div>
