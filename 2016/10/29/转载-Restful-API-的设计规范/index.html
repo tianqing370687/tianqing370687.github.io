@@ -101,7 +101,7 @@
 <meta property="og:url" content="http://yoursite.com/2016/10/29/转载-Restful-API-的设计规范/index.html">
 <meta property="og:site_name" content="The Tower of Babel">
 <meta property="og:image" content="http://octlz2jco.bkt.clouddn.com/blog_thumbnails_000_000_023.jpg">
-<meta property="og:updated_time" content="2017-08-01T14:00:26.818Z">
+<meta property="og:updated_time" content="2017-08-01T23:38:34.226Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="[转载] Restful API 的设计规范">
 <meta name="twitter:image" content="http://octlz2jco.bkt.clouddn.com/blog_thumbnails_000_000_023.jpg">
@@ -504,8 +504,35 @@
  <figure class="highlight json"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    <span class="attr">"success"</span>:<span class="literal">true</span>,</div><div class="line">    <span class="attr">"data"</span>:&#123;<span class="attr">"id"</span>:<span class="number">1</span>,<span class="attr">"name"</span>:<span class="string">"xiaotuan"</span>&#125;,</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 </li>
 <li><p>各HTTP方法成功处理后的数据格式：</p>
-<p> | .         | response 格式 |<br> | :——– | :———— |<br> | GET       | 单个对象、集合  |<br> | POST      | 新增成功的对象  |<br> | PUT/PATCH | 更新成功的对象  |<br> | DELETE    | 空            |</p>
 </li>
+</ol>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">.</th>
+<th style="text-align:left">response 格式</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">GET</td>
+<td style="text-align:left">单个对象、集合</td>
+</tr>
+<tr>
+<td style="text-align:left">POST</td>
+<td style="text-align:left">新增成功的对象</td>
+</tr>
+<tr>
+<td style="text-align:left">PUT/PATCH</td>
+<td style="text-align:left">更新成功的对象</td>
+</tr>
+<tr>
+<td style="text-align:left">DELETE</td>
+<td style="text-align:left">空</td>
+</tr>
+</tbody>
+</table>
+<ol>
 <li><p>json格式的约定：</p>
 <ol>
 <li>时间用长整形(毫秒数)，客户端自己按需解析</li>
