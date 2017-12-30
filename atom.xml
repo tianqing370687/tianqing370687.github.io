@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-08-29T14:13:11.641Z</updated>
+  <updated>2017-12-30T14:36:20.280Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://yoursite.com/2017/08/29/%E5%B8%B8%E7%94%A8%E6%8A%80%E6%9C%AF%E7%BD%91%E7%AB%99%E5%8F%8A%E5%B7%A5%E5%85%B7%E6%96%87%E6%A1%A3%E4%BC%A0%E9%80%81%E9%97%A8/"/>
     <id>http://yoursite.com/2017/08/29/常用技术网站及工具文档传送门/</id>
     <published>2017-08-29T14:05:42.000Z</published>
-    <updated>2017-08-29T14:13:11.641Z</updated>
+    <updated>2017-12-30T14:36:20.280Z</updated>
     
     <content type="html"><![CDATA[<p><img src="http://octlz2jco.bkt.clouddn.com/blog_content_000_000_084.jpg" alt=""></p>
 <a id="more"></a>
@@ -32,10 +32,6 @@
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style="text-align:left">InfoQ</td>
-<td style="text-align:left"><a href="http://www.infoq.com/cn/" target="_blank" rel="external">http://www.infoq.com/cn/</a></td>
-</tr>
 <tr>
 <td style="text-align:left">CSDN</td>
 <td style="text-align:left"><a href="http://www.csdn.net/" target="_blank" rel="external">http://www.csdn.net/</a></td>
@@ -185,24 +181,16 @@
 </thead>
 <tbody>
 <tr>
-<td style="text-align:left">spring</td>
-<td style="text-align:left"><a href="https://spring.io/docs/reference" target="_blank" rel="external">https://spring.io/docs/reference</a></td>
+<td style="text-align:left">Apache Hadoop</td>
+<td style="text-align:left"><a href="http://hadoop.apache.org/" target="_blank" rel="external">http://hadoop.apache.org/</a></td>
 </tr>
 <tr>
-<td style="text-align:left">Spring Boot</td>
-<td style="text-align:left"><a href="https://projects.spring.io/spring-boot/" target="_blank" rel="external">https://projects.spring.io/spring-boot/</a></td>
+<td style="text-align:left">Apache Log4j 2</td>
+<td style="text-align:left"><a href="https://logging.apache.org/log4j/2.x/" target="_blank" rel="external">https://logging.apache.org/log4j/2.x/</a></td>
 </tr>
 <tr>
-<td style="text-align:left">mybatis</td>
-<td style="text-align:left"><a href="http://www.mybatis.org/mybatis-3/zh/index.html" target="_blank" rel="external">http://www.mybatis.org/mybatis-3/zh/index.html</a></td>
-</tr>
-<tr>
-<td style="text-align:left">MongoDB</td>
-<td style="text-align:left"><a href="http://docs.mongoing.com/manual-zh/" target="_blank" rel="external">http://docs.mongoing.com/manual-zh/</a></td>
-</tr>
-<tr>
-<td style="text-align:left">FreeMarker</td>
-<td style="text-align:left"><a href="https://www.zheng-hang.com/chm/freemarker2_3_24/toc.html" target="_blank" rel="external">https://www.zheng-hang.com/chm/freemarker2_3_24/toc.html</a></td>
+<td style="text-align:left">Apache ZooKeeper</td>
+<td style="text-align:left"><a href="https://zookeeper.apache.org/" target="_blank" rel="external">https://zookeeper.apache.org/</a></td>
 </tr>
 <tr>
 <td style="text-align:left">Docker</td>
@@ -213,36 +201,60 @@
 <td style="text-align:left"><a href="http://dubbo.io/" target="_blank" rel="external">http://dubbo.io/</a></td>
 </tr>
 <tr>
-<td style="text-align:left">Elasticsearch</td>
-<td style="text-align:left"><a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html" target="_blank" rel="external">https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html</a></td>
-</tr>
-<tr>
-<td style="text-align:left">memcached</td>
-<td style="text-align:left"><a href="https://github.com/memcached/memcached/wiki" target="_blank" rel="external">https://github.com/memcached/memcached/wiki</a></td>
-</tr>
-<tr>
-<td style="text-align:left">RabbitMQ</td>
-<td style="text-align:left"><a href="https://www.rabbitmq.com/getstarted.html" target="_blank" rel="external">https://www.rabbitmq.com/getstarted.html</a></td>
-</tr>
-<tr>
-<td style="text-align:left">Git</td>
-<td style="text-align:left"><a href="https://git-scm.com/" target="_blank" rel="external">https://git-scm.com/</a></td>
-</tr>
-<tr>
-<td style="text-align:left">Apache Log4j 2</td>
-<td style="text-align:left"><a href="https://logging.apache.org/log4j/2.x/" target="_blank" rel="external">https://logging.apache.org/log4j/2.x/</a></td>
-</tr>
-<tr>
-<td style="text-align:left">Scrapy</td>
-<td style="text-align:left"><a href="http://scrapy-chs.readthedocs.io/zh_CN/1.0/index.html" target="_blank" rel="external">http://scrapy-chs.readthedocs.io/zh_CN/1.0/index.html</a></td>
-</tr>
-<tr>
 <td style="text-align:left">Echarts</td>
 <td style="text-align:left"><a href="http://echarts.baidu.com/index.html" target="_blank" rel="external">http://echarts.baidu.com/index.html</a></td>
 </tr>
 <tr>
 <td style="text-align:left">Editor.md</td>
 <td style="text-align:left"><a href="https://pandao.github.io/editor.md/" target="_blank" rel="external">https://pandao.github.io/editor.md/</a></td>
+</tr>
+<tr>
+<td style="text-align:left">Elasticsearch</td>
+<td style="text-align:left"><a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html" target="_blank" rel="external">https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html</a></td>
+</tr>
+<tr>
+<td style="text-align:left">FreeMarker</td>
+<td style="text-align:left"><a href="https://www.zheng-hang.com/chm/freemarker2_3_24/toc.html" target="_blank" rel="external">https://www.zheng-hang.com/chm/freemarker2_3_24/toc.html</a></td>
+</tr>
+<tr>
+<td style="text-align:left">Git</td>
+<td style="text-align:left"><a href="https://git-scm.com/" target="_blank" rel="external">https://git-scm.com/</a></td>
+</tr>
+<tr>
+<td style="text-align:left">memcached</td>
+<td style="text-align:left"><a href="https://github.com/memcached/memcached/wiki" target="_blank" rel="external">https://github.com/memcached/memcached/wiki</a></td>
+</tr>
+<tr>
+<td style="text-align:left">MongoDB</td>
+<td style="text-align:left"><a href="http://docs.mongoing.com/manual-zh/" target="_blank" rel="external">http://docs.mongoing.com/manual-zh/</a></td>
+</tr>
+<tr>
+<td style="text-align:left">Mybatis</td>
+<td style="text-align:left"><a href="http://www.mybatis.org/mybatis-3/zh/index.html" target="_blank" rel="external">http://www.mybatis.org/mybatis-3/zh/index.html</a></td>
+</tr>
+<tr>
+<td style="text-align:left">RabbitMQ</td>
+<td style="text-align:left"><a href="https://www.rabbitmq.com/getstarted.html" target="_blank" rel="external">https://www.rabbitmq.com/getstarted.html</a></td>
+</tr>
+<tr>
+<td style="text-align:left">Scrapy</td>
+<td style="text-align:left"><a href="http://scrapy-chs.readthedocs.io/zh_CN/1.0/index.html" target="_blank" rel="external">http://scrapy-chs.readthedocs.io/zh_CN/1.0/index.html</a></td>
+</tr>
+<tr>
+<td style="text-align:left">Spring</td>
+<td style="text-align:left"><a href="https://spring.io/docs/reference" target="_blank" rel="external">https://spring.io/docs/reference</a></td>
+</tr>
+<tr>
+<td style="text-align:left">Spring Boot</td>
+<td style="text-align:left"><a href="https://projects.spring.io/spring-boot/" target="_blank" rel="external">https://projects.spring.io/spring-boot/</a></td>
+</tr>
+<tr>
+<td style="text-align:left">Spring Cloud</td>
+<td style="text-align:left"><a href="https://springcloud.cc/" target="_blank" rel="external">https://springcloud.cc/</a></td>
+</tr>
+<tr>
+<td style="text-align:left">Storm</td>
+<td style="text-align:left"><a href="http://storm.apachecn.org/releases/cn/1.1.0/index.html" target="_blank" rel="external">http://storm.apachecn.org/releases/cn/1.1.0/index.html</a></td>
 </tr>
 <tr>
 <td style="text-align:left">wangEditor3</td>
@@ -271,20 +283,12 @@
 <td style="text-align:left"><a href="http://eux.baidu.com/" target="_blank" rel="external">http://eux.baidu.com/</a></td>
 </tr>
 <tr>
-<td style="text-align:left">百度用户体验中心UXC</td>
-<td style="text-align:left"><a href="http://ued.baidu.com/" target="_blank" rel="external">http://ued.baidu.com/</a></td>
-</tr>
-<tr>
 <td style="text-align:left">阿里中间件团队博客</td>
 <td style="text-align:left"><a href="http://jm.taobao.org/" target="_blank" rel="external">http://jm.taobao.org/</a></td>
 </tr>
 <tr>
 <td style="text-align:left">阿里聚安全</td>
 <td style="text-align:left"><a href="https://jaq.alibaba.com/community/index.htm" target="_blank" rel="external">https://jaq.alibaba.com/community/index.htm</a></td>
-</tr>
-<tr>
-<td style="text-align:left">阿里妈妈MUX</td>
-<td style="text-align:left"><a href="http://mux.alimama.com/" target="_blank" rel="external">http://mux.alimama.com/</a></td>
 </tr>
 <tr>
 <td style="text-align:left">阿里用户体验设计部UED</td>
